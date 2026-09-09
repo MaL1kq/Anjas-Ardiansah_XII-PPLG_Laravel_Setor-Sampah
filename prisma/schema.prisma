@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Satuan {
+  KG
+  PCS
+}
+
+enum StatusLaporan {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ==================== 1. User (wajib) ====================
+model User {
+  id       String @id @default(uuid()) @db.Uuid
+  nama     String
+  email    String @unique
+  noHp     String @unique
+  password String
+  role     Role   @default(USER)
+
+  createdAt DateTime @default(now())
+
+  laporan         LaporanSampah[] @relation("LaporanByUser")
+  laporanDiproses LaporanSampah[] @relation("LaporanApprovedBy")
+  poin            Poin?
+
+  @@map("users")
+}
+
+// ==================== 2. JenisSampah (wajib) ====================
+model JenisSampah {
+  id        String @id @default(uuid()) @db.Uuid
+  namaJenis String @unique
+
+  laporan LaporanSampah[]
+  stok    Stok?
+
+  @@map("jenis_sampah")
+}
+
+// ==================== 3. Wilayah (wajib) ====================
+model Wilayah {
+  id          String @id @default(uuid()) @db.Uuid
+  namaWilayah String @unique
+
+  laporan LaporanSampah[]
+
+  @@map("wilayah")
+}
+
+// ==================== 4. LaporanSampah (wajib) ====================
+model LaporanSampah {
+  id String @id @default(uuid()) @db.Uuid
+
+  userId String @db.Uuid
+  user   User   @relation("LaporanByUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  jenisSampahId String      @db.Uuid
+  jenisSampah   JenisSampah @relation(fields: [jenisSampahId], references: [id], onDelete: Restrict)
+
+  wilayahId String  @db.Uuid
+  wilayah   Wilayah @relation(fields: [wilayahId], references: [id], onDelete: Restrict)
+  // Isian bebas kalau warga pilih wilayah "Lainnya" di tabel Wilayah
+  asalSetoranLainnya String?
+
+  jumlah Float
+  satuan Satuan @default(KG)
+
+  status          StatusLaporan @default(PENDING)
+  alasanPenolakan String?
+
+  approvedById String?   @db.Uuid
+  approvedBy   User?     @relation("LaporanApprovedBy", fields: [approvedById], references: [id])
+  approvedAt   DateTime?
+
+  foto FotoSampah?
+  tags Tag[]      @relation("LaporanTags")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@map("laporan_sampah")
+}
+
+// ==================== 5. FotoSampah (wajib, one-to-one) ====================
+model FotoSampah {
+  id String @id @default(uuid()) @db.Uuid
+
+  laporanId String        @unique @db.Uuid
+  laporan   LaporanSampah @relation(fields: [laporanId], references: [id], onDelete: Cascade)
+
+  url String
+
+  createdAt DateTime @default(now())
+
+  @@map("foto_sampah")
+}
+
+// ==================== 6. Tag (tabel tambahan #1, many-to-many) ====================
+model Tag {
+  id    String @id @default(uuid()) @db.Uuid
+  nama  String @unique
+  warna String @default("brand")
+
+  laporan LaporanSampah[] @relation("LaporanTags")
+
+  createdAt DateTime @default(now())
+
+  @@map("tags")
+}
+
+// ==================== 7. Poin (tabel tambahan #2, one-to-one) ====================
+model Poin {
+  id        String @id @default(uuid()) @db.Uuid
+  userId    String @unique @db.Uuid
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalPoin Int    @default(0)
+
+  updatedAt DateTime @updatedAt
+
+  @@map("poin")
+}
+
+// Fitur dari project awal — dulu dikunci ke enum JenisSampah, sekarang dikunci
+// ke JenisSampah.id (FK, unique) karena JenisSampah udah jadi tabel master data.
+model Stok {
+  id            String      @id @default(uuid()) @db.Uuid
+  jenisSampahId String      @unique @db.Uuid
+  jenisSampah   JenisSampah @relation(fields: [jenisSampahId], references: [id], onDelete: Cascade)
+  totalJumlah   Float       @default(0)
+  updatedAt     DateTime    @updatedAt
+
+  @@map("stok")
+}
