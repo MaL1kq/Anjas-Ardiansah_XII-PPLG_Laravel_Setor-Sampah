@@ -67,7 +67,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
         satuan: data.satuan,
         status: data.status,
         alasanPenolakan: isRejected ? data.alasanPenolakan : null,
-        approvedBy: isApproved || isRejected ? { connect: { id: adminId } } : { disconnect: true },
+        approvedById: isApproved || isRejected ? adminId : null,
         approvedAt: isApproved || isRejected ? new Date() : null,
         tags: { set: data.tagIds.map((id) => ({ id })) },
         foto: fotoWrite,
