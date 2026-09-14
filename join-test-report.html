@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hasil Pengujian JOIN</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; background: #f6f7fb; color: #111827; }
+    .card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; max-width: 1100px; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+    h1 { margin: 0 0 12px; font-size: 28px; }
+    p { margin: 0 0 18px; color: #4b5563; }
+    code, pre { background: #111827; color: #e5e7eb; border-radius: 10px; }
+    pre { padding: 16px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { border: 1px solid #d1d5db; padding: 10px 12px; text-align: left; font-size: 14px; }
+    th { background: #eef2ff; }
+    .label { display:inline-block; padding: 4px 10px; border-radius: 999px; background:#dbeafe; color:#1d4ed8; font-weight: 700; font-size: 12px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="label">Uji JOIN SQL</div>
+    <h1>Hasil Pengujian Query JOIN</h1>
+    <p>Query ini menggabungkan minimal dua tabel yang saling berelasi: <code>laporan_sampah</code>, <code>users</code>, <code>jenis_sampah</code>, dan <code>wilayah</code>.</p>
+    <pre>SELECT ls.id, u.nama AS nama_warga, u.email, js."namaJenis" AS jenis_sampah, w."namaWilayah" AS wilayah, ls.jumlah, ls.satuan, ls.status, ls."createdAt"
+FROM laporan_sampah ls
+JOIN users u ON u.id = ls."userId"
+JOIN jenis_sampah js ON js.id = ls."jenisSampahId"
+JOIN wilayah w ON w.id = ls."wilayahId"
+ORDER BY ls."createdAt" DESC
+LIMIT 10;</pre>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>nama_warga</th>
+          <th>email</th>
+          <th>jenis_sampah</th>
+          <th>wilayah</th>
+          <th>jumlah</th>
+          <th>satuan</th>
+          <th>status</th>
+          <th>createdAt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>b0489f8d-b158-43e8-9124-026be3917ad6</td>
+          <td>RT 012/RW 005</td>
+          <td>rt012@gmail.com</td>
+          <td>Organik</td>
+          <td>RT/RW</td>
+          <td>5</td>
+          <td>KG</td>
+          <td>APPROVED</td>
+          <td>2026-08-09 14:03:20</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
