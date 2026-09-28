@@ -37,6 +37,7 @@ model User {
   laporan         LaporanSampah[] @relation("LaporanByUser")
   laporanDiproses LaporanSampah[] @relation("LaporanApprovedBy")
   poin            Poin?
+  penukaran       PenukaranPoin[]
 
   @@map("users")
 }
@@ -147,4 +148,37 @@ model Stok {
   updatedAt     DateTime    @updatedAt
 
   @@map("stok")
+}
+// ==================== 8. Barang (Katalog Tukar Poin) ====================
+model Barang {
+  id          String @id @default(uuid()) @db.Uuid
+  namaBarang  String
+  hargaPoin   Int
+  stok        Int    @default(0)
+  deskripsi   String?
+  
+  penukaran   PenukaranPoin[]
+
+  @@map("barang")
+}
+
+// ==================== 9. PenukaranPoin (Riwayat Transaksi Beli Barang) ====================
+model PenukaranPoin {
+  id               String @id @default(uuid()) @db.Uuid
+  userId           String @db.Uuid
+  user             User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  barangId         String @db.Uuid
+  barang           Barang @relation(fields: [barangId], references: [id], onDelete: Restrict)
+  
+  jumlah           Int
+  totalPoinDipakai Int
+
+  status           StatusLaporan @default(PENDING)
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([userId])
+  @@map("penukaran_poin")
 }
