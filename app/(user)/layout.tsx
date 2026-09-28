@@ -6,6 +6,7 @@ import TopNav from "@/components/TopNav";
 const items = [
   { href: "/dashboard", label: "Riwayat Setoran" },
   { href: "/setor", label: "Setor Sampah" },
+  { href: "/tukar-poin", label: "Tukar Poin" },
 ];
 
 export default async function UserLayout({ children }: { children: React.ReactNode }) {
