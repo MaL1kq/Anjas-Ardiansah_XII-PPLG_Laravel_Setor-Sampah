@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Setor Sampah — Web Pengelolaan & Pemilahan Sampah Mandiri</title>
+  <title>Setor Sampah - Web Pengelolaan & Pemilahan Sampah Mandiri</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & Sora -->
@@ -47,363 +47,246 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- TOP HEADER / DEMO BANNER -->
-  <header class="bg-brand-600 text-white text-xs py-2 px-4 shadow-sm flex flex-wrap items-center justify-between gap-2">
-    <div class="flex items-center gap-2">
-      <span class="bg-white/20 px-2 py-0.5 rounded font-semibold text-[11px] uppercase tracking-wider">GitHub Pages Preview</span>
-      <span>Website Pengelolaan Sampah — Oleh Anjas Ardiansah</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <span class="text-white/80">Lihat Tampilan Sebagai:</span>
-      <button onclick="switchRole('USER')" id="btnRoleUser" class="bg-white text-brand-600 font-semibold px-2.5 py-1 rounded shadow-sm hover:bg-brand-50 transition">
-         Warga (User)
-      </button>
-      <button onclick="switchRole('ADMIN')" id="btnRoleAdmin" class="bg-brand-500 text-white/90 font-semibold px-2.5 py-1 rounded hover:bg-brand-400 transition">
-        ️ Admin TPU
-      </button>
-    </div>
-  </header>
-
-  <!-- MAIN NAVIGATION -->
+  <!-- MAIN NAVIGATION (NO GITHUB PAGES PREVIEW BANNER) -->
   <nav class="bg-white border-b border-line sticky top-0 z-40 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
       <!-- LOGO -->
-      <div class="flex items-center gap-3 cursor-pointer" onclick="showView('login')">
-        <div class="w-9 h-9 rounded-lg bg-brand-500 text-white flex items-center justify-center font-display font-bold text-lg shadow-sm">
-          ️
-        </div>
+      <div class="flex items-center gap-2.5 cursor-pointer shrink-0" onclick="showView('user-dashboard')">
+        <img src="logo.png" alt="Logo Setor Sampah" class="w-9 h-9 object-contain shrink-0" onerror="this.src='public/logo.png'">
         <div>
-          <span class="font-display font-bold text-lg text-ink tracking-tight">Setor Sampah</span>
-          <span id="roleBadge" class="hidden sm:inline-block ml-2 text-[11px] font-semibold bg-brand-50 text-brand-600 border border-brand-100 px-2 py-0.5 rounded-full">
+          <span class="font-display font-bold text-lg text-ink tracking-tight whitespace-nowrap">Setor Sampah</span>
+          <span id="roleBadge" class="hidden sm:inline-block ml-2 text-[11px] font-semibold bg-brand-50 text-brand-600 border border-brand-100 px-2 py-0.5 rounded-full whitespace-nowrap">
             Role: Warga
           </span>
         </div>
       </div>
 
       <!-- NAV TABS -->
-      <div class="flex items-center gap-1 sm:gap-2">
+      <div class="flex items-center gap-1 sm:gap-2 overflow-x-auto min-w-0">
         <!-- USER TABS -->
-        <div id="navUser" class="flex items-center gap-1 sm:gap-2">
-          <button onclick="showView('user-dashboard')" id="tabUserDash" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium transition bg-brand-50 text-brand-600 font-semibold">
+        <div id="navUser" class="flex items-center gap-1 overflow-x-auto py-1">
+          <button onclick="showView('user-dashboard')" id="tabUserDash" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 bg-brand-50 text-brand-600 font-semibold">
             Riwayat Setoran
           </button>
-          <button onclick="showView('user-setor')" id="tabUserSetor" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
+          <button onclick="showView('user-setor')" id="tabUserSetor" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
             + Setor Sampah
           </button>
-          <button onclick="showView('user-tukar-poin')" id="tabUserTukarPoin" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
-             Tukar Poin
+          <button onclick="showView('user-tukar-poin')" id="tabUserTukarPoin" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Tukar Poin
           </button>
         </div>
 
         <!-- ADMIN TABS -->
-        <div id="navAdmin" class="hidden flex items-center gap-1 sm:gap-2">
-          <button onclick="showView('admin-dashboard')" id="tabAdminDash" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
+        <div id="navAdmin" class="hidden flex items-center gap-1 overflow-x-auto py-1">
+          <button onclick="showView('admin-dashboard')" id="tabAdminDash" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
             Ringkasan
           </button>
-          <button onclick="showView('admin-setoran')" id="tabAdminSetoran" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
+          <button onclick="showView('admin-setoran')" id="tabAdminSetoran" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
             Kelola Setoran
           </button>
-          <button onclick="showView('admin-tags')" id="tabAdminTags" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
-            Tags
+          <button onclick="showView('admin-jenis-sampah')" id="tabAdminJenis" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Jenis Sampah
           </button>
-          <button onclick="showView('admin-warga')" id="tabAdminWarga" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
-            Data Warga
+          <button onclick="showView('admin-wilayah')" id="tabAdminWilayah" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Wilayah
+          </button>
+          <button onclick="showView('admin-tags')" id="tabAdminTags" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Kelola Tag
+          </button>
+          <button onclick="showView('admin-barang')" id="tabAdminBarang" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Katalog Barang
+          </button>
+          <button onclick="showView('admin-penukaran')" id="tabAdminPenukaran" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Riwayat Tukar
+          </button>
+          <button onclick="showView('admin-warga')" id="tabAdminWarga" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition shrink-0 text-ink/70 hover:text-ink hover:bg-gray-100">
+            Warga
           </button>
         </div>
 
-        <!-- PROFIL & AUTH -->
-        <div class="h-5 w-px bg-line mx-1"></div>
-        <button onclick="showView('profil')" id="tabProfil" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition flex items-center gap-1.5">
-          <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs font-bold">A</span>
-          <span class="hidden md:inline">Profil</span>
+        <div class="h-5 w-px bg-line mx-1 shrink-0"></div>
+
+        <!-- ROLE SWITCHER BUTTON -->
+        <button onclick="toggleRole()" id="btnSwitchRole" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-brand-50 text-brand-600 hover:bg-brand-100 transition shrink-0 whitespace-nowrap">
+          Ganti ke Admin
         </button>
-        <button onclick="showView('login')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-b3 bg-b3/10 hover:bg-b3/20 transition">
+
+        <!-- USER PROFILE -->
+        <button onclick="showView('profil')" id="tabProfil" class="nav-btn px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+          <span class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs font-bold shrink-0">
+            AA
+          </span>
+          <span class="hidden md:inline truncate max-w-[120px]" id="navUserName">Anjas Ardiansah</span>
+        </button>
+
+        <button onclick="showView('login')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-b3 bg-b3/10 hover:bg-b3/20 transition shrink-0 whitespace-nowrap">
           Keluar
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- CONTENT CONTAINER -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
 
     <!-- ==================== VIEW 1: LOGIN ==================== -->
-    <section id="view-login" class="hidden">
-      <div class="min-h-[540px] grid lg:grid-cols-2 card overflow-hidden shadow-sm">
-        <div class="hidden lg:flex flex-col justify-between bg-brand-500 text-white p-10 relative overflow-hidden">
-          <div class="relative z-10">
-            <span class="font-display font-semibold text-lg tracking-tight">Setor Sampah</span>
-          </div>
-          <div class="relative z-10 space-y-4">
-            <h1 class="font-display text-3xl font-semibold leading-tight">
-              Pilah dari rumah,<br />catat sampai tuntas.
-            </h1>
-            <p class="text-brand-50/90 text-sm leading-relaxed max-w-sm">
-              Setiap setoran dipilah ke 4 kategori resmi — organik, anorganik, B3, dan residu — lalu diverifikasi tim pengelola TPU sebelum masuk stok daur ulang.
-            </p>
-            <div class="flex flex-wrap gap-2 pt-2">
-              <span class="bg-white/15 px-2.5 py-1 rounded-full text-xs flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-organik"></span> Organik (10 Poin/kg)
-              </span>
-              <span class="bg-white/15 px-2.5 py-1 rounded-full text-xs flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-anorganik"></span> Anorganik (15 Poin/kg)
-              </span>
-              <span class="bg-white/15 px-2.5 py-1 rounded-full text-xs flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-b3"></span> B3 (20 Poin/kg)
-              </span>
-              <span class="bg-white/15 px-2.5 py-1 rounded-full text-xs flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-residu"></span> Residu (5 Poin/kg)
-              </span>
-            </div>
-          </div>
-          <div class="text-xs text-white/70">
-            Terintegrasi RDBMS PostgreSQL & Next.js 14
-          </div>
+    <section id="view-login" class="hidden max-w-md mx-auto py-8">
+      <div class="card p-6 space-y-5">
+        <div class="flex items-center gap-2.5 mb-2">
+          <img src="logo.png" alt="Logo" class="w-8 h-8 object-contain">
+          <span class="font-display font-bold text-lg text-ink">Setor Sampah</span>
         </div>
-
-        <div class="flex items-center justify-center p-8">
-          <div class="w-full max-w-sm space-y-5">
-            <div>
-              <h2 class="font-display text-2xl font-semibold text-ink">Masuk ke akunmu</h2>
-              <p class="text-sm text-ink/60 mt-1">Gunakan akun demo warga atau admin di bawah.</p>
-            </div>
-
-            <div class="space-y-3">
-              <div>
-                <label class="block text-xs font-semibold text-ink mb-1">Pilih Akun Demo Cepat:</label>
-                <div class="grid grid-cols-2 gap-2">
-                  <button onclick="loginAs('USER')" class="p-3 border border-brand-200 bg-brand-50/60 rounded-lg text-left hover:bg-brand-50 transition">
-                    <div class="font-semibold text-sm text-brand-600"> Warga RT/RW</div>
-                    <div class="text-xs text-ink/50">rt012@gmail.com</div>
-                  </button>
-                  <button onclick="loginAs('ADMIN')" class="p-3 border border-gray-200 hover:border-brand-500 rounded-lg text-left transition">
-                    <div class="font-semibold text-sm text-ink">️ Admin TPU</div>
-                    <div class="text-xs text-ink/50">admin@tpu.com</div>
-                  </button>
-                </div>
-              </div>
-
-              <div class="relative flex py-2 items-center">
-                <div class="flex-grow border-t border-line"></div>
-                <span class="flex-shrink mx-3 text-xs text-ink/40">atau isi manual</span>
-                <div class="flex-grow border-t border-line"></div>
-              </div>
-
-              <div>
-                <label class="block text-xs font-medium text-ink mb-1">Email</label>
-                <input type="email" id="loginEmail" value="rt012@gmail.com" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-              </div>
-              <div>
-                <label class="block text-xs font-medium text-ink mb-1">Password</label>
-                <input type="password" value="••••••••" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-              </div>
-
-              <button onclick="doLogin()" class="w-full py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm">
-                Masuk ke Aplikasi
-              </button>
-
-              <p class="text-xs text-ink/60 text-center">
-                Belum punya akun? <button onclick="showView('register')" class="text-brand-600 font-semibold hover:underline">Daftar Warga Baru</button>
-              </p>
-            </div>
-          </div>
+        <div>
+          <h2 class="font-display text-2xl font-semibold text-ink">Masuk ke akunmu</h2>
+          <p class="text-sm text-ink/60 mt-1">Pilih peran akun untuk mulai mencoba sistem:</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ==================== VIEW 2: REGISTER ==================== -->
-    <section id="view-register" class="hidden">
-      <div class="max-w-md mx-auto card p-8 shadow-sm">
-        <h2 class="font-display text-2xl font-semibold text-ink">Pendaftaran Akun Warga</h2>
-        <p class="text-sm text-ink/60 mt-1 mb-5">Daftar sebagai penyetor sampah mandiri.</p>
-
-        <div class="space-y-4">
-          <div>
-            <label class="block text-xs font-medium text-ink mb-1">Nama Lengkap</label>
-            <input type="text" id="regNama" placeholder="cth. Anjas Ardiansah" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-ink mb-1">Email</label>
-            <input type="email" id="regEmail" placeholder="nama@email.com" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-ink mb-1">Nomor HP / WhatsApp</label>
-            <input type="tel" id="regNoHp" placeholder="081234567890 (min. 10 digit)" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-ink mb-1">Password</label>
-            <input type="password" placeholder="minimal 6 karakter" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-          </div>
-          <button onclick="doRegister()" class="w-full py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm">
-            Daftar Sekarang
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <button onclick="loginAs('USER')" class="p-4 border-2 border-brand-500 bg-brand-50/50 rounded-xl text-left hover:bg-brand-50 transition">
+            <span class="font-bold text-sm text-brand-600 block">Warga (User)</span>
+            <span class="text-xs text-ink/60">Setor & tukar poin</span>
           </button>
-          <div class="text-center">
-            <button onclick="showView('login')" class="text-xs text-ink/60 hover:text-ink">Kembali ke Halaman Masuk</button>
-          </div>
+          <button onclick="loginAs('ADMIN')" class="p-4 border-2 border-line hover:border-brand-500 rounded-xl text-left transition">
+            <span class="font-bold text-sm text-ink block">Admin TPU</span>
+            <span class="text-xs text-ink/60">Verifikasi & katalog</span>
+          </button>
         </div>
+        <p class="text-xs text-ink/40 text-center">Tugas Individu Pengelolaan Sampah - Anjas Ardiansah</p>
       </div>
     </section>
 
-    <!-- ==================== VIEW 3: USER DASHBOARD (RIWAYAT) ==================== -->
+    <!-- ==================== VIEW 2: USER DASHBOARD ==================== -->
     <section id="view-user-dashboard">
-      <!-- HEADER SALDO & STATISTIK -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 class="font-display text-2xl font-bold text-ink">Dashboard Warga</h1>
-          <p class="text-sm text-ink/60">Pantau seluruh riwayat setoran dan akumulasi poin reward Anda.</p>
+          <p class="text-sm text-ink/60">Pantau akumulasi setoran sampah dan saldo poin yang siap ditukarkan.</p>
         </div>
-        <button onclick="showView('user-setor')" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition shadow-sm self-start">
-          <span>+</span> Setor Sampah Sekarang
+        <button onclick="showView('user-setor')" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition shadow-sm self-start sm:self-auto">
+          + Setor Sampah Sekarang
         </button>
       </div>
 
-      <!-- STAT CARDS -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <!-- METRIC CARDS -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="card p-4">
           <span class="text-xs text-ink/60 font-medium">Total Setoran</span>
           <div id="statUserTotal" class="font-display text-2xl font-bold text-ink mt-1">4 Setoran</div>
-          <span class="text-[11px] text-brand-600 font-medium">Semua kategori</span>
         </div>
         <div class="card p-4">
           <span class="text-xs text-ink/60 font-medium">Menunggu Verifikasi</span>
-          <div id="statUserPending" class="font-display text-2xl font-bold text-anorganik mt-1">1 Setoran</div>
-          <span class="text-[11px] text-ink/40">Sedang ditinjau petugas</span>
+          <div id="statUserPending" class="font-display text-2xl font-bold text-amber-600 mt-1">1 Setoran</div>
         </div>
         <div class="card p-4">
           <span class="text-xs text-ink/60 font-medium">Disetujui</span>
           <div id="statUserApproved" class="font-display text-2xl font-bold text-organik mt-1">3 Setoran</div>
-          <span class="text-[11px] text-organik font-medium">Masuk stok daur ulang</span>
         </div>
-        <div class="card p-4 bg-brand-50/70 border-brand-200">
-          <span class="text-xs text-brand-600 font-semibold">Saldo Poin Reward</span>
-          <div id="statUserPoin" class="font-display text-2xl font-bold text-brand-600 mt-1">145 Poin</div>
-          <span class="text-[11px] text-brand-500">Dapat ditukar hadiah</span>
+        <div class="card p-4 bg-brand-50/50 border-brand-200">
+          <span class="text-xs text-brand-600 font-semibold">Total Poin Reward</span>
+          <div id="statUserPoin" class="font-display text-2xl font-bold text-brand-600 mt-1">110 Poin</div>
         </div>
       </div>
 
-      <!-- RIWAYAT TABLE CARD -->
+      <!-- RIWAYAT SETORAN TABLE -->
       <div class="card overflow-hidden">
-        <div class="p-4 border-b border-line flex flex-wrap items-center justify-between gap-3">
-          <h2 class="font-display font-semibold text-base text-ink">Daftar Riwayat Setoran</h2>
+        <div class="p-4 border-b border-line flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h2 class="font-semibold text-ink text-sm">Riwayat Setoran Sampah Terakhir</h2>
           <div class="flex items-center gap-1.5 text-xs">
-            <button onclick="filterRiwayat('SEMUA')" class="filter-btn px-2.5 py-1 rounded bg-brand-50 text-brand-600 font-semibold border border-brand-200">Semua</button>
-            <button onclick="filterRiwayat('PENDING')" class="filter-btn px-2.5 py-1 rounded bg-gray-100 text-ink/70 hover:bg-gray-200">Menunggu</button>
-            <button onclick="filterRiwayat('APPROVED')" class="filter-btn px-2.5 py-1 rounded bg-gray-100 text-ink/70 hover:bg-gray-200">Disetujui</button>
-            <button onclick="filterRiwayat('REJECTED')" class="filter-btn px-2.5 py-1 rounded bg-gray-100 text-ink/70 hover:bg-gray-200">Ditolak</button>
+            <button onclick="filterRiwayat('SEMUA')" class="px-2.5 py-1 rounded bg-brand-50 text-brand-600 font-semibold">Semua</button>
+            <button onclick="filterRiwayat('APPROVED')" class="px-2.5 py-1 rounded text-ink/60 hover:bg-gray-100">Disetujui</button>
+            <button onclick="filterRiwayat('PENDING')" class="px-2.5 py-1 rounded text-ink/60 hover:bg-gray-100">Menunggu</button>
+            <button onclick="filterRiwayat('REJECTED')" class="px-2.5 py-1 rounded text-ink/60 hover:bg-gray-100">Ditolak</button>
           </div>
         </div>
-
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-sm">
             <thead>
-              <tr class="bg-gray-50/70 border-b border-line text-xs font-semibold text-ink/60 uppercase">
+              <tr class="bg-gray-50/80 border-b border-line text-ink/50 text-xs uppercase tracking-wider font-semibold">
                 <th class="py-3 px-4">Tanggal</th>
-                <th class="py-3 px-4">Kategori Sampah</th>
-                <th class="py-3 px-4">Kuantitas</th>
-                <th class="py-3 px-4">Asal Wilayah</th>
-                <th class="py-3 px-4">Status & Catatan</th>
+                <th class="py-3 px-4">Kategori</th>
+                <th class="py-3 px-4">Jumlah</th>
+                <th class="py-3 px-4">Wilayah</th>
+                <th class="py-3 px-4">Status</th>
                 <th class="py-3 px-4 text-right">Poin</th>
               </tr>
             </thead>
             <tbody id="userRiwayatTable" class="divide-y divide-line">
-              <!-- Rendered by JS -->
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ==================== VIEW 4: FORM SETOR SAMPAH ==================== -->
-    <section id="view-user-setor" class="hidden">
-      <div class="max-w-2xl mx-auto">
-        <div class="mb-5">
-          <button onclick="showView('user-dashboard')" class="text-xs text-brand-600 font-medium hover:underline mb-1 inline-block">← Kembali ke Dashboard</button>
-          <h1 class="font-display text-2xl font-bold text-ink">Formulir Pengajuan Setor Sampah</h1>
-          <p class="text-sm text-ink/60">Pilah sampah Anda dan kirimkan data akurat untuk diverifikasi admin.</p>
+    <!-- ==================== VIEW 3: USER SETOR ==================== -->
+    <section id="view-user-setor" class="hidden max-w-xl mx-auto">
+      <div class="mb-6">
+        <h1 class="font-display text-2xl font-bold text-ink">Formulir Setor Sampah</h1>
+        <p class="text-sm text-ink/60">Pilih kategori sampah yang sudah kamu pilah secara mandiri dari rumah.</p>
+      </div>
+
+      <div class="card p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-ink mb-2">1. Pilih Jenis Sampah</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <label class="border border-line rounded-lg p-3 flex items-center gap-2 cursor-pointer hover:border-brand-500">
+              <input type="radio" name="jenisSampah" value="Organik" checked class="text-brand-500">
+              <div>
+                <span class="text-sm font-semibold text-ink block">Organik</span>
+                <span class="text-xs text-ink/50">10 Poin / KG</span>
+              </div>
+            </label>
+            <label class="border border-line rounded-lg p-3 flex items-center gap-2 cursor-pointer hover:border-brand-500">
+              <input type="radio" name="jenisSampah" value="Anorganik" class="text-brand-500">
+              <div>
+                <span class="text-sm font-semibold text-ink block">Anorganik</span>
+                <span class="text-xs text-ink/50">15 Poin / KG</span>
+              </div>
+            </label>
+            <label class="border border-line rounded-lg p-3 flex items-center gap-2 cursor-pointer hover:border-brand-500">
+              <input type="radio" name="jenisSampah" value="B3" class="text-brand-500">
+              <div>
+                <span class="text-sm font-semibold text-ink block">B3</span>
+                <span class="text-xs text-ink/50">20 Poin / KG</span>
+              </div>
+            </label>
+            <label class="border border-line rounded-lg p-3 flex items-center gap-2 cursor-pointer hover:border-brand-500">
+              <input type="radio" name="jenisSampah" value="Residu" class="text-brand-500">
+              <div>
+                <span class="text-sm font-semibold text-ink block">Residu</span>
+                <span class="text-xs text-ink/50">5 Poin / KG</span>
+              </div>
+            </label>
+          </div>
         </div>
 
-        <div class="card p-6 space-y-5">
-          <!-- 1. KATEGORI SAMPAH -->
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-ink mb-2">1. Pilih Jenis / Kategori Sampah *</label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <label class="cursor-pointer">
-                <input type="radio" name="jenisSampah" value="Organik" checked class="peer sr-only">
-                <div class="p-3 rounded-lg border border-line peer-checked:border-organik peer-checked:bg-organik/10 transition text-center">
-                  <span class="block text-xl mb-1"></span>
-                  <span class="font-semibold text-sm text-ink block">Organik</span>
-                  <span class="text-[10px] text-organik font-medium">10 Poin/kg</span>
-                </div>
-              </label>
-              <label class="cursor-pointer">
-                <input type="radio" name="jenisSampah" value="Anorganik" class="peer sr-only">
-                <div class="p-3 rounded-lg border border-line peer-checked:border-anorganik peer-checked:bg-anorganik/10 transition text-center">
-                  <span class="block text-xl mb-1"></span>
-                  <span class="font-semibold text-sm text-ink block">Anorganik</span>
-                  <span class="text-[10px] text-anorganik font-medium">15 Poin/kg</span>
-                </div>
-              </label>
-              <label class="cursor-pointer">
-                <input type="radio" name="jenisSampah" value="B3" class="peer sr-only">
-                <div class="p-3 rounded-lg border border-line peer-checked:border-b3 peer-checked:bg-b3/10 transition text-center">
-                  <span class="block text-xl mb-1">️</span>
-                  <span class="font-semibold text-sm text-ink block">B3</span>
-                  <span class="text-[10px] text-b3 font-medium">20 Poin/kg</span>
-                </div>
-              </label>
-              <label class="cursor-pointer">
-                <input type="radio" name="jenisSampah" value="Residu" class="peer sr-only">
-                <div class="p-3 rounded-lg border border-line peer-checked:border-residu peer-checked:bg-residu/10 transition text-center">
-                  <span class="block text-xl mb-1">️</span>
-                  <span class="font-semibold text-sm text-ink block">Residu</span>
-                  <span class="text-[10px] text-residu font-medium">5 Poin/kg</span>
-                </div>
-              </label>
-            </div>
+            <label class="block text-xs font-semibold text-ink mb-1">2. Berat / Volume</label>
+            <input type="number" id="inputJumlah" value="2.5" min="0.1" step="0.1" class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
           </div>
-
-          <!-- 2. JUMLAH & SATUAN -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-ink mb-1.5">2. Jumlah / Kuantitas *</label>
-              <input type="number" id="inputJumlah" step="0.5" value="3.5" min="0.1" class="w-full px-3.5 py-2.5 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500 font-semibold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-ink mb-1.5">Satuan Ukuran *</label>
-              <select id="inputSatuan" class="w-full px-3.5 py-2.5 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500 bg-white">
-                <option value="KG">Kilogram (KG)</option>
-                <option value="PCS">Satuan Biji / Buah (PCS)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- 3. ASAL WILAYAH -->
           <div>
-            <label class="block text-xs font-semibold text-ink mb-1.5">3. Asal Wilayah Setoran *</label>
-            <select id="inputWilayah" class="w-full px-3.5 py-2.5 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500 bg-white">
-              <option value="RT/RW">RT 012 / RW 005 (Pemukiman Warga)</option>
-              <option value="Rumah">Rumah Tangga Pribadi</option>
-              <option value="Sekolah">Lingkungan Sekolah / Kampus</option>
-              <option value="Lainnya">Lainnya (Pasar, Kegiatan Warga)</option>
+            <label class="block text-xs font-semibold text-ink mb-1">Satuan</label>
+            <select id="inputSatuan" class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+              <option value="KG">Kilogram (KG)</option>
+              <option value="PCS">Satuan (PCS)</option>
             </select>
           </div>
+        </div>
 
-          <!-- 4. UPLOAD BUKTI -->
-          <div>
-            <label class="block text-xs font-semibold text-ink mb-1.5">4. Foto Bukti Sampah / Timbangan (Opsional)</label>
-            <div class="border-2 border-dashed border-line rounded-lg p-4 text-center hover:border-brand-400 transition bg-gray-50/50">
-              <span class="text-2xl block mb-1"></span>
-              <span class="text-xs text-ink/70">Klik untuk melampirkan foto dokumentasi</span>
-              <input type="file" class="hidden" id="dummyFile">
-            </div>
-          </div>
+        <div>
+          <label class="block text-xs font-semibold text-ink mb-1">3. Wilayah Pengambilan</label>
+          <select id="inputWilayah" class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+            <option value="RT 012 / RW 005">RT 012 / RW 005</option>
+            <option value="Rumah">Rumah</option>
+            <option value="Sekolah">Sekolah</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
 
-          <!-- SUBMIT BUTTON -->
-          <div class="pt-2">
-            <button onclick="submitSetoranUser()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm flex items-center justify-center gap-2">
-              <span></span> Kirim Setoran untuk Diverifikasi
-            </button>
-          </div>
+        <div class="pt-2">
+          <button onclick="submitSetoranUser()" class="w-full py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm">
+            Kirim Setoran Sampah
+          </button>
         </div>
       </div>
     </section>
@@ -411,51 +294,51 @@
     <!-- ==================== VIEW 4: USER TUKAR POIN ==================== -->
     <section id="view-user-tukar-poin" class="hidden">
       <div class="mb-6">
-        <h1 class="font-display text-2xl font-bold text-ink">Toko Penukaran Poin </h1>
-        <p class="text-sm text-ink/60">Tukarkan poin yang kamu kumpulkan dengan sembako atau uang tunai.</p>
+        <h1 class="font-display text-2xl font-bold text-ink">Toko Penukaran Poin</h1>
+        <p class="text-sm text-ink/60">Tukarkan poin yang kamu kumpulkan dengan sembako atau barang kebutuhan lainnya.</p>
       </div>
 
-      <div class="card p-5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-brand-50 border-brand-200">
+      <div class="card p-5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-brand-50 border-brand-200 rounded-xl">
         <div>
           <span class="text-xs text-brand-600 font-semibold block mb-1">Total Poin Kamu Saat Ini:</span>
-          <span class="font-display text-3xl font-bold text-brand-600">325 Poin</span>
+          <div class="flex items-baseline gap-2">
+            <span id="userTokoPoin" class="font-display text-3xl font-bold text-brand-600">110 Poin</span>
+            <span class="text-xs text-ink/50">(Poin hanya terpotong setelah disetujui admin)</span>
+          </div>
         </div>
-        <button class="bg-white text-brand-600 border border-brand-200 font-semibold px-4 py-2 rounded-lg text-sm transition hover:bg-brand-100">
-          Riwayat Penukaran
+        <button onclick="toggleUserRiwayatTukar()" class="bg-white text-brand-600 border border-brand-200 font-semibold px-4 py-2 rounded-lg text-sm transition hover:bg-brand-100 flex items-center gap-2">
+          <span>Riwayat Penukaran</span>
+          <span id="userRiwayatTukarCount" class="bg-brand-500 text-white text-[11px] px-2 py-0.5 rounded-full font-bold">1</span>
         </button>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <!-- Item 1 -->
-        <div class="card p-4 flex flex-col">
-          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl"></div>
-          <h3 class="font-bold text-ink mb-1">Uang Tunai Rp 50.000</h3>
-          <p class="text-xs text-ink/60 mb-3 flex-1">Penarikan saldo tunai langsung ke rekening atau e-wallet (GoPay/OVO/Dana).</p>
-          <div class="flex items-center justify-between mt-auto">
-            <span class="font-semibold text-brand-600">500 Poin</span>
-            <button class="text-xs bg-gray-200 text-gray-500 font-semibold px-3 py-1.5 rounded cursor-not-allowed">Poin Kurang</button>
-          </div>
+      <!-- RIWAYAT PENUKARAN SECTION (COLLAPSIBLE) -->
+      <div id="userRiwayatTukarContainer" class="hidden card p-5 mb-6 border-brand-200 bg-white">
+        <div class="flex items-center justify-between mb-4 border-b border-line pb-3">
+          <h2 class="font-semibold text-ink text-base">Riwayat Pengajuan Penukaran Poin</h2>
+          <button onclick="toggleUserRiwayatTukar()" class="text-xs text-ink/50 hover:text-ink font-medium">Tutup</button>
         </div>
-        <!-- Item 2 -->
-        <div class="card p-4 flex flex-col">
-          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl"></div>
-          <h3 class="font-bold text-ink mb-1">Beras 5 KG</h3>
-          <p class="text-xs text-ink/60 mb-3 flex-1">Beras premium ukuran 5 KG. Bisa diambil langsung di bank sampah.</p>
-          <div class="flex items-center justify-between mt-auto">
-            <span class="font-semibold text-brand-600">300 Poin</span>
-            <button class="text-xs bg-brand-500 text-white hover:bg-brand-600 font-semibold px-3 py-1.5 rounded transition">Tukar Poin</button>
-          </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-line text-left text-xs text-ink/50 uppercase tracking-wide">
+                <th class="px-4 py-2.5 font-medium">Tanggal</th>
+                <th class="px-4 py-2.5 font-medium">Barang</th>
+                <th class="px-4 py-2.5 font-medium">Poin</th>
+                <th class="px-4 py-2.5 font-medium">Status</th>
+                <th class="px-4 py-2.5 font-medium">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody id="userRiwayatTukarTable" class="divide-y divide-line">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
         </div>
-        <!-- Item 3 -->
-        <div class="card p-4 flex flex-col">
-          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl"></div>
-          <h3 class="font-bold text-ink mb-1">Sabun & Sunlight</h3>
-          <p class="text-xs text-ink/60 mb-3 flex-1">Paket kebersihan rumah tangga tangga berisi sabun cuci piring dan sabun mandi.</p>
-          <div class="flex items-center justify-between mt-auto">
-            <span class="font-semibold text-brand-600">150 Poin</span>
-            <button class="text-xs bg-brand-500 text-white hover:bg-brand-600 font-semibold px-3 py-1.5 rounded transition">Tukar Poin</button>
-          </div>
-        </div>
+      </div>
+
+      <!-- KATALOG BARANG CARDS -->
+      <div id="userKatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+        <!-- Dynamically rendered -->
       </div>
     </section>
 
@@ -468,7 +351,7 @@
         </div>
         <div class="flex items-center gap-2">
           <button onclick="showView('admin-setoran')" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition shadow-sm">
-            Verifikasi Setoran Masuk →
+            Verifikasi Setoran Masuk
           </button>
         </div>
       </div>
@@ -477,92 +360,41 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="card p-4">
           <span class="text-xs text-ink/60 font-medium">Total Setoran</span>
-          <div id="adminStatTotal" class="font-display text-2xl font-bold text-ink mt-1">12 Setoran</div>
-          <span class="text-[11px] text-brand-600 font-medium">+3 setoran hari ini</span>
-        </div>
-        <div class="card p-4 bg-amber-50/40 border-amber-200">
-          <span class="text-xs text-anorganik font-semibold">Perlu Verifikasi</span>
-          <div id="adminStatPending" class="font-display text-2xl font-bold text-anorganik mt-1">2 Menunggu</div>
-          <span class="text-[11px] text-anorganik font-medium">Klik untuk review</span>
+          <div id="adminStatTotal" class="font-display text-2xl font-bold text-ink mt-1">6 Setoran</div>
         </div>
         <div class="card p-4">
-          <span class="text-xs text-ink/60 font-medium">Total Warga Terdaftar</span>
-          <div class="font-display text-2xl font-bold text-ink mt-1">5 Warga</div>
-          <span class="text-[11px] text-ink/50">Tugas Individu</span>
+          <span class="text-xs text-ink/60 font-medium">Perlu Diverifikasi</span>
+          <div id="adminStatPending" class="font-display text-2xl font-bold text-amber-600 mt-1">2 Laporan</div>
         </div>
         <div class="card p-4">
-          <span class="text-xs text-ink/60 font-medium">Total Stok Material</span>
-          <div id="adminStatStokTotal" class="font-display text-2xl font-bold text-organik mt-1">58.5 KG</div>
-          <span class="text-[11px] text-organik font-medium">Terkumpul di gudang</span>
+          <span class="text-xs text-ink/60 font-medium">Total Warga Aktif</span>
+          <div id="adminStatWarga" class="font-display text-2xl font-bold text-brand-600 mt-1">5 Warga</div>
+        </div>
+        <div class="card p-4">
+          <span class="text-xs text-ink/60 font-medium">Stok Terkumpul</span>
+          <div id="adminStatStok" class="font-display text-2xl font-bold text-organik mt-1">59.0 KG</div>
         </div>
       </div>
 
-      <!-- STOK PER KATEGORI -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div class="card p-5">
-          <h2 class="font-display font-semibold text-base text-ink mb-3 flex items-center justify-between">
-            <span>Stok Material per Kategori</span>
-            <span class="text-xs font-normal text-ink/50">Update otomatis via RDBMS</span>
-          </h2>
-          <div class="space-y-3">
-            <div>
-              <div class="flex justify-between text-xs font-medium mb-1">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-organik"></span> Organik (Kompos)</span>
-                <span id="stokOrganikText" class="font-bold">24.0 KG</span>
-              </div>
-              <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
-                <div class="bg-organik h-full rounded-full" style="width: 45%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-medium mb-1">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-anorganik"></span> Anorganik (Plastik & Kertas)</span>
-                <span id="stokAnorganikText" class="font-bold">20.5 KG</span>
-              </div>
-              <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
-                <div class="bg-anorganik h-full rounded-full" style="width: 35%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-medium mb-1">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-b3"></span> B3 (Elektronik & Aki)</span>
-                <span id="stokB3Text" class="font-bold">6.0 KG</span>
-              </div>
-              <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
-                <div class="bg-b3 h-full rounded-full" style="width: 15%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-medium mb-1">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-residu"></span> Residu (Lainnya)</span>
-                <span id="stokResiduText" class="font-bold">8.0 KG</span>
-              </div>
-              <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden">
-                <div class="bg-residu h-full rounded-full" style="width: 20%"></div>
-              </div>
-            </div>
+      <!-- STOK KATEGORI -->
+      <div class="card p-5 mb-6">
+        <h2 class="font-semibold text-ink text-sm mb-3">Ketersediaan Stok Sampah Terpilah</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="p-3 bg-gray-50 rounded-lg border border-line">
+            <span class="text-xs text-organik font-bold block">Organik</span>
+            <span id="stokOrganik" class="font-display text-xl font-bold text-ink mt-1">24.0 KG</span>
           </div>
-        </div>
-
-        <div class="card p-5">
-          <h2 class="font-display font-semibold text-base text-ink mb-3">Distribusi Asal Wilayah</h2>
-          <div class="space-y-2.5 text-sm">
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-line">
-              <span class="font-medium text-xs">RT 012 / RW 005 (Pemukiman)</span>
-              <span class="font-bold text-xs bg-brand-100 text-brand-600 px-2 py-0.5 rounded">6 Setoran (50%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-line">
-              <span class="font-medium text-xs">Lingkungan Sekolah / Kampus</span>
-              <span class="font-bold text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">3 Setoran (25%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-line">
-              <span class="font-medium text-xs">Rumah Tangga Pribadi</span>
-              <span class="font-bold text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">2 Setoran (17%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-line">
-              <span class="font-medium text-xs">Lainnya (Pasar / Event)</span>
-              <span class="font-bold text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">1 Setoran (8%)</span>
-            </div>
+          <div class="p-3 bg-gray-50 rounded-lg border border-line">
+            <span class="text-xs text-anorganik font-bold block">Anorganik</span>
+            <span id="stokAnorganik" class="font-display text-xl font-bold text-ink mt-1">20.5 KG</span>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg border border-line">
+            <span class="text-xs text-b3 font-bold block">B3</span>
+            <span id="stokB3" class="font-display text-xl font-bold text-ink mt-1">6.0 KG</span>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg border border-line">
+            <span class="text-xs text-residu font-bold block">Residu</span>
+            <span id="stokResidu" class="font-display text-xl font-bold text-ink mt-1">8.0 KG</span>
           </div>
         </div>
       </div>
@@ -572,131 +404,274 @@
     <section id="view-admin-setoran" class="hidden">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 class="font-display text-2xl font-bold text-ink">Manajemen Setoran Sampah</h1>
-          <p class="text-sm text-ink/60">Verifikasi persetujuan atau penolakan setoran kiriman warga.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="exportCSV()" class="px-3.5 py-2 border border-line rounded-lg text-sm font-semibold bg-white hover:bg-gray-50 transition shadow-sm flex items-center gap-1.5">
-             Ekspor CSV
-          </button>
+          <h1 class="font-display text-2xl font-bold text-ink">Kelola Setoran Sampah Warga</h1>
+          <p class="text-sm text-ink/60">Tinjau dan setujui laporan setoran sampah. Menyetujui setoran akan menambah poin warga secara otomatis.</p>
         </div>
       </div>
 
-      <!-- FILTER & SEARCH BAR -->
-      <div class="card p-4 mb-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div>
-          <label class="block text-[11px] font-semibold text-ink/60 mb-1">Cari Nama / Email / Tag</label>
-          <input type="text" id="adminSearchInput" oninput="renderAdminTable()" placeholder="Ketik kata kunci..." class="w-full px-3 py-1.5 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-ink/60 mb-1">Filter Status</label>
-          <select id="adminFilterStatus" onchange="renderAdminTable()" class="w-full px-3 py-1.5 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500 bg-white">
-            <option value="SEMUA">Semua Status</option>
-            <option value="PENDING">Menunggu Verifikasi</option>
-            <option value="APPROVED">Disetujui</option>
-            <option value="REJECTED">Ditolak</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-ink/60 mb-1">Filter Kategori</label>
-          <select id="adminFilterKategori" onchange="renderAdminTable()" class="w-full px-3 py-1.5 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500 bg-white">
-            <option value="SEMUA">Semua Kategori</option>
-            <option value="Organik">Organik</option>
-            <option value="Anorganik">Anorganik</option>
-            <option value="B3">B3</option>
-            <option value="Residu">Residu</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- ADMIN TABLE -->
       <div class="card overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-sm">
             <thead>
-              <tr class="bg-gray-50/70 border-b border-line text-xs font-semibold text-ink/60 uppercase">
-                <th class="py-3 px-4">Penyetor</th>
-                <th class="py-3 px-4">Sampah & Jumlah</th>
+              <tr class="bg-gray-50/80 border-b border-line text-ink/50 text-xs uppercase tracking-wider font-semibold">
+                <th class="py-3 px-4">Warga</th>
+                <th class="py-3 px-4">Kategori</th>
+                <th class="py-3 px-4">Jumlah</th>
                 <th class="py-3 px-4">Wilayah</th>
-                <th class="py-3 px-4">Label Tag</th>
                 <th class="py-3 px-4">Status</th>
-                <th class="py-3 px-4 text-center">Aksi Verifikasi</th>
+                <th class="py-3 px-4 text-right">Aksi</th>
               </tr>
             </thead>
             <tbody id="adminSetoranTable" class="divide-y divide-line">
-              <!-- Rendered by JS -->
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ==================== VIEW 7: ADMIN TAGS ==================== -->
-    <section id="view-admin-tags" class="hidden">
-      <div class="max-w-2xl mx-auto">
-        <div class="mb-5">
-          <h1 class="font-display text-2xl font-bold text-ink">Manajemen Tag Kategori</h1>
-          <p class="text-sm text-ink/60">Kelola label Many-to-Many untuk menandai setoran sampah khusus.</p>
+    <!-- ==================== VIEW 7: ADMIN JENIS SAMPAH ==================== -->
+    <section id="view-admin-jenis-sampah" class="hidden space-y-6">
+      <div>
+        <h1 class="font-display text-2xl font-bold text-ink">Kelola Jenis Sampah</h1>
+        <p class="text-sm text-ink/60 mt-1">Master kategori sampah yang bisa dipilih warga saat melakukan setor sampah.</p>
+      </div>
+
+      <div class="card p-5 max-w-xl flex gap-3">
+        <input type="text" id="inputJenisBaru" placeholder="Nama kategori baru, cth. Elektronik" class="flex-1 px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+        <button onclick="addJenisSampah()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition">
+          Tambah
+        </button>
+      </div>
+
+      <div class="card overflow-hidden max-w-2xl">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="border-b border-line text-xs text-ink/50 uppercase tracking-wide bg-gray-50/80">
+              <th class="px-5 py-3 font-medium">Nama Kategori</th>
+              <th class="px-5 py-3 font-medium">Tarif Poin</th>
+              <th class="px-5 py-3 font-medium text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tableJenisSampah" class="divide-y divide-line">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 8: ADMIN WILAYAH ==================== -->
+    <section id="view-admin-wilayah" class="hidden space-y-6">
+      <div>
+        <h1 class="font-display text-2xl font-bold text-ink">Kelola Wilayah Pengambilan</h1>
+        <p class="text-sm text-ink/60 mt-1">Daftar wilayah cakupan bank sampah untuk titik penjemputan warga.</p>
+      </div>
+
+      <div class="card p-5 max-w-xl flex gap-3">
+        <input type="text" id="inputWilayahBaru" placeholder="Nama wilayah baru, cth. RW 008" class="flex-1 px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+        <button onclick="addWilayah()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition">
+          Tambah
+        </button>
+      </div>
+
+      <div class="card overflow-hidden max-w-2xl">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="border-b border-line text-xs text-ink/50 uppercase tracking-wide bg-gray-50/80">
+              <th class="px-5 py-3 font-medium">Nama Wilayah</th>
+              <th class="px-5 py-3 font-medium text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tableWilayah" class="divide-y divide-line">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 9: ADMIN TAGS ==================== -->
+    <section id="view-admin-tags" class="hidden space-y-6">
+      <div>
+        <h1 class="font-display text-2xl font-bold text-ink">Kelola Label & Tag</h1>
+        <p class="text-sm text-ink/60 mt-1">Tag untuk menandai setoran khusus (Prioritas, Perlu Uji Lab, dll).</p>
+      </div>
+
+      <div class="card p-5 max-w-xl flex gap-3">
+        <input type="text" id="inputTagBaru" placeholder="Nama label tag baru..." class="flex-1 px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+        <button onclick="addTag()" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition">
+          Tambah
+        </button>
+      </div>
+
+      <div class="card p-5 max-w-xl">
+        <div id="tagContainer" class="flex flex-wrap gap-2">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 10: ADMIN KATALOG BARANG ==================== -->
+    <section id="view-admin-barang" class="hidden space-y-6">
+      <div>
+        <h1 class="font-display text-2xl font-bold text-ink">Katalog Barang (Tukar Poin)</h1>
+        <p class="text-sm text-ink/60 mt-1 max-w-xl">
+          Kelola barang yang bisa ditukarkan oleh warga menggunakan poin reward mereka, lengkap dengan foto atau gambar produk.
+        </p>
+      </div>
+
+      <!-- FORM TAMBAH / EDIT BARANG -->
+      <div class="card p-5 flex flex-col gap-4 max-w-2xl border-line">
+        <div class="flex items-center justify-between border-b border-line pb-2.5">
+          <h2 id="formBarangTitle" class="text-sm font-semibold text-ink uppercase tracking-wide">Tambah Barang Baru</h2>
+          <button id="btnCancelEditBarang" onclick="cancelEditBarang()" class="hidden text-xs text-b3 font-medium hover:underline">
+            Batal Edit
+          </button>
         </div>
 
-        <div class="card p-5 mb-5 space-y-3">
-          <h2 class="font-display font-semibold text-sm text-ink">Tambah Tag Baru</h2>
-          <div class="flex gap-2">
-            <input type="text" id="newTagName" placeholder="Nama Tag (misal: Kerjasama Event)" class="flex-1 px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
-            <button onclick="addTag()" class="px-4 py-2 bg-brand-500 text-white font-semibold rounded-lg text-sm hover:bg-brand-600 transition">
-              + Tambah
+        <input type="hidden" id="editBarangId" value="">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-ink mb-1">Nama Barang / Reward</label>
+            <input type="text" id="inputNamaBarang" placeholder="Contoh: Beras 5 KG" class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-ink mb-1">Harga (Poin)</label>
+            <input type="number" id="inputHargaPoin" value="100" min="1" class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-ink mb-1">Stok Tersedia</label>
+            <input type="number" id="inputStokBarang" value="10" min="0" class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-ink mb-1">Deskripsi Singkat</label>
+            <input type="text" id="inputDeskripsiBarang" placeholder="Deskripsi produk atau ketentuan..." class="w-full px-3 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+          </div>
+        </div>
+
+        <!-- UPLOAD FOTO BARANG (FILE ONLY) -->
+        <div class="border-t border-line pt-4 space-y-3">
+          <label class="block text-xs font-medium text-ink">Foto Barang</label>
+          <div class="flex items-center gap-3">
+            <input type="file" id="inputFileBarang" accept="image/*" onchange="handleBarangImageUpload(event)" class="text-xs text-ink/70 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer">
+          </div>
+
+          <div id="previewBarangContainer" class="hidden flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-line">
+            <img id="previewBarangImg" src="" alt="Foto Barang" class="w-20 h-20 object-cover rounded-lg border border-line bg-white">
+            <div class="flex-1">
+              <p class="text-xs font-semibold text-ink">Foto barang terpilih</p>
+              <p class="text-[11px] text-ink/50 mt-0.5">Foto ini akan ditampilkan pada kartu barang di toko warga.</p>
+            </div>
+            <button type="button" onclick="removeBarangPhoto()" class="text-xs text-b3 hover:underline font-semibold px-2 py-1">
+              Hapus Foto
             </button>
           </div>
         </div>
 
-        <div class="card p-5">
-          <h2 class="font-display font-semibold text-sm text-ink mb-3">Daftar Tag Aktif di Database</h2>
-          <div id="tagListContainer" class="flex flex-wrap gap-2">
-            <!-- Rendered by JS -->
-          </div>
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <button onclick="saveBarang()" id="btnSubmitBarang" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm">
+            Tambah Barang
+          </button>
         </div>
+      </div>
+
+      <!-- TABLE KATALOG BARANG -->
+      <div class="card overflow-hidden">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="border-b border-line text-xs text-ink/50 uppercase tracking-wide bg-gray-50/80">
+              <th class="px-5 py-3 font-medium">Foto</th>
+              <th class="px-5 py-3 font-medium">Nama Barang</th>
+              <th class="px-5 py-3 font-medium">Deskripsi</th>
+              <th class="px-5 py-3 font-medium">Harga Poin</th>
+              <th class="px-5 py-3 font-medium">Stok</th>
+              <th class="px-5 py-3 font-medium text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tableBarangAdmin" class="divide-y divide-line">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- ==================== VIEW 8: ADMIN WARGA ==================== -->
-    <section id="view-admin-warga" class="hidden">
-      <div class="mb-5">
-        <h1 class="font-display text-2xl font-bold text-ink">Daftar Warga Terdaftar</h1>
-        <p class="text-sm text-ink/60">Data akun warga dan rekapitulasi keaktifan penyetoran.</p>
+    <!-- ==================== VIEW 11: ADMIN RIWAYAT PENUKARAN ==================== -->
+    <section id="view-admin-penukaran" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-ink">Riwayat & Persetujuan Penukaran Poin</h1>
+          <p class="text-sm text-ink/60 mt-1 max-w-xl">
+            Kelola dan konfirmasi permintaan penukaran barang dari warga. Poin dan stok barang akan berkurang saat Anda menyetujui transaksi.
+          </p>
+        </div>
+
+        <!-- FILTER TAB -->
+        <div class="flex items-center gap-1 bg-gray-100 p-1 rounded-xl text-xs font-semibold self-start">
+          <button onclick="filterAdminPenukaran('ALL')" id="filterPenukaranAll" class="px-3 py-1.5 rounded-lg bg-white text-ink shadow-sm">Semua</button>
+          <button onclick="filterAdminPenukaran('PENDING')" id="filterPenukaranPending" class="px-3 py-1.5 rounded-lg text-ink/60 hover:text-ink">Menunggu Persetujuan</button>
+          <button onclick="filterAdminPenukaran('APPROVED')" id="filterPenukaranApproved" class="px-3 py-1.5 rounded-lg text-ink/60 hover:text-ink">Disetujui</button>
+          <button onclick="filterAdminPenukaran('REJECTED')" id="filterPenukaranRejected" class="px-3 py-1.5 rounded-lg text-ink/60 hover:text-ink">Ditolak</button>
+        </div>
       </div>
 
       <div class="card overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-sm">
+          <table class="w-full text-sm text-left">
             <thead>
-              <tr class="bg-gray-50/70 border-b border-line text-xs font-semibold text-ink/60 uppercase">
-                <th class="py-3 px-4">Nama Lengkap</th>
-                <th class="py-3 px-4">Kontak (Email / No HP)</th>
-                <th class="py-3 px-4">Role</th>
-                <th class="py-3 px-4 text-center">Total Setoran</th>
-                <th class="py-3 px-4 text-right">Saldo Poin</th>
+              <tr class="border-b border-line text-xs text-ink/50 uppercase tracking-wide bg-gray-50/80">
+                <th class="px-5 py-3 font-medium">Tanggal</th>
+                <th class="px-5 py-3 font-medium">Barang</th>
+                <th class="px-5 py-3 font-medium">Warga</th>
+                <th class="px-5 py-3 font-medium">Poin Dipakai</th>
+                <th class="px-5 py-3 font-medium">Status</th>
+                <th class="px-5 py-3 font-medium text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody id="adminWargaTable" class="divide-y divide-line">
-              <!-- Rendered by JS -->
+            <tbody id="tablePenukaranAdmin" class="divide-y divide-line">
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- ==================== VIEW 9: PROFIL ==================== -->
-    <section id="view-profil" class="hidden">
-      <div class="max-w-xl mx-auto card p-6 shadow-sm space-y-6">
+    <!-- ==================== VIEW 12: ADMIN WARGA ==================== -->
+    <section id="view-admin-warga" class="hidden">
+      <div class="mb-6">
+        <h1 class="font-display text-2xl font-bold text-ink">Daftar Warga Terdaftar</h1>
+        <p class="text-sm text-ink/60">Daftar seluruh akun warga yang aktif menyetorkan sampah.</p>
+      </div>
+
+      <div class="card overflow-hidden">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="bg-gray-50/80 border-b border-line text-ink/50 text-xs uppercase tracking-wider font-semibold">
+              <th class="py-3 px-4">Nama</th>
+              <th class="py-3 px-4">Email</th>
+              <th class="py-3 px-4">No. HP</th>
+              <th class="py-3 px-4">Total Setoran</th>
+              <th class="py-3 px-4 text-right">Saldo Poin</th>
+            </tr>
+          </thead>
+          <tbody id="adminWargaTable" class="divide-y divide-line">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 13: PROFIL ==================== -->
+    <section id="view-profil" class="hidden max-w-xl mx-auto">
+      <div class="card p-6 space-y-5">
         <div class="flex items-center gap-4 border-b border-line pb-4">
-          <div class="w-14 h-14 rounded-full bg-brand-500 text-white font-display text-xl font-bold flex items-center justify-center">
-            A
+          <div class="w-14 h-14 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center font-display font-bold text-xl">
+            AA
           </div>
           <div>
-            <h2 class="font-display text-xl font-bold text-ink" id="profilNama">Anjas Ardiansah</h2>
-            <p class="text-xs text-ink/60" id="profilEmail">anjas.ardiansah39@smk.belajar.id</p>
-            <span class="inline-block mt-1 text-[11px] font-semibold bg-brand-50 text-brand-600 px-2 py-0.5 rounded border border-brand-200">
-              Role: USER / Warga Mandiri
+            <h2 class="font-display font-bold text-lg text-ink">Anjas Ardiansah</h2>
+            <p class="text-xs text-ink/60">anjas142008@gmail.com</p>
+            <span class="inline-block mt-1 text-[11px] font-semibold bg-brand-50 text-brand-600 border border-brand-100 px-2 py-0.5 rounded-full">
+              Akun Warga & Admin Terverifikasi
             </span>
           </div>
         </div>
@@ -714,7 +689,7 @@
             </div>
             <div class="p-3 bg-brand-50 rounded-lg border border-brand-200">
               <span class="text-xs text-brand-600 block font-semibold">Poin</span>
-              <span class="font-display font-bold text-lg text-brand-600">145</span>
+              <span class="font-display font-bold text-lg text-brand-600" id="profilStatPoin">110</span>
             </div>
           </div>
         </div>
@@ -722,12 +697,12 @@
         <div class="space-y-3 pt-2">
           <h3 class="font-display font-semibold text-sm text-ink">Pengaturan Akun</h3>
           <div>
-            <label class="block text-xs font-medium text-ink mb-1">Ubah Nama Tampilan</label>
+            <label class="block text-xs font-medium text-ink mb-1">Nama Tampilan</label>
             <input type="text" value="Anjas Ardiansah" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
           </div>
           <div>
-            <label class="block text-xs font-medium text-ink mb-1">Ganti Password</label>
-            <input type="password" placeholder="Password baru..." class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500">
+            <label class="block text-xs font-medium text-ink mb-1">Email</label>
+            <input type="text" value="anjas142008@gmail.com" class="w-full px-3.5 py-2 border border-line rounded-lg text-sm focus:outline-none focus:border-brand-500" disabled>
           </div>
           <button onclick="alert('Pengaturan profil berhasil diperbarui!')" class="w-full py-2 bg-brand-500 text-white font-semibold rounded-lg text-sm hover:bg-brand-600 transition">
             Simpan Perubahan
@@ -740,39 +715,89 @@
 
   <!-- FOOTER -->
   <footer class="bg-white border-t border-line text-xs text-ink/60 py-4 px-6 text-center mt-auto">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span>© 2026 Setor Sampah — Proyek Basis Data & Web SMK</span>
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>2026 Setor Sampah - Proyek Basis Data & Web SMK</span>
       <span>Anjas Ardiansah</span>
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC (IN-MEMORY DEMO DATABASE) -->
+  <!-- SCRIPT LOGIC (IN-MEMORY DATABASE) -->
   <script>
-    // In-memory Database for Live Interactive Demo
     let currentRole = "USER";
+    let currentPenukaranFilter = "ALL";
 
     let state = {
+      userPoin: 110,
       stok: { Organik: 24.0, Anorganik: 20.5, B3: 6.0, Residu: 8.0 },
+      jenisSampah: [
+        { id: '1', nama: 'Organik', poin: 10 },
+        { id: '2', nama: 'Anorganik', poin: 15 },
+        { id: '3', nama: 'B3', poin: 20 },
+        { id: '4', nama: 'Residu', poin: 5 }
+      ],
+      wilayah: ["RT 012 / RW 005", "Rumah", "Sekolah", "Lainnya"],
       tags: ["Prioritas", "Volume Besar", "Perlu Verifikasi Ulang", "Kerjasama Event"],
+      barang: [
+        {
+          id: '1',
+          namaBarang: 'Beras 5 KG',
+          hargaPoin: 100,
+          stok: 9,
+          deskripsi: 'Beras pulen ukuran 5 KG siap masak.',
+          gambarUrl: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: '2',
+          namaBarang: 'Sabun & Sunlight',
+          hargaPoin: 50,
+          stok: 15,
+          deskripsi: 'Paket kebersihan rumah tangga berisi sabun mandi dan sabun cuci piring.',
+          gambarUrl: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=400&q=80'
+        },
+        {
+          id: '3',
+          namaBarang: 'Uang Tunai Rp 50.000',
+          hargaPoin: 500,
+          stok: 5,
+          deskripsi: 'Penarikan saldo tunai langsung ke rekening atau e-wallet (GoPay/Dana/OVO).',
+          gambarUrl: 'https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=400&q=80'
+        }
+      ],
+      penukaran: [
+        {
+          id: 'p1',
+          namaWarga: 'Anjas Ardiansah',
+          barangId: '1',
+          namaBarang: 'Beras 5 KG',
+          gambarUrl: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80',
+          totalPoinDipakai: 100,
+          status: 'APPROVED',
+          tanggal: '28 Sep 2026, 13.35'
+        }
+      ],
       warga: [
-        { nama: "Anjas Ardiansah", email: "anjas142008@gmail.com", noHp: "081234567890", role: "USER", total: 4, poin: 145 },
+        { nama: "Anjas Ardiansah", email: "anjas142008@gmail.com", noHp: "081234567890", role: "USER", total: 4, poin: 110 },
         { nama: "Fahri Hasan", email: "fahrihasan891@gmail.com", noHp: "081298765432", role: "USER", total: 3, poin: 95 },
         { nama: "Belvan Kayla", email: "belvan.kayla09@gmail.com", noHp: "081345678901", role: "USER", total: 2, poin: 60 },
-        { nama: "Huga Ghaisan", email: "huga.ghaisan@gmail.com", noHp: "081567890123", role: "ADMIN", total: 0, poin: 0 },
+        { nama: "Admin TPU", email: "admin@tpu.com", noHp: "081567890123", role: "ADMIN", total: 0, poin: 0 },
         { nama: "Dimas Wangsa", email: "dimasharap649@gmail.com", noHp: "081789012345", role: "USER", total: 3, poin: 110 }
       ],
       setoran: [
         { id: 1, warga: "Anjas Ardiansah", email: "anjas142008@gmail.com", jenis: "Organik", jumlah: 5, satuan: "KG", wilayah: "RT 012 / RW 005", status: "APPROVED", tag: "Volume Besar", tanggal: "09 Sep 2026", alasan: "", poin: 50 },
-        { id: 2, warga: "Fahri Hasan", email: "fahrihasan891@gmail.com", jenis: "Anorganik", jumlah: 3.5, satuan: "KG", wilayah: "Rumah", status: "APPROVED", tag: "Prioritas", tanggal: "09 Sep 2026", alasan: "", poin: 52.5 },
+        { id: 2, warga: "Fahri Hasan", email: "fahrihasan891@gmail.com", jenis: "Anorganik", jumlah: 3.5, satuan: "KG", wilayah: "Rumah", status: "APPROVED", tag: "Prioritas", tanggal: "09 Sep 2026", alasan: "", poin: 52 },
         { id: 3, warga: "Anjas Ardiansah", email: "anjas142008@gmail.com", jenis: "Anorganik", jumlah: 4, satuan: "KG", wilayah: "Sekolah", status: "PENDING", tag: "Prioritas", tanggal: "14 Sep 2026", alasan: "", poin: 60 },
         { id: 4, warga: "Belvan Kayla", email: "belvan.kayla09@gmail.com", jenis: "B3", jumlah: 2, satuan: "KG", wilayah: "RT 012 / RW 005", status: "APPROVED", tag: "Perlu Verifikasi Ulang", tanggal: "08 Sep 2026", alasan: "", poin: 40 },
-        { id: 5, warga: "Dimas Wangsa", email: "dimasharap649@gmail.com", jenis: "Residu", jumlah: 3, satuan: "KG", wilayah: "Lainnya", status: "REJECTED", tag: "-", tanggal: "07 Sep 2026", alasan: "Sampah tercampur cairan kimia basah", poin: 0 },
+        { id: 5, warga: "Dimas Wangsa", email: "dimasharap649@gmail.com", jenis: "Residu", jumlah: 3, satuan: "KG", wilayah: "Lainnya", status: "REJECTED", tag: "-", tanggal: "07 Sep 2026", alasan: "Sampah tercampur cairan kimia", poin: 0 },
         { id: 6, warga: "Dimas Wangsa", email: "dimasharap649@gmail.com", jenis: "Organik", jumlah: 6, satuan: "KG", wilayah: "RT 012 / RW 005", status: "PENDING", tag: "Volume Besar", tanggal: "14 Sep 2026", alasan: "", poin: 60 }
       ]
     };
 
     function showView(viewName) {
-      const views = ['login', 'register', 'user-dashboard', 'user-setor', 'admin-dashboard', 'admin-setoran', 'admin-tags', 'admin-warga', 'profil'];
+      const views = [
+        'login', 'user-dashboard', 'user-setor', 'user-tukar-poin',
+        'admin-dashboard', 'admin-setoran', 'admin-jenis-sampah', 'admin-wilayah',
+        'admin-tags', 'admin-barang', 'admin-penukaran', 'admin-warga', 'profil'
+      ];
       views.forEach(v => {
         const el = document.getElementById('view-' + v);
         if (el) el.classList.add('hidden');
@@ -792,20 +817,44 @@
         renderUserTable();
       } else if (viewName === 'user-setor') {
         document.getElementById('tabUserSetor')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+      } else if (viewName === 'user-tukar-poin') {
+        document.getElementById('tabUserTukarPoin')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+        renderUserToko();
       } else if (viewName === 'admin-dashboard') {
         document.getElementById('tabAdminDash')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
         updateAdminStats();
       } else if (viewName === 'admin-setoran') {
         document.getElementById('tabAdminSetoran')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
         renderAdminTable();
+      } else if (viewName === 'admin-jenis-sampah') {
+        document.getElementById('tabAdminJenis')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+        renderJenisSampahTable();
+      } else if (viewName === 'admin-wilayah') {
+        document.getElementById('tabAdminWilayah')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+        renderWilayahTable();
       } else if (viewName === 'admin-tags') {
         document.getElementById('tabAdminTags')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
         renderTagList();
+      } else if (viewName === 'admin-barang') {
+        document.getElementById('tabAdminBarang')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+        renderBarangAdminTable();
+      } else if (viewName === 'admin-penukaran') {
+        document.getElementById('tabAdminPenukaran')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+        renderAdminPenukaranTable();
       } else if (viewName === 'admin-warga') {
         document.getElementById('tabAdminWarga')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
         renderWargaTable();
       } else if (viewName === 'profil') {
         document.getElementById('tabProfil')?.classList.add('bg-brand-50', 'text-brand-600', 'font-semibold');
+        document.getElementById('profilStatPoin').innerText = state.userPoin;
+      }
+    }
+
+    function toggleRole() {
+      if (currentRole === 'USER') {
+        switchRole('ADMIN');
+      } else {
+        switchRole('USER');
       }
     }
 
@@ -814,22 +863,19 @@
       const navUser = document.getElementById('navUser');
       const navAdmin = document.getElementById('navAdmin');
       const roleBadge = document.getElementById('roleBadge');
-      const btnUser = document.getElementById('btnRoleUser');
-      const btnAdmin = document.getElementById('btnRoleAdmin');
+      const btnSwitchRole = document.getElementById('btnSwitchRole');
 
       if (role === 'USER') {
         navUser.classList.remove('hidden');
         navAdmin.classList.add('hidden');
         roleBadge.innerText = 'Role: Warga';
-        btnUser.className = 'bg-white text-brand-600 font-semibold px-2.5 py-1 rounded shadow-sm hover:bg-brand-50 transition';
-        btnAdmin.className = 'bg-brand-500 text-white/90 font-semibold px-2.5 py-1 rounded hover:bg-brand-400 transition';
+        btnSwitchRole.innerText = 'Ganti ke Admin';
         showView('user-dashboard');
       } else {
         navUser.classList.add('hidden');
         navAdmin.classList.remove('hidden');
-        roleBadge.innerText = 'Role: Admin TPU';
-        btnAdmin.className = 'bg-white text-brand-600 font-semibold px-2.5 py-1 rounded shadow-sm hover:bg-brand-50 transition';
-        btnUser.className = 'bg-brand-500 text-white/90 font-semibold px-2.5 py-1 rounded hover:bg-brand-400 transition';
+        roleBadge.innerText = 'Role: Admin';
+        btnSwitchRole.innerText = 'Ganti ke Warga';
         showView('admin-dashboard');
       }
     }
@@ -838,24 +884,7 @@
       switchRole(role);
     }
 
-    function doLogin() {
-      const email = document.getElementById('loginEmail').value;
-      if (email.includes('admin')) {
-        switchRole('ADMIN');
-      } else {
-        switchRole('USER');
-      }
-    }
-
-    function doRegister() {
-      const nama = document.getElementById('regNama').value || 'Warga Baru';
-      const email = document.getElementById('regEmail').value || 'warga@gmail.com';
-      state.warga.push({ nama, email, noHp: '081234567899', role: 'USER', total: 0, poin: 0 });
-      alert('Akun warga ' + nama + ' berhasil didaftarkan!');
-      switchRole('USER');
-    }
-
-    // USER DASHBOARD LOGIC
+    // USER DASHBOARD
     function renderUserTable(filter = 'SEMUA') {
       const tbody = document.getElementById('userRiwayatTable');
       tbody.innerHTML = '';
@@ -863,26 +892,21 @@
       const userItems = state.setoran.filter(s => s.warga === "Anjas Ardiansah");
       const filtered = filter === 'SEMUA' ? userItems : userItems.filter(s => s.status === filter);
 
-      let totalPoin = 0;
       let approvedCount = 0;
       let pendingCount = 0;
 
       userItems.forEach(s => {
-        if (s.status === 'APPROVED') {
-          totalPoin += s.poin;
-          approvedCount++;
-        } else if (s.status === 'PENDING') {
-          pendingCount++;
-        }
+        if (s.status === 'APPROVED') approvedCount++;
+        else if (s.status === 'PENDING') pendingCount++;
       });
 
       document.getElementById('statUserTotal').innerText = userItems.length + ' Setoran';
       document.getElementById('statUserPending').innerText = pendingCount + ' Setoran';
       document.getElementById('statUserApproved').innerText = approvedCount + ' Setoran';
-      document.getElementById('statUserPoin').innerText = totalPoin + ' Poin';
+      document.getElementById('statUserPoin').innerText = state.userPoin + ' Poin';
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-ink/40 text-xs">Belum ada data setoran.</td></tr>`;
+        tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-ink/40 text-xs">Belum ada data setoran.</td></tr>';
         return;
       }
 
@@ -897,7 +921,7 @@
         tr.className = 'hover:bg-gray-50/80 transition';
         tr.innerHTML = `
           <td class="py-3 px-4 text-xs text-ink/60">${item.tanggal}</td>
-          <td class="py-3 px-4 font-semibold text-ink">${getBadgeJenis(item.jenis)}</td>
+          <td class="py-3 px-4 font-semibold text-ink">${item.jenis}</td>
           <td class="py-3 px-4 font-bold text-ink">${item.jumlah} ${item.satuan}</td>
           <td class="py-3 px-4 text-xs text-ink/70">${item.wilayah}</td>
           <td class="py-3 px-4">
@@ -918,14 +942,6 @@
       renderUserTable(status);
     }
 
-    function getBadgeJenis(jenis) {
-      if (jenis === 'Organik') return `<span class="text-organik font-bold"> Organik</span>`;
-      if (jenis === 'Anorganik') return `<span class="text-anorganik font-bold"> Anorganik</span>`;
-      if (jenis === 'B3') return `<span class="text-b3 font-bold">️ B3</span>`;
-      return `<span class="text-residu font-bold">️ Residu</span>`;
-    }
-
-    // SUBMIT SETORAN
     function submitSetoranUser() {
       const jenis = document.querySelector('input[name="jenisSampah"]:checked').value;
       const jumlah = parseFloat(document.getElementById('inputJumlah').value) || 1;
@@ -933,7 +949,7 @@
       const wilayah = document.getElementById('inputWilayah').value;
 
       let tarif = jenis === 'Organik' ? 10 : jenis === 'Anorganik' ? 15 : jenis === 'B3' ? 20 : 5;
-      let poin = jumlah * tarif;
+      let poin = Math.floor(jumlah * tarif);
 
       const newId = state.setoran.length + 1;
       state.setoran.unshift({
@@ -946,92 +962,180 @@
         wilayah: wilayah,
         status: "PENDING",
         tag: "Prioritas",
-        tanggal: "14 Sep 2026",
+        tanggal: "Hari ini",
         alasan: "",
         poin: poin
       });
 
-      alert(`Setoran ${jumlah} ${satuan} ${jenis} berhasil dikirim! Status sekarang: MENUNGGU VERIFIKASI.`);
+      alert("Setoran berhasil dikirim! Menunggu persetujuan admin TPU.");
       showView('user-dashboard');
     }
 
-    // ADMIN LOGIC
-    function updateAdminStats() {
-      const total = state.setoran.length;
-      const pending = state.setoran.filter(s => s.status === 'PENDING').length;
-      let totalStokKg = 0;
-      Object.values(state.stok).forEach(v => totalStokKg += v);
+    // USER TOKO TUKAR POIN
+    function renderUserToko() {
+      document.getElementById('userTokoPoin').innerText = state.userPoin + ' Poin';
+      document.getElementById('userRiwayatTukarCount').innerText = state.penukaran.length;
 
-      document.getElementById('adminStatTotal').innerText = total + ' Setoran';
-      document.getElementById('adminStatPending').innerText = pending + ' Menunggu';
-      document.getElementById('adminStatStokTotal').innerText = totalStokKg.toFixed(1) + ' KG';
+      const grid = document.getElementById('userKatalogGrid');
+      grid.innerHTML = '';
 
-      document.getElementById('stokOrganikText').innerText = state.stok.Organik.toFixed(1) + ' KG';
-      document.getElementById('stokAnorganikText').innerText = state.stok.Anorganik.toFixed(1) + ' KG';
-      document.getElementById('stokB3Text').innerText = state.stok.B3.toFixed(1) + ' KG';
-      document.getElementById('stokResiduText').innerText = state.stok.Residu.toFixed(1) + ' KG';
+      if (state.barang.length === 0) {
+        grid.innerHTML = '<div class="card p-10 col-span-3 text-center text-sm text-ink/50">Belum ada barang di katalog.</div>';
+        return;
+      }
+
+      state.barang.forEach(b => {
+        const cukup = state.userPoin >= b.hargaPoin;
+        const habis = b.stok <= 0;
+
+        const card = document.createElement('div');
+        card.className = 'card p-4 flex flex-col bg-white border border-line rounded-xl hover:shadow-sm transition';
+        card.innerHTML = `
+          <div class="w-full h-40 bg-gray-50 rounded-lg mb-3 overflow-hidden border border-line">
+            ${b.gambarUrl ? `<img src="${b.gambarUrl}" alt="${b.namaBarang}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-4xl font-display font-bold text-gray-300">${b.namaBarang.charAt(0)}</div>`}
+          </div>
+          <h3 class="font-bold text-ink mb-1">${b.namaBarang}</h3>
+          <p class="text-xs text-ink/60 mb-2 line-clamp-2 flex-1">${b.deskripsi || "Tidak ada deskripsi"}</p>
+          <div class="text-xs font-medium text-ink/40 mb-3">Stok tersedia: ${b.stok}</div>
+          <div class="flex items-center justify-between mt-auto pt-2 border-t border-line/60">
+            <span class="font-semibold text-brand-600">${b.hargaPoin} Poin</span>
+            ${habis ? `<button disabled class="text-xs bg-gray-200 text-gray-500 font-semibold px-3 py-1.5 rounded cursor-not-allowed">Habis</button>` :
+              cukup ? `<button onclick="ajukanTukarPoin('${b.id}')" class="text-xs bg-brand-500 text-white hover:bg-brand-600 font-semibold px-3 py-1.5 rounded transition">Tukar Poin</button>` :
+              `<button disabled class="text-xs bg-gray-200 text-gray-500 font-semibold px-3 py-1.5 rounded cursor-not-allowed">Poin Kurang</button>`}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      renderUserRiwayatTukar();
     }
 
+    function toggleUserRiwayatTukar() {
+      const container = document.getElementById('userRiwayatTukarContainer');
+      container.classList.toggle('hidden');
+    }
+
+    function renderUserRiwayatTukar() {
+      const tbody = document.getElementById('userRiwayatTukarTable');
+      tbody.innerHTML = '';
+
+      if (state.penukaran.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-xs text-ink/40">Kamu belum pernah mengajukan penukaran poin.</td></tr>';
+        return;
+      }
+
+      state.penukaran.forEach(p => {
+        const badgeColor = p.status === 'APPROVED' ? 'bg-green-50 text-green-700 border-green-200' :
+                           p.status === 'PENDING' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                           'bg-red-50 text-red-700 border-red-200';
+        const badgeLabel = p.status === 'APPROVED' ? 'Disetujui' :
+                           p.status === 'PENDING' ? 'Menunggu Persetujuan' : 'Ditolak';
+        const keterangan = p.status === 'APPROVED' ? 'Disetujui. Silakan ambil barang di bank sampah.' :
+                           p.status === 'PENDING' ? 'Menunggu persetujuan Admin (poin belum dipotong).' :
+                           'Pengajuan ditolak oleh admin.';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-ink/70 text-xs whitespace-nowrap">${p.tanggal}</td>
+          <td class="px-4 py-3 font-medium text-ink">${p.namaBarang}</td>
+          <td class="px-4 py-3 font-mono font-semibold text-brand-600 whitespace-nowrap">-${p.totalPoinDipakai} Pts</td>
+          <td class="px-4 py-3 whitespace-nowrap">
+            <span class="inline-block text-[11px] font-semibold border px-2 py-0.5 rounded-full ${badgeColor}">${badgeLabel}</span>
+          </td>
+          <td class="px-4 py-3 text-xs text-ink/60">${keterangan}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function ajukanTukarPoin(barangId) {
+      const b = state.barang.find(x => x.id === barangId);
+      if (!b) return;
+
+      if (state.userPoin < b.hargaPoin) {
+        alert("Poin Anda tidak mencukupi untuk menukar barang ini!");
+        return;
+      }
+      if (b.stok <= 0) {
+        alert("Stok barang ini sudah habis!");
+        return;
+      }
+
+      if (!confirm(`Ajukan penukaran ${b.namaBarang} seharga ${b.hargaPoin} poin?`)) return;
+
+      // Status PENDING, koin BELUM dipotong sampai disetujui admin
+      state.penukaran.unshift({
+        id: 'p' + (state.penukaran.length + 1),
+        namaWarga: 'Anjas Ardiansah',
+        barangId: b.id,
+        namaBarang: b.namaBarang,
+        gambarUrl: b.gambarUrl,
+        totalPoinDipakai: b.hargaPoin,
+        status: 'PENDING',
+        tanggal: 'Hari ini'
+      });
+
+      alert(`Permintaan penukaran ${b.namaBarang} berhasil dikirim! Menunggu persetujuan Admin TPU (poin Anda belum dipotong).`);
+      renderUserToko();
+      toggleUserRiwayatTukar();
+    }
+
+    // ADMIN STATS
+    function updateAdminStats() {
+      let pending = state.setoran.filter(s => s.status === 'PENDING').length;
+      document.getElementById('adminStatTotal').innerText = state.setoran.length + ' Setoran';
+      document.getElementById('adminStatPending').innerText = pending + ' Laporan';
+      document.getElementById('adminStatWarga').innerText = state.warga.length + ' Warga';
+
+      let totalStok = (state.stok.Organik + state.stok.Anorganik + state.stok.B3 + state.stok.Residu).toFixed(1);
+      document.getElementById('adminStatStok').innerText = totalStok + ' KG';
+
+      document.getElementById('stokOrganik').innerText = state.stok.Organik.toFixed(1) + ' KG';
+      document.getElementById('stokAnorganik').innerText = state.stok.Anorganik.toFixed(1) + ' KG';
+      document.getElementById('stokB3').innerText = state.stok.B3.toFixed(1) + ' KG';
+      document.getElementById('stokResidu').innerText = state.stok.Residu.toFixed(1) + ' KG';
+    }
+
+    // ADMIN SETORAN
     function renderAdminTable() {
       const tbody = document.getElementById('adminSetoranTable');
       tbody.innerHTML = '';
 
-      const query = (document.getElementById('adminSearchInput')?.value || '').toLowerCase();
-      const filterStatus = document.getElementById('adminFilterStatus')?.value || 'SEMUA';
-      const filterKategori = document.getElementById('adminFilterKategori')?.value || 'SEMUA';
-
-      const filtered = state.setoran.filter(s => {
-        const matchQuery = s.warga.toLowerCase().includes(query) || s.email.toLowerCase().includes(query) || s.tag.toLowerCase().includes(query);
-        const matchStatus = filterStatus === 'SEMUA' || s.status === filterStatus;
-        const matchKategori = filterKategori === 'SEMUA' || s.jenis === filterKategori;
-        return matchQuery && matchStatus && matchKategori;
-      });
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-ink/40 text-xs">Tidak ada setoran yang cocok dengan filter.</td></tr>`;
-        return;
-      }
-
-      filtered.forEach(item => {
+      state.setoran.forEach(item => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-gray-50/80 transition';
+
         const badgeColor = item.status === 'APPROVED' ? 'bg-green-50 text-green-700 border-green-200' :
                            item.status === 'PENDING' ? 'bg-amber-50 text-amber-700 border-amber-200' :
                            'bg-red-50 text-red-700 border-red-200';
+        const badgeLabel = item.status === 'APPROVED' ? 'Disetujui' :
+                           item.status === 'PENDING' ? 'Menunggu' : 'Ditolak';
+
+        let aksiBtn = '<span class="text-xs text-ink/40 font-medium">Selesai</span>';
+        if (item.status === 'PENDING') {
+          aksiBtn = `
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="approveSetoran(${item.id})" class="px-2.5 py-1 bg-brand-500 hover:bg-brand-600 text-white rounded text-xs font-semibold">
+                Setujui
+              </button>
+              <button onclick="rejectSetoran(${item.id})" class="px-2.5 py-1 bg-b3/10 text-b3 hover:bg-b3/20 rounded text-xs font-semibold">
+                Tolak
+              </button>
+            </div>
+          `;
+        }
 
         tr.innerHTML = `
-          <td class="py-3 px-4">
-            <div class="font-semibold text-ink">${item.warga}</div>
-            <div class="text-[11px] text-ink/50">${item.email}</div>
-          </td>
-          <td class="py-3 px-4">
-            <div class="font-medium">${getBadgeJenis(item.jenis)}</div>
-            <div class="text-xs font-bold text-ink">${item.jumlah} ${item.satuan}</div>
-          </td>
+          <td class="py-3 px-4 font-semibold text-ink">${item.warga}</td>
+          <td class="py-3 px-4 text-ink">${item.jenis}</td>
+          <td class="py-3 px-4 font-bold text-ink">${item.jumlah} ${item.satuan}</td>
           <td class="py-3 px-4 text-xs text-ink/70">${item.wilayah}</td>
           <td class="py-3 px-4">
-            <span class="inline-block text-[11px] font-semibold bg-gray-100 text-ink/70 px-2 py-0.5 rounded border border-gray-200">
-              ️ ${item.tag}
-            </span>
-          </td>
-          <td class="py-3 px-4">
             <span class="inline-block text-[11px] font-semibold border px-2 py-0.5 rounded-full ${badgeColor}">
-              ${item.status}
+              ${badgeLabel}
             </span>
-            ${item.alasan ? `<div class="text-[10px] text-red-600 mt-0.5">Alasan: ${item.alasan}</div>` : ''}
           </td>
-          <td class="py-3 px-4 text-center">
-            ${item.status === 'PENDING' ? `
-              <div class="flex items-center justify-center gap-1.5">
-                <button onclick="approveSetoran(${item.id})" class="px-2.5 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-xs font-semibold shadow-sm transition">
-                   Setujui
-                </button>
-                <button onclick="rejectSetoran(${item.id})" class="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-semibold shadow-sm transition">
-                   Tolak
-                </button>
-              </div>
-            ` : `<span class="text-xs text-ink/40 italic">Telah Diproses</span>`}
-          </td>
+          <td class="py-3 px-4 text-right">${aksiBtn}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -1040,11 +1144,20 @@
     function approveSetoran(id) {
       const item = state.setoran.find(s => s.id === id);
       if (!item) return;
+
       item.status = 'APPROVED';
-      if (state.stok[item.jenis] !== undefined) {
-        state.stok[item.jenis] += item.jumlah;
+      if (item.satuan === 'KG') {
+        state.stok[item.jenis] = (state.stok[item.jenis] || 0) + item.jumlah;
       }
-      alert(`Setoran ${item.warga} (${item.jumlah} ${item.satuan} ${item.jenis}) DISATUKAN ke stok daur ulang!`);
+
+      // Add points to user
+      if (item.warga === "Anjas Ardiansah") {
+        state.userPoin += item.poin;
+      }
+      const w = state.warga.find(x => x.nama === item.warga);
+      if (w) w.poin += item.poin;
+
+      alert(`Setoran ${item.warga} berhasil disetujui! +${item.poin} poin ditambahkan ke akun warga.`);
       renderAdminTable();
       updateAdminStats();
     }
@@ -1052,57 +1165,342 @@
     function rejectSetoran(id) {
       const item = state.setoran.find(s => s.id === id);
       if (!item) return;
-      const alasan = prompt('Masukkan alasan penolakan setoran:', 'Sampah belum dipilah dengan benar atau kotor');
-      if (alasan) {
-        item.status = 'REJECTED';
-        item.alasan = alasan;
-        alert(`Setoran ditolak dengan alasan: "${alasan}"`);
-        renderAdminTable();
-        updateAdminStats();
+      const alasan = prompt("Masukkan alasan penolakan setoran:", "Sampah tercampur atau basah");
+      if (alasan === null) return;
+
+      item.status = 'REJECTED';
+      item.alasan = alasan || "Ditolak oleh admin";
+      renderAdminTable();
+      updateAdminStats();
+    }
+
+    // ADMIN KATALOG BARANG
+    let tempBarangImage = "";
+
+    function handleBarangImageUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        tempBarangImage = evt.target.result;
+        document.getElementById('previewBarangImg').src = tempBarangImage;
+        document.getElementById('previewBarangContainer').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeBarangPhoto() {
+      tempBarangImage = "";
+      document.getElementById('inputFileBarang').value = "";
+      document.getElementById('previewBarangContainer').classList.add('hidden');
+    }
+
+    function renderBarangAdminTable() {
+      const tbody = document.getElementById('tableBarangAdmin');
+      tbody.innerHTML = '';
+
+      if (state.barang.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-xs text-ink/40">Belum ada barang di katalog.</td></tr>';
+        return;
       }
-    }
 
-    function exportCSV() {
-      let csv = 'ID,Warga,Email,Kategori,Jumlah,Satuan,Wilayah,Status,Tag,Tanggal\n';
-      state.setoran.forEach(s => {
-        csv += `${s.id},"${s.warga}","${s.email}","${s.jenis}",${s.jumlah},"${s.satuan}","${s.wilayah}","${s.status}","${s.tag}","${s.tanggal}"\n`;
+      state.barang.forEach(b => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50/50 transition';
+        tr.innerHTML = `
+          <td class="px-5 py-3">
+            ${b.gambarUrl ? `<img src="${b.gambarUrl}" alt="${b.namaBarang}" class="w-12 h-12 object-cover rounded-lg border border-line bg-gray-50">` : `<div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center font-bold text-xs text-ink/40">No Pic</div>`}
+          </td>
+          <td class="px-5 py-3.5 font-medium text-ink">${b.namaBarang}</td>
+          <td class="px-5 py-3.5 text-ink/60 text-xs">${b.deskripsi || "-"}</td>
+          <td class="px-5 py-3.5 font-mono font-semibold text-brand-600 whitespace-nowrap">${b.hargaPoin} Pts</td>
+          <td class="px-5 py-3.5 font-mono text-ink/70">${b.stok}</td>
+          <td class="px-5 py-3.5 text-right whitespace-nowrap">
+            <div class="flex items-center justify-end gap-3">
+              <button onclick="startEditBarang('${b.id}')" class="text-sm text-brand-600 font-medium hover:underline">Edit</button>
+              <button onclick="deleteBarang('${b.id}')" class="text-sm text-b3 font-medium hover:underline">Hapus</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
       });
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.setAttribute('href', url);
-      a.setAttribute('download', 'rekap-setoran-sampah.csv');
-      a.click();
     }
 
-    // TAGS MANAGEMENT
+    function startEditBarang(id) {
+      const b = state.barang.find(x => x.id === id);
+      if (!b) return;
+
+      document.getElementById('editBarangId').value = b.id;
+      document.getElementById('inputNamaBarang').value = b.namaBarang;
+      document.getElementById('inputHargaPoin').value = b.hargaPoin;
+      document.getElementById('inputStokBarang').value = b.stok;
+      document.getElementById('inputDeskripsiBarang').value = b.deskripsi || '';
+
+      document.getElementById('formBarangTitle').innerText = 'Edit Data Barang: ' + b.namaBarang;
+      document.getElementById('btnSubmitBarang').innerText = 'Simpan Perubahan';
+      document.getElementById('btnCancelEditBarang').classList.remove('hidden');
+
+      if (b.gambarUrl) {
+        tempBarangImage = b.gambarUrl;
+        document.getElementById('previewBarangImg').src = b.gambarUrl;
+        document.getElementById('previewBarangContainer').classList.remove('hidden');
+      } else {
+        removeBarangPhoto();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function cancelEditBarang() {
+      document.getElementById('editBarangId').value = '';
+      document.getElementById('inputNamaBarang').value = '';
+      document.getElementById('inputHargaPoin').value = '100';
+      document.getElementById('inputStokBarang').value = '10';
+      document.getElementById('inputDeskripsiBarang').value = '';
+      removeBarangPhoto();
+
+      document.getElementById('formBarangTitle').innerText = 'Tambah Barang Baru';
+      document.getElementById('btnSubmitBarang').innerText = 'Tambah Barang';
+      document.getElementById('btnCancelEditBarang').classList.add('hidden');
+    }
+
+    function saveBarang() {
+      const id = document.getElementById('editBarangId').value;
+      const nama = document.getElementById('inputNamaBarang').value.trim();
+      const harga = parseInt(document.getElementById('inputHargaPoin').value) || 100;
+      const stok = parseInt(document.getElementById('inputStokBarang').value) || 0;
+      const deskripsi = document.getElementById('inputDeskripsiBarang').value.trim();
+
+      if (!nama) {
+        alert("Nama barang wajib diisi!");
+        return;
+      }
+
+      if (id) {
+        // Edit existing
+        const b = state.barang.find(x => x.id === id);
+        if (b) {
+          b.namaBarang = nama;
+          b.hargaPoin = harga;
+          b.stok = stok;
+          b.deskripsi = deskripsi;
+          b.gambarUrl = tempBarangImage || null;
+        }
+        alert("Data barang berhasil diperbarui!");
+      } else {
+        // Add new
+        state.barang.push({
+          id: 'b' + (state.barang.length + 1),
+          namaBarang: nama,
+          hargaPoin: harga,
+          stok: stok,
+          deskripsi: deskripsi,
+          gambarUrl: tempBarangImage || null
+        });
+        alert("Barang baru berhasil ditambahkan!");
+      }
+
+      cancelEditBarang();
+      renderBarangAdminTable();
+    }
+
+    function deleteBarang(id) {
+      if (!confirm("Yakin ingin menghapus barang ini dari katalog?")) return;
+      state.barang = state.barang.filter(b => b.id !== id);
+      renderBarangAdminTable();
+    }
+
+    // ADMIN RIWAYAT PENUKARAN & APPROVAL
+    function filterAdminPenukaran(filter) {
+      currentPenukaranFilter = filter;
+      ['All', 'Pending', 'Approved', 'Rejected'].forEach(f => {
+        const btn = document.getElementById('filterPenukaran' + f);
+        if (f.toUpperCase() === filter) {
+          btn.className = 'px-3 py-1.5 rounded-lg bg-white text-ink shadow-sm';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-ink/60 hover:text-ink';
+        }
+      });
+      renderAdminPenukaranTable();
+    }
+
+    function renderAdminPenukaranTable() {
+      const tbody = document.getElementById('tablePenukaranAdmin');
+      tbody.innerHTML = '';
+
+      const filtered = currentPenukaranFilter === 'ALL'
+        ? state.penukaran
+        : state.penukaran.filter(p => p.status === currentPenukaranFilter);
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-xs text-ink/40">Belum ada data penukaran poin.</td></tr>';
+        return;
+      }
+
+      filtered.forEach(p => {
+        const badgeColor = p.status === 'APPROVED' ? 'bg-green-50 text-green-700 border-green-200' :
+                           p.status === 'PENDING' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                           'bg-red-50 text-red-700 border-red-200';
+        const badgeLabel = p.status === 'APPROVED' ? 'Disetujui' :
+                           p.status === 'PENDING' ? 'Menunggu Persetujuan' : 'Ditolak';
+
+        let aksiBtn = '<span class="text-xs text-ink/40 font-medium">Selesai</span>';
+        if (p.status === 'PENDING') {
+          aksiBtn = `
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="approvePenukaran('${p.id}')" class="px-2.5 py-1 bg-brand-500 hover:bg-brand-600 text-white rounded text-xs font-semibold">
+                Setujui
+              </button>
+              <button onclick="rejectPenukaran('${p.id}')" class="px-2.5 py-1 bg-b3/10 text-b3 hover:bg-b3/20 rounded text-xs font-semibold">
+                Tolak
+              </button>
+            </div>
+          `;
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50/50 transition';
+        tr.innerHTML = `
+          <td class="px-5 py-3.5 text-ink/70 text-xs whitespace-nowrap">${p.tanggal}</td>
+          <td class="px-5 py-3.5 font-medium text-ink">${p.namaBarang}</td>
+          <td class="px-5 py-3.5 text-ink font-medium">${p.namaWarga}</td>
+          <td class="px-5 py-3.5 font-mono text-brand-600 font-semibold whitespace-nowrap">-${p.totalPoinDipakai} Pts</td>
+          <td class="px-5 py-3.5 whitespace-nowrap">
+            <span class="inline-block text-[11px] font-semibold border px-2 py-0.5 rounded-full ${badgeColor}">${badgeLabel}</span>
+          </td>
+          <td class="px-5 py-3.5 text-right whitespace-nowrap">${aksiBtn}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function approvePenukaran(id) {
+      const p = state.penukaran.find(x => x.id === id);
+      if (!p) return;
+
+      const b = state.barang.find(x => x.id === p.barangId);
+      if (b && b.stok <= 0) {
+        alert("Stok barang ini sudah habis!");
+        return;
+      }
+
+      if (state.userPoin < p.totalPoinDipakai) {
+        alert("Poin warga tidak mencukupi untuk disetujui!");
+        return;
+      }
+
+      if (!confirm(`Setujui penukaran ${p.namaBarang} oleh ${p.namaWarga}?`)) return;
+
+      // Deduct points and stock now
+      p.status = 'APPROVED';
+      if (b && b.stok > 0) b.stok -= 1;
+      if (p.namaWarga === "Anjas Ardiansah") {
+        state.userPoin = Math.max(0, state.userPoin - p.totalPoinDipakai);
+      }
+      const w = state.warga.find(x => x.nama === p.namaWarga);
+      if (w) w.poin = Math.max(0, w.poin - p.totalPoinDipakai);
+
+      alert(`Penukaran disetujui! Poin warga telah terpotong -${p.totalPoinDipakai} Pts dan stok barang berkurang.`);
+      renderAdminPenukaranTable();
+    }
+
+    function rejectPenukaran(id) {
+      const p = state.penukaran.find(x => x.id === id);
+      if (!p) return;
+
+      if (!confirm(`Tolak penukaran ${p.namaBarang}?`)) return;
+
+      p.status = 'REJECTED';
+      alert("Permintaan penukaran telah ditolak. Poin warga tetap utuh.");
+      renderAdminPenukaranTable();
+    }
+
+    // MASTER DATA JENIS SAMPAH
+    function renderJenisSampahTable() {
+      const tbody = document.getElementById('tableJenisSampah');
+      tbody.innerHTML = '';
+      state.jenisSampah.forEach((j, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-5 py-3 font-semibold text-ink">${j.nama}</td>
+          <td class="px-5 py-3 font-mono text-brand-600 font-semibold">${j.poin} Poin / KG</td>
+          <td class="px-5 py-3 text-right">
+            <button onclick="deleteJenisSampah(${idx})" class="text-xs text-b3 font-medium hover:underline">Hapus</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function addJenisSampah() {
+      const val = document.getElementById('inputJenisBaru').value.trim();
+      if (!val) return;
+      state.jenisSampah.push({ id: String(state.jenisSampah.length + 1), nama: val, poin: 10 });
+      document.getElementById('inputJenisBaru').value = '';
+      renderJenisSampahTable();
+    }
+
+    function deleteJenisSampah(idx) {
+      state.jenisSampah.splice(idx, 1);
+      renderJenisSampahTable();
+    }
+
+    // MASTER DATA WILAYAH
+    function renderWilayahTable() {
+      const tbody = document.getElementById('tableWilayah');
+      tbody.innerHTML = '';
+      state.wilayah.forEach((w, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-5 py-3 font-medium text-ink">${w}</td>
+          <td class="px-5 py-3 text-right">
+            <button onclick="deleteWilayah(${idx})" class="text-xs text-b3 font-medium hover:underline">Hapus</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function addWilayah() {
+      const val = document.getElementById('inputWilayahBaru').value.trim();
+      if (!val) return;
+      state.wilayah.push(val);
+      document.getElementById('inputWilayahBaru').value = '';
+      renderWilayahTable();
+    }
+
+    function deleteWilayah(idx) {
+      state.wilayah.splice(idx, 1);
+      renderWilayahTable();
+    }
+
+    // MASTER DATA TAGS
     function renderTagList() {
-      const container = document.getElementById('tagListContainer');
-      container.innerHTML = '';
-      state.tags.forEach(t => {
-        const span = document.createElement('span');
-        span.className = 'inline-flex items-center gap-1.5 bg-brand-50 text-brand-600 border border-brand-200 px-3 py-1 rounded-full text-xs font-semibold';
-        span.innerHTML = `️ ${t} <button onclick="deleteTag('${t}')" class="text-ink/40 hover:text-red-600 font-bold ml-1">×</button>`;
-        container.appendChild(span);
+      const c = document.getElementById('tagContainer');
+      c.innerHTML = '';
+      state.tags.forEach((t, idx) => {
+        const el = document.createElement('span');
+        el.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-brand-50 text-brand-600 rounded-full text-xs font-semibold border border-brand-100';
+        el.innerHTML = `${t} <button onclick="deleteTag(${idx})" class="hover:text-red-600 font-bold ml-1">X</button>`;
+        c.appendChild(el);
       });
     }
 
     function addTag() {
-      const input = document.getElementById('newTagName');
-      const val = input.value.trim();
-      if (val && !state.tags.includes(val)) {
-        state.tags.push(val);
-        input.value = '';
-        renderTagList();
-      }
-    }
-
-    function deleteTag(name) {
-      state.tags = state.tags.filter(t => t !== name);
+      const val = document.getElementById('inputTagBaru').value.trim();
+      if (!val) return;
+      state.tags.push(val);
+      document.getElementById('inputTagBaru').value = '';
       renderTagList();
     }
 
-    // WARGA TABLE
+    function deleteTag(idx) {
+      state.tags.splice(idx, 1);
+      renderTagList();
+    }
+
+    // ADMIN WARGA
     function renderWargaTable() {
       const tbody = document.getElementById('adminWargaTable');
       tbody.innerHTML = '';
@@ -1111,25 +1509,17 @@
         tr.className = 'hover:bg-gray-50/80 transition';
         tr.innerHTML = `
           <td class="py-3 px-4 font-semibold text-ink">${w.nama}</td>
-          <td class="py-3 px-4">
-            <div class="text-xs text-ink/70">${w.email}</div>
-            <div class="text-[11px] text-ink/40">${w.noHp}</div>
-          </td>
-          <td class="py-3 px-4">
-            <span class="text-[11px] font-semibold px-2 py-0.5 rounded ${w.role === 'ADMIN' ? 'bg-purple-100 text-purple-700' : 'bg-green-100 text-green-700'}">
-              ${w.role}
-            </span>
-          </td>
-          <td class="py-3 px-4 text-center font-bold text-ink">${w.total} Setoran</td>
+          <td class="py-3 px-4 text-ink/70 text-xs">${w.email}</td>
+          <td class="py-3 px-4 text-ink/70 font-mono text-xs">${w.noHp}</td>
+          <td class="py-3 px-4 font-bold text-ink">${w.total} Setoran</td>
           <td class="py-3 px-4 text-right font-bold text-brand-600">${w.poin} Poin</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    // Init
-    showView('user-dashboard');
+    // Initial render
+    renderUserTable();
   </script>
 </body>
 </html>
-
