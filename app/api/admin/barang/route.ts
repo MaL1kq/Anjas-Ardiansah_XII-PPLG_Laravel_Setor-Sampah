@@ -8,7 +8,8 @@ const schema = z.object({
   namaBarang: z.string().min(1),
   hargaPoin: z.number().min(1),
   stok: z.number().min(0),
-  deskripsi: z.string().optional(),
+  deskripsi: z.string().optional().nullable(),
+  gambarUrl: z.string().optional().nullable(),
 });
 
 export async function GET() {

@@ -156,6 +156,7 @@ model Barang {
   hargaPoin   Int
   stok        Int    @default(0)
   deskripsi   String?
+  gambarUrl   String?
   
   penukaran   PenukaranPoin[]
 

@@ -29,24 +29,7 @@ export default function TopNav({
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
   return (
-    <>
-      <header className="bg-brand-600 text-white text-xs py-2 px-4 shadow-sm flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span className="bg-white/20 px-2 py-0.5 rounded font-semibold text-[11px] uppercase tracking-wider">GitHub Pages Preview</span>
-          <span>Website Pengelolaan Sampah — Oleh Anjas Ardiansah</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-white/80">Lihat Tampilan Sebagai:</span>
-          <Link href="/dashboard" className="bg-white text-brand-600 font-semibold px-2.5 py-1 rounded shadow-sm hover:bg-brand-50 transition">
-             Warga (User)
-          </Link>
-          <Link href="/admin/dashboard" className="bg-brand-500 text-white/90 font-semibold px-2.5 py-1 rounded hover:bg-brand-400 transition">
-             Admin TPU
-          </Link>
-        </div>
-      </header>
-
-      <nav className="bg-white border-b border-line sticky top-0 z-40 shadow-sm">
+    <nav className="bg-white border-b border-line sticky top-0 z-40 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href={role === "ADMIN" ? "/admin/dashboard" : "/dashboard"} className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-brand-500 text-white flex items-center justify-center font-display font-bold text-lg shadow-sm">
@@ -101,6 +84,5 @@ export default function TopNav({
           </div>
         </div>
       </nav>
-    </>
   );
 }
