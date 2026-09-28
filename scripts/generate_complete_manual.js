@@ -31,7 +31,7 @@ const ssAdminWilayah = toBase64('scripts/manual_screenshots/ss_15_admin_wilayah.
 const ssAdminTags = toBase64('scripts/manual_screenshots/ss_16_admin_tags.png');
 const ssAdminWarga = toBase64('scripts/manual_screenshots/ss_17_admin_warga.png');
 
-console.log('Generating complete HTML content...');
+console.log('Generating complete human-designed User Manual V3 (Full Layout & Human Tone)...');
 
 function pageHeader(bab, title, badge = 'MODUL OPERASIONAL') {
   return `
@@ -53,14 +53,20 @@ function pageHeader(bab, title, badge = 'MODUL OPERASIONAL') {
 function pageFooter(pageNum, total = 19) {
   return `
     <div class="page-footer">
-      <div class="footer-left">Buku Panduan Pengguna (User Manual) - Sistem Pengelolaan Setor Sampah</div>
-      <div class="footer-center">Pengembang: Anjas Ardiansah (Kelas XII PPLG)</div>
+      <div class="footer-left">Buku Panduan Pengguna & Dokumentasi Teknis - Sistem Setor Sampah</div>
+      <div class="footer-center">Karya Mandiri: Anjas Ardiansah (Kelas XII PPLG)</div>
       <div class="footer-right">Halaman ${pageNum} dari ${total}</div>
     </div>
   `;
 }
 
-function browserMockup(imageSrc, url = "https://setorsampah.id/app", caption = "") {
+function browserMockup(imageSrc, url = "https://setorsampah.id/app", caption = "", badges = []) {
+  const badgeHtml = badges.length > 0 ? `
+    <div class="mockup-badges">
+      ${badges.map(b => `<div class="badge-item"><span class="badge-dot"></span><span>${b}</span></div>`).join('')}
+    </div>
+  ` : '';
+
   return `
     <div class="browser-mockup">
       <div class="browser-bar">
@@ -72,9 +78,10 @@ function browserMockup(imageSrc, url = "https://setorsampah.id/app", caption = "
         <div class="browser-url">${url}</div>
       </div>
       <div class="browser-viewport">
-        <img src="${imageSrc}" class="mockup-img" alt="Screenshot Antarmuka" />
+        <img src="${imageSrc}" class="mockup-img" alt="Tangkapan Layar Antarmuka" />
       </div>
       ${caption ? `<div class="mockup-caption">${caption}</div>` : ''}
+      ${badgeHtml}
     </div>
   `;
 }
@@ -87,7 +94,7 @@ const html = `
   <title>Buku Panduan Pengguna (User Manual) - Sistem Setor Sampah</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     @page {
       size: 297mm 210mm;
@@ -97,14 +104,14 @@ const html = `
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
     }
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: #E5E7EB;
+      background: #D1D5DB;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #16211B;
-      font-size: 11px;
-      line-height: 1.45;
+      color: #111827;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .page {
@@ -122,7 +129,7 @@ const html = `
     /* TYPOGRAPHY */
     h1, h2, h3, h4, .font-display {
       font-family: 'Sora', 'Inter', sans-serif;
-      color: #16211B;
+      color: #111827;
       margin: 0;
     }
     p {
@@ -132,116 +139,133 @@ const html = `
 
     /* HEADER & FOOTER */
     .page-header {
-      height: 15mm;
-      padding: 0 16mm;
+      height: 18mm;
+      padding: 0 18mm;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #E3E7DE;
+      border-bottom: 2px solid #E5E7EB;
       background: #FAFCFA;
       flex-shrink: 0;
     }
     .header-badge {
       display: block;
-      font-size: 8px;
-      font-weight: 700;
-      color: #2E6B4E;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #2D6A4F;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.8px;
       margin-bottom: 2px;
     }
     .header-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #16211B;
-      letter-spacing: -0.2px;
+      font-size: 16.5px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.3px;
     }
     .header-app {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
+      gap: 10px;
+      padding: 6px 14px;
       background: #EAF3EC;
       border: 1px solid #CFE6D5;
-      border-radius: 6px;
+      border-radius: 8px;
     }
     .app-mini-logo {
-      width: 14px;
-      height: 14px;
+      width: 20px;
+      height: 20px;
       object-fit: contain;
     }
     .app-name {
-      font-size: 9px;
-      font-weight: 700;
-      color: #245439;
+      font-size: 11px;
+      font-weight: 800;
+      color: #1B4332;
     }
 
     .page-footer {
-      height: 11mm;
-      padding: 0 16mm;
+      height: 12mm;
+      padding: 0 18mm;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid #E3E7DE;
+      border-top: 1.5px solid #E5E7EB;
       background: #FAFCFA;
-      font-size: 8.5px;
+      font-size: 10.5px;
       color: #6B7280;
       flex-shrink: 0;
     }
-    .footer-left { font-weight: 500; }
-    .footer-center { color: #2E6B4E; font-weight: 600; }
+    .footer-left { font-weight: 600; color: #374151; }
+    .footer-center { color: #2D6A4F; font-weight: 700; }
     .footer-right {
-      font-weight: 700;
-      color: #16211B;
+      font-weight: 800;
+      color: #111827;
       background: #EAF3EC;
-      padding: 2px 8px;
-      border-radius: 4px;
+      padding: 3px 12px;
+      border-radius: 6px;
       border: 1px solid #CFE6D5;
     }
 
-    /* PAGE CONTENT CONTAINER */
+    /* FULL PAGE BODY CONTAINER */
     .page-body {
       flex: 1;
-      padding: 8mm 16mm;
+      height: 180mm;
+      max-height: 180mm;
+      padding: 8mm 18mm;
       display: flex;
-      gap: 16mm;
+      gap: 14mm;
       overflow: hidden;
       background: #FFFFFF;
+      align-items: stretch;
     }
     .page-body.full-width {
-      display: block;
-    }
-    .col-left {
-      flex: 0 0 45%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      gap: 8px;
+      justify-content: space-between;
+    }
+
+    .col-left {
+      flex: 0 0 44%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
       overflow: hidden;
     }
     .col-right {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
+      height: 100%;
       overflow: hidden;
     }
 
-    /* STEP ITEMS & CALLOUTS */
-    .step-item {
+    /* STEP CARDS - TALL, CONFIDENT, FULL */
+    .step-list {
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      margin: 6px 0;
+      justify-content: space-between;
+    }
+    .step-card {
+      display: flex;
+      gap: 12px;
       align-items: flex-start;
-      margin-bottom: 6px;
+      background: #F9FAF8;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 8px 12px;
     }
     .step-num {
-      width: 20px;
-      height: 20px;
-      background: #2E6B4E;
+      width: 26px;
+      height: 26px;
+      background: #2D6A4F;
       color: #FFFFFF;
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -250,333 +274,441 @@ const html = `
       margin-top: 1px;
     }
     .step-num.gold {
-      background: #D9A02A;
-      color: #16211B;
+      background: #E5A93C;
+      color: #111827;
+    }
+    .step-num.dark {
+      background: #111827;
+      color: #FFFFFF;
     }
     .step-text {
       flex: 1;
     }
     .step-title {
-      font-weight: 700;
-      color: #16211B;
-      font-size: 11px;
+      font-weight: 800;
+      color: #111827;
+      font-size: 12.5px;
       margin-bottom: 2px;
     }
     .step-desc {
-      font-size: 9.5px;
+      font-size: 11px;
       color: #4B5563;
       line-height: 1.4;
     }
 
-    .callout {
-      background: #F7F8F4;
-      border-left: 3px solid #2E6B4E;
-      border-radius: 0 6px 6px 0;
-      padding: 8px 10px;
+    /* EXTRA DETAIL ROW / MINI BOX */
+    .detail-box {
+      background: #F3F4F6;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 10.5px;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin: 4px 0;
     }
-    .callout.warning {
-      background: #FEF7EA;
-      border-left-color: #D9A02A;
+
+    /* HIGHLIGHT BANNERS / CALLOUTS */
+    .bottom-banner {
+      border-radius: 8px;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
     }
-    .callout.danger {
-      background: #FDF2F2;
-      border-left-color: #B8433A;
+    .bottom-banner.gold {
+      background: #FEF3C7;
+      border-left: 5px solid #E5A93C;
     }
-    .callout-title {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: #245439;
-      margin-bottom: 2px;
+    .bottom-banner.green {
+      background: #EAF3EC;
+      border-left: 5px solid #2D6A4F;
+    }
+    .bottom-banner.dark {
+      background: #1F2937;
+      border-left: 5px solid #10B981;
+      color: #FFFFFF;
+    }
+    .bottom-banner.dark .banner-title { color: #34D399; }
+    .bottom-banner.dark .banner-text { color: #E5E7EB; }
+    .banner-title {
+      font-size: 11.5px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.4px;
     }
-    .callout.warning .callout-title { color: #8C5E09; }
-    .callout.danger .callout-title { color: #9B1C1C; }
-    .callout-desc {
-      font-size: 9px;
+    .bottom-banner.gold .banner-title { color: #92400E; }
+    .bottom-banner.green .banner-title { color: #1B4332; }
+    .banner-text {
+      font-size: 10.5px;
       color: #374151;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
-    /* BROWSER MOCKUP */
+    /* BROWSER MOCKUP - EXPANDED & CRISP */
     .browser-mockup {
       width: 100%;
+      height: 100%;
       background: #FFFFFF;
-      border: 1px solid #D1D5DB;
-      border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      border: 1.5px solid #D1D5DB;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
     .browser-bar {
-      height: 24px;
+      height: 28px;
       background: #F3F4F6;
-      border-bottom: 1px solid #E5E7EB;
-      padding: 0 10px;
+      border-bottom: 1.5px solid #E5E7EB;
+      padding: 0 12px;
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-shrink: 0;
     }
     .browser-dots {
       display: flex;
-      gap: 5px;
+      gap: 6px;
     }
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
     }
-    .dot-red { background: #FF5F56; }
-    .dot-yellow { background: #FFBD2E; }
-    .dot-green { background: #27C93F; }
+    .dot-red { background: #EF4444; }
+    .dot-yellow { background: #F59E0B; }
+    .dot-green { background: #10B981; }
     .browser-url {
-      font-size: 8px;
-      color: #6B7280;
+      font-size: 10px;
+      color: #4B5563;
       background: #FFFFFF;
-      padding: 2px 12px;
-      border-radius: 4px;
+      padding: 3px 14px;
+      border-radius: 5px;
       border: 1px solid #E5E7EB;
-      width: 70%;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+      width: 75%;
       font-family: monospace;
+      font-weight: 600;
     }
     .browser-viewport {
+      flex: 1;
       width: 100%;
-      overflow: hidden;
-      background: #F9FAFB;
+      background: #ECEEF0;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      padding: 4px;
     }
     .mockup-img {
       width: 100%;
-      height: auto;
-      max-height: 130mm;
+      height: 100%;
+      max-height: 136mm;
       object-fit: contain;
       display: block;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
     .mockup-caption {
-      font-size: 8.5px;
-      color: #6B7280;
-      padding: 5px 10px;
-      background: #F9FAFB;
+      font-size: 10px;
+      font-weight: 600;
+      color: #4B5563;
+      padding: 5px 14px;
+      background: #F3F4F6;
       border-top: 1px solid #E5E7EB;
       text-align: center;
-      font-style: italic;
+      flex-shrink: 0;
+    }
+    .mockup-badges {
+      display: flex;
+      gap: 8px;
+      padding: 6px 12px;
+      background: #FAFAFA;
+      border-top: 1px solid #E5E7EB;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #1F2937;
+      background: #FFFFFF;
+      border: 1px solid #D1D5DB;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2D6A4F;
     }
 
-    /* BADGES & PILLS */
+    /* BADGES & DATA TABLES */
     .badge {
       display: inline-block;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 8.5px;
-      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
     }
-    .badge-green { background: #EAF3EC; color: #245439; border: 1px solid #CFE6D5; }
-    .badge-yellow { background: #FEF7EA; color: #8C5E09; border: 1px solid #F8DEAE; }
-    .badge-red { background: #FDF2F2; color: #9B1C1C; border: 1px solid #FBD5D5; }
-    .badge-gray { background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB; }
+    .badge-green { background: #EAF3EC; color: #1B4332; border: 1px solid #CFE6D5; }
+    .badge-yellow { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .badge-red { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+    .badge-gray { background: #F3F4F6; color: #1F2937; border: 1px solid #E5E7EB; }
 
-    /* TABLES */
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 9px;
-      margin: 4px 0;
+      font-size: 11px;
+      margin: 6px 0;
     }
     .data-table th {
-      background: #FAFCFA;
-      color: #16211B;
-      font-weight: 700;
+      background: #F3F4F6;
+      color: #111827;
+      font-weight: 800;
       text-align: left;
-      padding: 5px 8px;
-      border-bottom: 1px solid #E3E7DE;
-      border-top: 1px solid #E3E7DE;
+      padding: 7px 10px;
+      border-bottom: 2px solid #D1D5DB;
+      border-top: 1px solid #E5E7EB;
     }
     .data-table td {
-      padding: 4.5px 8px;
-      border-bottom: 1px solid #F0F2ED;
+      padding: 6px 10px;
+      border-bottom: 1px solid #E5E7EB;
       color: #374151;
     }
     .data-table tr:last-child td {
-      border-bottom: 1px solid #E3E7DE;
+      border-bottom: 2px solid #D1D5DB;
     }
 
     /* GRID BOXES */
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 14px;
     }
     .grid-3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
+      gap: 14px;
     }
     .grid-4 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 8px;
+      gap: 12px;
     }
     .card-box {
-      background: #FAFCFA;
-      border: 1px solid #E3E7DE;
-      border-radius: 6px;
-      padding: 8px 10px;
+      background: #FFFFFF;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* COVER PAGE STYLING */
+    /* COVER PAGE STYLING - EDITORIAL SPREAD LOOK */
     .cover-container {
       width: 100%;
       height: 100%;
       display: flex;
-      background: #1E4734;
+      background: #111827;
       color: #FFFFFF;
       position: relative;
       overflow: hidden;
     }
     .cover-left {
-      width: 58%;
+      width: 55%;
       height: 100%;
-      padding: 16mm 20mm;
+      padding: 16mm 18mm;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       z-index: 2;
+      background: #1B4332;
     }
     .cover-right {
-      width: 42%;
+      width: 45%;
       height: 100%;
-      background: #245439;
-      border-left: 4px solid #D9A02A;
+      background: #111827;
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
       padding: 16mm;
       z-index: 1;
+      border-left: 6px solid #E5A93C;
     }
-    .cover-logo-row {
+    .cover-top-tag {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+    }
+    .cover-logo-box {
+      width: 52px;
+      height: 52px;
+      background: #FFFFFF;
+      padding: 6px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     .cover-logo {
-      width: 46px;
-      height: 46px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      background: rgba(255, 255, 255, 0.12);
-      padding: 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .cover-tagline {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+    .cover-tagline-text {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: #CFE6D5;
+      color: #FBBF24;
     }
     .cover-title-group {
-      margin-top: 10mm;
+      margin: 6mm 0;
     }
     .cover-pill {
       display: inline-block;
-      padding: 4px 12px;
-      background: #D9A02A;
-      color: #16211B;
-      font-size: 10px;
-      font-weight: 800;
-      border-radius: 4px;
+      padding: 5px 14px;
+      background: #E5A93C;
+      color: #111827;
+      font-size: 11px;
+      font-weight: 900;
+      border-radius: 5px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .cover-title {
-      font-size: 32px;
+      font-size: 38px;
       font-weight: 800;
       color: #FFFFFF;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
+      line-height: 1.12;
+      letter-spacing: -0.8px;
       margin-bottom: 10px;
     }
     .cover-subtitle {
-      font-size: 13px;
-      color: #CFE6D5;
+      font-size: 13.5px;
+      color: #D1FAE5;
       line-height: 1.5;
       max-width: 480px;
     }
+    .cover-badges-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .cover-pill-tag {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #FFFFFF;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
     .cover-meta {
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      padding-top: 10px;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+      padding-top: 12px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
     }
     .cover-author-title {
-      font-size: 8.5px;
-      color: #A3C9AE;
+      font-size: 9.5px;
+      color: #A7F3D0;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
+      font-weight: 700;
     }
     .cover-author-name {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 800;
       color: #FFFFFF;
       margin-top: 2px;
     }
     .cover-author-role {
-      font-size: 10px;
-      color: #CFE6D5;
+      font-size: 11px;
+      color: #D1FAE5;
     }
     .cover-version {
       text-align: right;
-      font-size: 10px;
-      color: #A3C9AE;
+      font-size: 11px;
+      color: #A7F3D0;
     }
     .cover-version strong {
-      color: #D9A02A;
-      font-size: 12px;
+      color: #FBBF24;
+      font-size: 14px;
       display: block;
     }
-    .cover-card-preview {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+
+    /* RIGHT HERO PREVIEW */
+    .cover-hero-card {
+      background: #1F2937;
+      border: 1px solid #374151;
       border-radius: 12px;
-      padding: 14px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-    .cover-preview-img {
-      width: 100%;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .cover-feature-list {
-      margin-top: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
     }
-    .cover-feature-item {
+    .cover-hero-bar {
+      height: 24px;
+      background: #374151;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 10px;
-      color: #CFE6D5;
+      padding: 0 10px;
+      gap: 6px;
     }
-    .cover-feature-bullet {
-      width: 6px;
-      height: 6px;
+    .cover-hero-img-box {
+      flex: 1;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+    .cover-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .cover-feature-grid {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cover-feature-row {
+      background: #1F2937;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      color: #F3F4F6;
+    }
+    .cover-feature-icon {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: #D9A02A;
+      background: #E5A93C;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -586,28 +718,36 @@ const html = `
   <div class="page">
     <div class="cover-container">
       <div class="cover-left">
-        <div class="cover-logo-row">
-          <img src="${logoBase64}" class="cover-logo" alt="Logo" />
+        <div class="cover-top-tag">
+          <div class="cover-logo-box">
+            <img src="${logoBase64}" class="cover-logo" alt="Logo Setor Sampah" />
+          </div>
           <div>
-            <div class="cover-tagline">Panduan Pengguna Resmi // Role Warga & Admin</div>
-            <div style="font-size: 9px; color: #A3C9AE;">Platform Manajemen Bank Sampah Digital Berbasis Poin</div>
+            <div class="cover-tagline-text">Dokumentasi & Panduan Resmi Pengguna</div>
+            <div style="font-size: 11px; color: #D1FAE5; font-weight: 500;">Aplikasi Bank Sampah Mandiri Berbasis Poin Sembako</div>
           </div>
         </div>
 
         <div class="cover-title-group">
-          <div class="cover-pill">USER MANUAL & PETUNJUK TEKNIS</div>
-          <h1 class="cover-title">SISTEM INFORMASI<br>SETOR SAMPAH MANDIRI</h1>
+          <div class="cover-pill">BUKU PANDUAN PENGGUNA (USER MANUAL)</div>
+          <h1 class="cover-title">SISTEM INFORMASI<br>SETOR SAMPAH</h1>
           <p class="cover-subtitle">
-            Buku panduan lengkap operasional platform web pemilahan sampah, kalkulator insentif poin,
-            penukaran sembako, dan sistem verifikasi persetujuan bagi Warga dan Petugas Bank Sampah.
+            Panduan lengkap langkah demi langkah untuk Warga dan Petugas Bank Sampah.
+            Mulai dari pemilahan sampah di rumah, penimbangan akurat, kalkulasi poin hadiah,
+            hingga penukaran beras dan minyak goreng secara aman.
           </p>
+          <div class="cover-badges-row">
+            <span class="cover-pill-tag">Bebas Emotikon / Emoji</span>
+            <span class="cover-pill-tag">Validasi Fisik & Poin Akurat</span>
+            <span class="cover-pill-tag">Next.js 14 + Tailwind CSS</span>
+          </div>
         </div>
 
         <div class="cover-meta">
           <div>
-            <div class="cover-author-title">Disusun & Dikembangkan Oleh</div>
+            <div class="cover-author-title">Dibuat & Dikembangkan Oleh</div>
             <div class="cover-author-name">Anjas Ardiansah</div>
-            <div class="cover-author-role">Pengembang Perangkat Lunak Mandiri (XII PPLG)</div>
+            <div class="cover-author-role">Tugas Portofolio Mandiri - Kelas XII PPLG</div>
           </div>
           <div class="cover-version">
             Edisi Revisi Resmi
@@ -617,28 +757,30 @@ const html = `
       </div>
 
       <div class="cover-right">
-        <div class="cover-card-preview">
-          <div style="font-size: 9px; font-weight: 700; color: #D9A02A; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">
-            Arsitektur Terpadu
+        <div class="cover-hero-card">
+          <div class="cover-hero-bar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span style="font-size: 9.5px; color: #9CA3AF; margin-left: 8px; font-family: monospace;">setorsampah.id/dashboard</span>
           </div>
-          <img src="${ssDashWarga}" class="cover-preview-img" alt="Pratinjau Antarmuka" />
-          <div class="cover-feature-list">
-            <div class="cover-feature-item">
-              <span class="cover-feature-bullet"></span>
-              <span>Kalkulator Otomatis Estimasi Poin Sampah</span>
-            </div>
-            <div class="cover-feature-item">
-              <span class="cover-feature-bullet"></span>
-              <span>Approval Bertingkat: Poin Terpotong Pasca Verifikasi</span>
-            </div>
-            <div class="cover-feature-item">
-              <span class="cover-feature-bullet"></span>
-              <span>Katalog Barang & Upload Foto Produk Tanpa URL</span>
-            </div>
-            <div class="cover-feature-item">
-              <span class="cover-feature-bullet"></span>
-              <span>Desain Ergonomis Berbasis Psikologi Warna</span>
-            </div>
+          <div class="cover-hero-img-box">
+            <img src="${ssDashWarga}" class="cover-hero-img" alt="Pratinjau Dashboard" />
+          </div>
+        </div>
+
+        <div class="cover-feature-grid">
+          <div class="cover-feature-row">
+            <span class="cover-feature-icon"></span>
+            <span><strong>Kalkulator Poin Otomatis:</strong> Hitung estimasi hadiah poin saat memasukkan berat sampah.</span>
+          </div>
+          <div class="cover-feature-row">
+            <span class="cover-feature-icon"></span>
+            <span><strong>Poin Aman (Pending):</strong> Saldo warga baru terpotong saat barang sembako diserahkan fisik.</span>
+          </div>
+          <div class="cover-feature-row">
+            <span class="cover-feature-icon"></span>
+            <span><strong>Kelola Foto Mudah:</strong> Admin bisa upload foto barang langsung dari file tanpa link URL.</span>
           </div>
         </div>
       </div>
@@ -647,65 +789,74 @@ const html = `
 
   <!-- ==================== HALAMAN 2: DAFTAR ISI ==================== -->
   <div class="page">
-    ${pageHeader("BAGIAN AWAL", "Daftar Isi & Struktur Panduan", "NAVIGASI DOKUMEN")}
+    ${pageHeader("BAGIAN AWAL", "Daftar Isi & Struktur Buku Panduan", "NAVIGASI DOKUMEN")}
     <div class="page-body full-width">
-      <div style="margin-bottom: 12px;">
-        <h3 style="font-size: 16px; font-weight: 700; color: #16211B;">Struktur Dokumen Panduan Pengguna</h3>
-        <p style="font-size: 10px; color: #4B5563;">Panduan ini disusun secara sistematis mengacu pada standar buku manual teknis perangkat lunak.</p>
+      <div style="margin-bottom: 6px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #111827;">Struktur Pembahasan Buku Panduan</h3>
+        <p style="font-size: 12px; color: #4B5563;">Panduan ini dirancang agar mudah dibaca oleh warga maupun petugas pengelola bank sampah.</p>
       </div>
 
-      <div class="grid-3" style="gap: 16px;">
-        <!-- KOLOM 1 -->
-        <div class="card-box" style="padding: 12px; background: #FFFFFF; border-top: 3px solid #2E6B4E;">
-          <div style="font-size: 11px; font-weight: 700; color: #2E6B4E; margin-bottom: 8px; text-transform: uppercase;">
-            Bagian I: Fondasi & Sistem
+      <div class="grid-3" style="gap: 14px; flex: 1;">
+        <!-- BAGIAN 1 -->
+        <div class="card-box" style="border-top: 5px solid #2D6A4F; background: #FAFCFA;">
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #2D6A4F; margin-bottom: 10px; text-transform: uppercase;">
+              Bagian 1: Pengenalan & Sistem
+            </div>
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Daftar Isi & Struktur Buku</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 2</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Psikologi Warna & Alasan Desain</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 3</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab I: Pendahuluan & Latar Belakang</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 4</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab II: Syarat Akses & Perangkat</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 5</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab III: Alur Kerja Penimbangan</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 6</td></tr>
+              <tr><td style="padding: 6px 0; font-weight: 600;">Bab IV: Cara Daftar Akun & Login</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 7</td></tr>
+            </table>
           </div>
-          <table style="width: 100%; font-size: 9.5px; border-collapse: collapse;">
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Daftar Isi & Struktur Panduan</td><td style="text-align: right; font-weight: 700;">Hal 2</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Psikologi Warna & Sistem Desain</td><td style="text-align: right; font-weight: 700;">Hal 3</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab I: Pendahuluan & Gambaran Umum</td><td style="text-align: right; font-weight: 700;">Hal 4</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab II: Persyaratan Sistem & Akses Web</td><td style="text-align: right; font-weight: 700;">Hal 5</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab III: Alur Kerja & Diagram Proses</td><td style="text-align: right; font-weight: 700;">Hal 6</td></tr>
-            <tr><td style="padding: 4px 0;">Bab IV: Akses Masuk & Manajemen Akun</td><td style="text-align: right; font-weight: 700;">Hal 7</td></tr>
-          </table>
+          <div class="bottom-banner green" style="margin-top: 10px; padding: 8px 10px;">
+            <div class="banner-title" style="font-size: 10.5px;">Bagi Pengguna Baru</div>
+            <div class="banner-text" style="font-size: 10px;">Warga disarankan membaca Bab IV dan Bab V terlebih dahulu sebelum menyetor sampah ke lokasi.</div>
+          </div>
         </div>
 
-        <!-- KOLOM 2 -->
-        <div class="card-box" style="padding: 12px; background: #FFFFFF; border-top: 3px solid #D9A02A;">
-          <div style="font-size: 11px; font-weight: 700; color: #8C5E09; margin-bottom: 8px; text-transform: uppercase;">
-            Bagian II: Panduan Role Warga
+        <!-- BAGIAN 2 -->
+        <div class="card-box" style="border-top: 5px solid #E5A93C; background: #FAFCFA;">
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #92400E; margin-bottom: 10px; text-transform: uppercase;">
+              Bagian 2: Panduan Warga & Sembako
+            </div>
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab V: Dashboard & Cek Saldo Poin</td><td style="text-align: right; font-weight: 800; color: #92400E;">Hal 8</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab V: Cara Mengisi Form Setor Sampah</td><td style="text-align: right; font-weight: 800; color: #92400E;">Hal 9</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab V: Katalog Sembako & Cara Tukar Poin</td><td style="text-align: right; font-weight: 800; color: #92400E;">Hal 10</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab V: Cek Status Pengajuan Sembako</td><td style="text-align: right; font-weight: 800; color: #92400E;">Hal 11</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab VI: Dashboard Petugas Admin</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 12</td></tr>
+              <tr><td style="padding: 6px 0; font-weight: 600;">Bab VI: Verifikasi & Setujui Setoran</td><td style="text-align: right; font-weight: 800; color: #2D6A4F;">Hal 13</td></tr>
+            </table>
           </div>
-          <table style="width: 100%; font-size: 9.5px; border-collapse: collapse;">
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab V: Dashboard & Monitoring Saldo Poin</td><td style="text-align: right; font-weight: 700;">Hal 8</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab V: Formulir Setor Sampah Mandiri</td><td style="text-align: right; font-weight: 700;">Hal 9</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab V: Katalog Sembako & Tukar Poin</td><td style="text-align: right; font-weight: 700;">Hal 10</td></tr>
-            <tr><td style="padding: 4px 0;">Bab V: Pemantauan Riwayat Penukaran</td><td style="text-align: right; font-weight: 700;">Hal 11</td></tr>
-          </table>
-          <div style="margin-top: 12px; font-size: 11px; font-weight: 700; color: #2E6B4E; margin-bottom: 8px; text-transform: uppercase;">
-            Bagian III: Panduan Role Admin
+          <div class="bottom-banner gold" style="margin-top: 10px; padding: 8px 10px;">
+            <div class="banner-title" style="font-size: 10.5px;">Aturan Poin Sembako</div>
+            <div class="banner-text" style="font-size: 10px;">Poin tidak langsung berkurang saat klik tukar demi keamanan saldo warga.</div>
           </div>
-          <table style="width: 100%; font-size: 9.5px; border-collapse: collapse;">
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab VI: Dashboard Eksekutif TPU</td><td style="text-align: right; font-weight: 700;">Hal 12</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab VI: Validasi & Approval Setoran Sampah</td><td style="text-align: right; font-weight: 700;">Hal 13</td></tr>
-            <tr><td style="padding: 4px 0;">Bab VI: Manajemen Katalog Barang & Foto</td><td style="text-align: right; font-weight: 700;">Hal 14</td></tr>
-          </table>
         </div>
 
-        <!-- KOLOM 3 -->
-        <div class="card-box" style="padding: 12px; background: #FFFFFF; border-top: 3px solid #16211B;">
-          <div style="font-size: 11px; font-weight: 700; color: #16211B; margin-bottom: 8px; text-transform: uppercase;">
-            Bagian IV: Kelola & Pemecahan Masalah
+        <!-- BAGIAN 3 -->
+        <div class="card-box" style="border-top: 5px solid #111827; background: #FAFCFA;">
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #111827; margin-bottom: 10px; text-transform: uppercase;">
+              Bagian 3: Admin & Bantuan Teknis
+            </div>
+            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab VI: Kelola Barang, Stok & Upload Foto</td><td style="text-align: right; font-weight: 800; color: #111827;">Hal 14</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab VI: Setujui Penukaran Sembako Warga</td><td style="text-align: right; font-weight: 800; color: #111827;">Hal 15</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab VI: Master Tarif Poin & Wilayah RT/RW</td><td style="text-align: right; font-weight: 800; color: #111827;">Hal 16</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab VII: Edit Profil & Ganti Password</td><td style="text-align: right; font-weight: 800; color: #111827;">Hal 17</td></tr>
+              <tr><td style="padding: 6px 0; border-bottom: 1px dashed #E5E7EB; font-weight: 600;">Bab VIII: Tanya Jawab (FAQ) & Solusi Error</td><td style="text-align: right; font-weight: 800; color: #111827;">Hal 18</td></tr>
+              <tr><td style="padding: 6px 0; font-weight: 600;">Penutup & Lembar Identitas Pembuat</td><td style="text-align: right; font-weight: 800; color: #111827;">Hal 19</td></tr>
+            </table>
           </div>
-          <table style="width: 100%; font-size: 9.5px; border-collapse: collapse;">
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab VI: Validasi & Persetujuan Penukaran</td><td style="text-align: right; font-weight: 700;">Hal 15</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab VI: Pengelolaan Master Data Sistem</td><td style="text-align: right; font-weight: 700;">Hal 16</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab VII: Profil Pengguna & Keamanan Akun</td><td style="text-align: right; font-weight: 700;">Hal 17</td></tr>
-            <tr><td style="padding: 4px 0; border-bottom: 1px dashed #E3E7DE;">Bab VIII: Tanya Jawab (FAQ) & Solusi Error</td><td style="text-align: right; font-weight: 700;">Hal 18</td></tr>
-            <tr><td style="padding: 4px 0;">Penutup & Lembar Profil Pengembang</td><td style="text-align: right; font-weight: 700;">Hal 19</td></tr>
-          </table>
-          <div class="callout" style="margin-top: 14px;">
-            <div class="callout-title">Catatan Standar Dokumen</div>
-            <div class="callout-desc">Buku manual ini disusun tanpa menggunakan karakter emoji guna menjamin integritas format dokumen resmi kedinasan dan kepatuhan akademis.</div>
+          <div class="bottom-banner dark" style="margin-top: 10px; padding: 8px 10px;">
+            <div class="banner-title" style="font-size: 10.5px;">Bebas Emotikon / Emoji</div>
+            <div class="banner-text" style="font-size: 10px;">Dokumen ini mematuhi standar laporan teknis formal tanpa menggunakan karakter emoji.</div>
           </div>
         </div>
       </div>
@@ -715,105 +866,95 @@ const html = `
 
   <!-- ==================== HALAMAN 3: PSIKOLOGI WARNA & SISTEM DESAIN ==================== -->
   <div class="page">
-    ${pageHeader("BAGIAN AWAL", "Psikologi Warna & Sistem Desain Antarmuka", "LANDASAN DESAIN")}
+    ${pageHeader("BAGIAN AWAL", "Kenapa Warna Ini Dipilih? (Psikologi Warna & Desain)", "LANDASAN DESAIN")}
     <div class="page-body full-width">
-      <div style="margin-bottom: 8px;">
-        <h3 style="font-size: 15px; font-weight: 700; color: #16211B;">Analisis Psikologi Warna & Filosofi Antarmuka</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Pemilihan palet warna dalam aplikasi Setor Sampah didasarkan pada studi psikologi warna terapan (color psychology)
-          untuk mendorong partisipasi masyarakat dalam pemilahan sampah, memberikan rasa aman dalam transaksi poin, dan menyajikan hierarki visual yang jelas.
+      <div style="margin-bottom: 6px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #111827;">Alasan Pemilihan Warna Pada Aplikasi Setor Sampah</h3>
+        <p style="font-size: 12px; color: #4B5563;">
+          Warna di aplikasi ini bukan sekadar hiasan. Setiap warna dipilih agar warga merasa nyaman, termotivasi memilah sampah,
+          dan gampang membedakan mana sampah organik, anorganik, sampai bahan berbahaya.
         </p>
       </div>
 
-      <div class="grid-4" style="gap: 8px; margin-bottom: 10px;">
+      <div class="grid-4" style="gap: 12px; flex: 1; margin-bottom: 10px;">
         <!-- HIJAU HUTAN -->
-        <div class="card-box" style="border-top: 4px solid #2E6B4E; background: #FFFFFF;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-            <span style="font-weight: 700; font-size: 11px; color: #2E6B4E;">Hijau Hutan</span>
-            <span class="badge badge-green">#2E6B4E</span>
+        <div class="card-box" style="border-top: 6px solid #2D6A4F; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-weight: 800; font-size: 14px; color: #1B4332;">Hijau Hutan</span>
+              <span class="badge badge-green">#2D6A4F</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; color: #2D6A4F; margin-bottom: 8px;">Warna Utama (Identitas Lingkungan)</div>
+            <p style="font-size: 11.5px; color: #374151; line-height: 1.45;">
+              Warna hijau identik dengan alam, kesegaran daun, dan kebersihan. Kami memilih hijau tua yang tenang (bukan hijau neon)
+              supaya antarmuka terlihat resmi, bersih, dan memberi rasa percaya kepada warga bahwa sampah mereka dikelola dengan jujur.
+            </p>
           </div>
-          <div style="font-size: 8.5px; font-weight: 600; color: #16211B; margin-bottom: 3px;">Peran: Warna Primer (Identitas Utama)</div>
-          <p style="font-size: 8.5px; color: #4B5563; line-height: 1.35;">
-            Secara psikologis, hijau membangkitkan rasa kesegaran ekologis, pembaharuan, dan harmoni lingkungan.
-            Warna ini menegaskan komitmen keberlanjutan dan memberikan ketenangan batin bagi warga bahwa setiap kilogram sampah yang mereka pilah membawa dampak nyata bagi kelestarian bumi.
-          </p>
+          <div style="font-size: 10.5px; background: #EAF3EC; padding: 6px 8px; border-radius: 6px; color: #1B4332; font-weight: 600;">
+            Dipakai pada: Tombol utama, header status, dan kategori sampah Organik.
+          </div>
         </div>
 
         <!-- EMAS MARIGOLD -->
-        <div class="card-box" style="border-top: 4px solid #D9A02A; background: #FFFFFF;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-            <span style="font-weight: 700; font-size: 11px; color: #8C5E09;">Emas Marigold</span>
-            <span class="badge badge-yellow">#D9A02A</span>
+        <div class="card-box" style="border-top: 6px solid #E5A93C; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-weight: 800; font-size: 14px; color: #92400E;">Emas Marigold</span>
+              <span class="badge badge-yellow">#E5A93C</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; color: #92400E; margin-bottom: 8px;">Warna Aksen (Nilai Poin & Sembako)</div>
+            <p style="font-size: 11.5px; color: #374151; line-height: 1.45;">
+              Sesuai pepatah 'Sampah Menjadi Berkah', warna emas ini dipakai untuk menunjukkan nilai uang dan poin.
+              Warna ini menarik perhatian dan membuat warga bersemangat mengumpulkan poin karena tahu poin itu bisa ditukar beras atau minyak goreng.
+            </p>
           </div>
-          <div style="font-size: 8.5px; font-weight: 600; color: #16211B; margin-bottom: 3px;">Peran: Warna Sekunder (Insentif & Poin)</div>
-          <p style="font-size: 8.5px; color: #4B5563; line-height: 1.35;">
-            Kuning keemasan mengomunikasikan nilai ekonomi, penghargaan, dan optimisme. Dalam psikologi motivasi,
-            emas merepresentasikan slogan "Sampah Menjadi Berkah", memberi dorongan psikologis bahwa sampah anorganik memiliki nilai tukar riil yang setara dengan kebutuhan sembako warga.
-          </p>
+          <div style="font-size: 10.5px; background: #FEF3C7; padding: 6px 8px; border-radius: 6px; color: #92400E; font-weight: 600;">
+            Dipakai pada: Angka saldo poin, badge Anorganik, dan katalog sembako.
+          </div>
         </div>
 
         <!-- KERTAS ALAMI -->
-        <div class="card-box" style="border-top: 4px solid #E3E7DE; background: #FFFFFF;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-            <span style="font-weight: 700; font-size: 11px; color: #374151;">Kertas Alami</span>
-            <span class="badge badge-gray">#F7F8F4</span>
+        <div class="card-box" style="border-top: 6px solid #D1D5DB; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-weight: 800; font-size: 14px; color: #374151;">Putih Kertas</span>
+              <span class="badge badge-gray">#F9FAF8</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; color: #374151; margin-bottom: 8px;">Latar Belakang (Nyaman di Mata)</div>
+            <p style="font-size: 11.5px; color: #374151; line-height: 1.45;">
+              Kami tidak memakai warna putih silau 100%, melainkan putih lembut seperti kertas daur ulang.
+              Latar belakang ini membuat warga dan petugas tidak cepat lelah matanya saat melihat daftar setoran di layar HP atau komputer.
+            </p>
           </div>
-          <div style="font-size: 8.5px; font-weight: 600; color: #16211B; margin-bottom: 3px;">Peran: Latar Belakang (Kanvas)</div>
-          <p style="font-size: 8.5px; color: #4B5563; line-height: 1.35;">
-            Warna off-white hangat ini menyerupai kertas daur ulang berkualitas tinggi. Mengurangi kelelahan mata (eye-strain)
-            dibandingkan latar putih murni, serta menciptakan atmosfer sanitasi, kebersihan, dan transparansi tata kelola data.
-          </p>
+          <div style="font-size: 10.5px; background: #F3F4F6; padding: 6px 8px; border-radius: 6px; color: #374151; font-weight: 600;">
+            Dipakai pada: Bidang latar kartu, form input, dan sel tabel data.
+          </div>
         </div>
 
-        <!-- SLATE GELAP / INK -->
-        <div class="card-box" style="border-top: 4px solid #16211B; background: #FFFFFF;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-            <span style="font-weight: 700; font-size: 11px; color: #16211B;">Tinta Gelap (Ink)</span>
-            <span class="badge badge-gray">#16211B</span>
+        <!-- TINTA GELAP -->
+        <div class="card-box" style="border-top: 6px solid #111827; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-weight: 800; font-size: 14px; color: #111827;">Tinta Slate</span>
+              <span class="badge badge-gray">#111827</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; color: #111827; margin-bottom: 8px;">Tulisan Jelas & Kontras Tinggi</div>
+            <p style="font-size: 11.5px; color: #374151; line-height: 1.45;">
+              Warna teks menggunakan abu-abu arang pekat (slate ink). Ini memastikan tulisan di layar sangat tajam,
+              sehingga tetap gampang dibaca oleh orang tua di RT/RW meski layar ponselnya sedang berada di bawah sinar matahari.
+            </p>
           </div>
-          <div style="font-size: 8.5px; font-weight: 600; color: #16211B; margin-bottom: 3px;">Peran: Tipografi & Kontras Tinggi</div>
-          <p style="font-size: 8.5px; color: #4B5563; line-height: 1.35;">
-            Warna slate pekat menghadirkan wibawa, ketepatan kalkulasi, dan kestabilan data pembukuan. Memberikan rasio kontras
-            melebihi 11:1 terhadap latar belakang untuk memenuhi standar aksesibilitas tertinggi (WCAG AAA).
-          </p>
+          <div style="font-size: 10.5px; background: #E5E7EB; padding: 6px 8px; border-radius: 6px; color: #111827; font-weight: 600;">
+            Dipakai pada: Judul menu, teks panduan, dan angka berat timbangan.
+          </div>
         </div>
       </div>
 
-      <div class="grid-2" style="gap: 12px;">
-        <div class="card-box" style="background: #FAFCFA;">
-          <div style="font-size: 10.5px; font-weight: 700; color: #2E6B4E; margin-bottom: 4px;">Prinsip Ergonomi & Tipografi Terpadu</div>
-          <table style="width: 100%; font-size: 9px; line-height: 1.4;">
-            <tr>
-              <td style="font-weight: 700; width: 30%; padding: 3px 0;">Font Display (Sora)</td>
-              <td>Digunakan pada judul, angka metrik saldo poin, dan ringkasan bobot. Karakter geometrisnya tegas, modern, dan mudah dipindai (scannable).</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; padding: 3px 0;">Font Body (Inter)</td>
-              <td>Didesain khusus untuk keterbacaan antarmuka digital. Menjamin teks panduan, label formulir, dan tabel data tetap tajam di layar gawai.</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; padding: 3px 0;">Hierarki Spasial</td>
-              <td>Pengelompokan kartu (card-based layout) memudahkan pemisahan informasi antara tindakan setor, data riwayat, dan katalog barang.</td>
-            </tr>
-          </table>
-        </div>
-
-        <div class="card-box" style="background: #FAFCFA;">
-          <div style="font-size: 10.5px; font-weight: 700; color: #2E6B4E; margin-bottom: 4px;">Aksesibilitas & Kepatuhan WCAG 2.1</div>
-          <table style="width: 100%; font-size: 9px; line-height: 1.4;">
-            <tr>
-              <td style="font-weight: 700; width: 30%; padding: 3px 0;">Kontras Visual</td>
-              <td>Seluruh elemen tombol utama memiliki kontras minimal 4.8:1, memastikan teks dapat terbaca jelas oleh lansia maupun warga tuna aksara parsial.</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; padding: 3px 0;">Kategori Warna</td>
-              <td>Organik (Hijau #2E6B4E), Anorganik (Kuning #D9A02A), B3 (Merah #B8433A), dan Residu (Abu #5B6660) mempermudah pemilahan secara intuitif.</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; padding: 3px 0;">Bebas Distraksi</td>
-              <td>Antarmuka dirancang bersih tanpa animasi berlebih atau emotikon, menjaga fokus operasional pada fungsi layanan masyarakat.</td>
-            </tr>
-          </table>
+      <div class="bottom-banner dark" style="padding: 12px 18px;">
+        <div class="banner-title" style="font-size: 13px;">Prinsip Desain: Mudah Dipahami Warga Semua Usia</div>
+        <div class="banner-text" style="font-size: 11.5px;">
+          Font tulisan menggunakan <strong>Google Inter</strong> yang terkenal sangat jelas di layar HP, dan font judul menggunakan <strong>Google Sora</strong> yang tegas.
+          Semua tombol sengaja dibuat besar agar tidak meleset saat ditekan oleh warga lanjut usia.
         </div>
       </div>
     </div>
@@ -822,47 +963,57 @@ const html = `
 
   <!-- ==================== HALAMAN 4: BAB I PENDAHULUAN ==================== -->
   <div class="page">
-    ${pageHeader("BAB I", "Pendahuluan & Gambaran Umum Sistem", "PENGANTAR SISTEM")}
+    ${pageHeader("BAB I", "Kenapa Aplikasi Ini Dibuat? (Latar Belakang & Tujuan)", "PENGANTAR SISTEM")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">1.1 Latar Belakang Digitalisasi</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Pengelolaan sampah rumah tangga di tingkat Rukun Tetangga (RT) dan Rukun Warga (RW) kerap mengalami hambatan akibat pencatatan manual,
-          ketidakakuratan penimbangan, dan minimnya transparansi saldo poin bagi nasabah bank sampah.
-          Sistem Informasi Setor Sampah Mandiri hadir sebagai solusi digital terintegrasi untuk mendokumentasikan, memvalidasi, dan mengonversi timbulan sampah menjadi insentif kebutuhan pokok.
-        </p>
-
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B; margin-top: 4px;">1.2 Maksud dan Tujuan</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Meningkatkan Partisipasi Pemilahan</div>
-            <div class="step-desc">Memotivasi warga memilah sampah dari sumbernya melalui skema poin insentif yang transparan dan dapat dikalkulasi secara otomatis.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Menjamin Akuntabilitas Pembukuan</div>
-            <div class="step-desc">Menyediakan pencatatan digital real-time bagi pengurus bank sampah untuk mencegah kebocoran saldo poin atau selisih stok logistik sembako.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Mewujudkan Ekonomi Sirkular Lokal</div>
-            <div class="step-desc">Memfasilitasi pertukaran sampah bernilai daur ulang dengan barang kebutuhan pokok sehari-hari (beras, minyak goreng, gula, dan sabun).</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">1.1 Masalah di Bank Sampah RT/RW</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Selama ini di lingkungan tempat tinggal kami, bank sampah masih dicatat manual pakai buku tulis biasa.
+            Pencatatan manual ini sering menimbulkan masalah: buku kas ketumpahan air, warga lupa berapa tabungan sampahnya,
+            dan pengurus kewalahan menghitung berapa banyak sembako yang harus disiapkan.
+          </p>
         </div>
 
-        <div class="callout" style="margin-top: 4px;">
-          <div class="callout-title">Sasaran Pengguna Sistem</div>
-          <div class="callout-desc">Sistem ini melayani dua entitas utama: <strong>Warga (User Nasabah)</strong> yang menyetor sampah dan menukar poin, serta <strong>Administrator TPU</strong> yang bertindak sebagai verifikator fisik dan pengelola gudang sembako.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Warga Tahu Poin dari Rumah</div>
+              <div class="step-desc">Sebelum bawa sampah ke balai RT, warga bisa cek dulu perkiraan poin yang didapat lewat fitur kalkulator otomatis.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Pencatatan Timbangan yang Jujur</div>
+              <div class="step-desc">Petugas menimbang sampah di lokasi dan langsung memasukkan angka ke sistem di depan warga agar tidak ada selisih.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Tukar Sampah Jadi Beras & Minyak</div>
+              <div class="step-desc">Warga bisa menukar poin mereka dengan barang kebutuhan dapur tanpa uang tunai, sehingga lingkungan bersih dan dapur terbantu.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">4</div>
+            <div class="step-text">
+              <div class="step-title">Laporan Kas & Neraca Sampah Bersih</div>
+              <div class="step-desc">Pengurus RT/RW bisa melihat total tonase sampah yang terkumpul kapan saja tanpa perlu merekap kertas kwitansi lama.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-banner green">
+          <div class="banner-title">Siapa Saja yang Menggunakan Aplikasi Ini?</div>
+          <div class="banner-text"><strong>Warga:</strong> Menyetor sampah dan menukar poin sembako. | <strong>Admin TPU:</strong> Menimbang sampah fisik, menyetujui setoran, dan mengelola stok sembako.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssDashWarga, "https://setorsampah.id/overview", "Gambar 1.1: Halaman Ikhtisar Layanan Setor Sampah Mandiri")}
+        ${browserMockup(ssDashWarga, "https://setorsampah.id/overview", "Gambar 1.1: Halaman Depan Layanan Setor Sampah Mandiri", ["Tampilan Ringkas", "Poin Real-Time", "Navigasi Jelas"])}
       </div>
     </div>
     ${pageFooter(4)}
@@ -870,171 +1021,204 @@ const html = `
 
   <!-- ==================== HALAMAN 5: BAB II PERSYARATAN SISTEM ==================== -->
   <div class="page">
-    ${pageHeader("BAB II", "Persyaratan Sistem & Lingkungan Operasional", "SPESIFIKASI TEKNIS")}
+    ${pageHeader("BAB II", "Perangkat yang Dibutuhkan & Cara Membuka Web", "SYARAT AKSES")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">2.1 Kebutuhan Perangkat Keras & Lunak</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Aplikasi Setor Sampah dibangun dengan teknologi web responsif modern, sehingga dapat diakses secara fleksibel menggunakan komputer desktop, laptop, tablet, maupun telepon pintar (smartphone) tanpa memerlukan instalasi aplikasi tambahan.
-        </p>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">2.1 Bisa Dibuka Lewat HP dan Komputer</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Aplikasi ini dibuat berbasis web, jadi warga tidak perlu repot mendownload file aplikasi berat dari Play Store.
+            Cukup buka browser yang sudah ada di HP masing-masing lalu ketik alamat web kami.
+          </p>
+        </div>
 
         <table class="data-table">
           <thead>
             <tr>
-              <th>Komponen</th>
-              <th>Spesifikasi Minimal</th>
-              <th>Rekomendasi Optimal</th>
+              <th>Perangkat</th>
+              <th>Spesifikasi Cukup</th>
+              <th>Keterangan Penggunaan</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Prosesor</strong></td>
-              <td>Dual Core 1.5 GHz</td>
-              <td>Quad Core 2.0 GHz atau lebih tinggi</td>
+              <td><strong>HP Android / iPhone</strong></td>
+              <td>RAM 2 GB, Ada Chrome</td>
+              <td>Sangat praktis untuk warga mengisi setoran sampah dari rumah.</td>
             </tr>
             <tr>
-              <td><strong>Memori (RAM)</strong></td>
-              <td>2 GB RAM</td>
-              <td>4 GB RAM atau lebih</td>
+              <td><strong>Laptop / Komputer</strong></td>
+              <td>RAM 4 GB, Layar 14 inch</td>
+              <td>Sangat nyaman untuk petugas admin di balai RT saat menimbang sampah.</td>
             </tr>
             <tr>
-              <td><strong>Layar Tampilan</strong></td>
-              <td>Resolusi 360 x 640 px (Ponsel)</td>
-              <td>1280 x 720 px atau 1920 x 1080 px</td>
-            </tr>
-            <tr>
-              <td><strong>Konektivitas</strong></td>
-              <td>Internet 3G / 1 Mbps</td>
-              <td>Internet 4G/WiFi stabil minimal 5 Mbps</td>
-            </tr>
-            <tr>
-              <td><strong>Peramban (Browser)</strong></td>
-              <td>Chrome 90+, Edge 90+, Safari 14+</td>
-              <td>Google Chrome / Edge versi terbaru</td>
+              <td><strong>Koneksi Internet</strong></td>
+              <td>Kuota 3G/4G atau WiFi RT</td>
+              <td>Halaman web sangat hemat kuota (ukuran data di bawah 1 MB).</td>
             </tr>
           </tbody>
         </table>
 
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B; margin-top: 6px;">2.2 Tautan Akses Aplikasi Resmi</h3>
-        <div class="card-box" style="margin-top: 4px; background: #FAFCFA;">
-          <div style="font-size: 9px; font-weight: 700; color: #2E6B4E; margin-bottom: 2px;">Alamat Produksi (Cloud GitHub Pages):</div>
-          <div style="font-family: monospace; font-size: 8.5px; color: #16211B; word-break: break-all; margin-bottom: 6px;">
-            https://mal1kq.github.io/Anjas-Ardiansah_XII-PPLG_Laravel_Setor-Sampah/
+        <div class="step-card" style="padding: 7px 10px;">
+          <div class="step-num gold">Tip</div>
+          <div class="step-text">
+            <div class="step-title">Pasang di Layar Utama HP (Add to Home Screen)</div>
+            <div class="step-desc">Buka link web di Chrome HP, klik titik tiga di pojok kanan atas, lalu pilih <em>Tambahkan ke Layar Utama</em>. Web akan berfungsi seperti aplikasi biasa!</div>
           </div>
-          <div style="font-size: 9px; font-weight: 700; color: #8C5E09; margin-bottom: 2px;">Alamat Lingkungan Pengembangan Lokal (Next.js):</div>
-          <div style="font-family: monospace; font-size: 8.5px; color: #16211B;">
-            http://localhost:3000 atau http://localhost:3005
+        </div>
+
+        <div class="bottom-banner gold">
+          <div class="banner-title">Alamat Web Resmi (Link Akses Langsung):</div>
+          <div class="banner-text" style="font-family: monospace; font-size: 10.5px; word-break: break-all; margin-top: 2px;">
+            https://mal1kq.github.io/Anjas-Ardiansah_XII-PPLG_Laravel_Setor-Sampah/
           </div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssLoginFull, "https://setorsampah.id/login", "Gambar 2.1: Tampilan Halaman Autentikasi Pengguna")}
+        ${browserMockup(ssLoginFull, "https://setorsampah.id/login", "Gambar 2.1: Halaman Masuk Akun yang Pas di Segala Ukuran Layar", ["Bisa di HP", "Bisa di Laptop", "Bebas Download"])}
       </div>
     </div>
     ${pageFooter(5)}
   </div>
 
-  <!-- ==================== HALAMAN 6: BAB III ALUR KERJA SISTEM ==================== -->
+  <!-- ==================== HALAMAN 6: BAB III ALUR KERJA ==================== -->
   <div class="page">
-    ${pageHeader("BAB III", "Alur Kerja & Diagram Proses Sistem", "ARSITEKTUR BISNIS")}
+    ${pageHeader("BAB III", "Bagaimana Cara Kerjanya? (Alur Dari Rumah ke Sembako)", "ALUR KERJA")}
     <div class="page-body full-width">
-      <div style="margin-bottom: 10px;">
-        <h3 style="font-size: 14px; font-weight: 700; color: #16211B;">Diagram Proses End-to-End Layanan Setor Sampah</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Sistem menerapkan verifikasi dua arah (two-way verification) guna menjamin keaslian bobot sampah dan keamanan penukaran logistik.
+      <div style="margin-bottom: 6px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #111827;">Tiga Langkah Utama: Dari Pilah Sampah Sampai Dapat Beras</h3>
+        <p style="font-size: 12px; color: #4B5563;">
+          Sistem ini menerapkan verifikasi fisik di lokasi timbangan agar tidak ada warga yang salah klaim poin atau salah timbang.
         </p>
       </div>
 
-      <div class="grid-3" style="gap: 12px; margin-bottom: 12px;">
-        <!-- TAHAP 1 -->
-        <div class="card-box" style="background: #FFFFFF; border-left: 4px solid #2E6B4E;">
-          <div style="font-size: 11px; font-weight: 700; color: #2E6B4E; margin-bottom: 4px;">Tahap 1: Pemilahan & Input Setoran</div>
-          <div class="step-desc" style="font-size: 9px; line-height: 1.4;">
-            <strong>Pelaksana: Warga</strong><br>
-            [1] Warga memilah sampah dari rumah tangga (Organik, Anorganik, B3, Residu).<br>
-            [2] Membuka formulir Setor Sampah dan memasukkan estimasi bobot (KG).<br>
-            [3] Sistem menampilkan kalkulator estimasi poin.<br>
-            [4] Data tersimpan dengan status awal <strong>PENDING</strong> (Menunggu Verifikasi).
+      <div class="grid-3" style="gap: 14px; flex: 1;">
+        <!-- LANGKAH 1 -->
+        <div class="card-box" style="border-top: 5px solid #2D6A4F; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span class="step-num">01</span>
+              <span style="font-size: 14px; font-weight: 800; color: #1B4332;">Warga Pilah Sampah</span>
+            </div>
+            <div style="font-size: 11.5px; color: #374151; line-height: 1.5;">
+              <strong>Di Rumah Warga:</strong><br>
+              1. Pisahkan sampah organik (sisa makanan) dan sampah anorganik (kardus, botol plastik, kaleng).<br>
+              2. Buka menu <em>Setor Sampah</em> di HP.<br>
+              3. Ketik perkiraan berat (misal: 3 kg botol plastik).<br>
+              4. Sistem langsung menghitung estimasi poin yang bakal didapat.<br>
+              5. Klik kirim. Status di HP menjadi <strong>Menunggu Verifikasi</strong>.
+            </div>
+          </div>
+          <div style="background: #EAF3EC; padding: 8px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; color: #1B4332;">
+            Hasil: Data setoran masuk ke layar admin RT.
           </div>
         </div>
 
-        <!-- TAHAP 2 -->
-        <div class="card-box" style="background: #FFFFFF; border-left: 4px solid #D9A02A;">
-          <div style="font-size: 11px; font-weight: 700; color: #8C5E09; margin-bottom: 4px;">Tahap 2: Verifikasi Fisik & Kredit Poin</div>
-          <div class="step-desc" style="font-size: 9px; line-height: 1.4;">
-            <strong>Pelaksana: Admin TPU</strong><br>
-            [1] Warga membawa sampah ke bank sampah atau petugas menjemput ke lokasi RT/RW.<br>
-            [2] Admin memeriksa fisik sampah dan melakukan penimbangan timbangan digital.<br>
-            [3] Jika sesuai, Admin menekan tombol <strong>Setujui</strong>.<br>
-            [4] Saldo poin warga bertambah secara otomatis dan tercatat dalam pembukuan.
+        <!-- LANGKAH 2 -->
+        <div class="card-box" style="border-top: 5px solid #E5A93C; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span class="step-num gold">02</span>
+              <span style="font-size: 14px; font-weight: 800; color: #92400E;">Admin Timbang Fisik</span>
+            </div>
+            <div style="font-size: 11.5px; color: #374151; line-height: 1.5;">
+              <strong>Di Balai RT / Bank Sampah:</strong><br>
+              1. Warga bawa sampah ke balai warga (atau dijemput petugas).<br>
+              2. Petugas menimbang sampah di timbangan digital secara terbuka.<br>
+              3. Petugas mencocokkan data di aplikasi.<br>
+              4. Petugas menekan tombol <strong>Setujui</strong>.<br>
+              5. Poin langsung masuk ke akun HP warga detik itu juga.
+            </div>
+          </div>
+          <div style="background: #FEF3C7; padding: 8px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; color: #92400E;">
+            Hasil: Saldo poin warga bertambah otomatis.
           </div>
         </div>
 
-        <!-- TAHAP 3 -->
-        <div class="card-box" style="background: #FFFFFF; border-left: 4px solid #16211B;">
-          <div style="font-size: 11px; font-weight: 700; color: #16211B; margin-bottom: 4px;">Tahap 3: Penukaran Sembako & Serah Terima</div>
-          <div class="step-desc" style="font-size: 9px; line-height: 1.4;">
-            <strong>Pelaksana: Warga & Admin</strong><br>
-            [1] Warga memilih barang sembako pada Katalog Tukar Poin.<br>
-            [2] Pengajuan berstatus <strong>PENDING (Poin Belum Terpotong)</strong>.<br>
-            [3] Warga datang ke Bank Sampah mengambil barang fisik.<br>
-            [4] Admin menekan <strong>Setujui Penukaran</strong> -> Poin warga dan stok barang terpotong bersamaan.
+        <!-- LANGKAH 3 -->
+        <div class="card-box" style="border-top: 5px solid #111827; background: #FAFCFA;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span class="step-num dark">03</span>
+              <span style="font-size: 14px; font-weight: 800; color: #111827;">Tukar Jadi Sembako</span>
+            </div>
+            <div style="font-size: 11.5px; color: #374151; line-height: 1.5;">
+              <strong>Serah Terima Barang:</strong><br>
+              1. Warga buka menu <em>Tukar Poin</em> dan pilih beras/minyak goreng.<br>
+              2. Status pesanan menjadi <strong>Pending (Poin belum terpotong)</strong>.<br>
+              3. Warga datang mengambil paket sembako di loket.<br>
+              4. Petugas menyerahkan barang lalu klik <strong>Setujui Penukaran</strong>.<br>
+              5. Poin warga dan stok sembako berkurang bersamaan.
+            </div>
+          </div>
+          <div style="background: #E5E7EB; padding: 8px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; color: #111827;">
+            Hasil: Warga bawa pulang beras, poin terpotong sah.
           </div>
         </div>
       </div>
 
-      <div class="callout warning">
-        <div class="callout-title">Aturan Ketat Integritas Saldo Poin</div>
-        <div class="callout-desc">
-          Sesuai standar operasional, saldo poin warga <strong>TIDAK BERKURANG</strong> pada saat penekanan tombol tukar oleh warga. Poin dan stok barang hanya dipotong secara sah apabila pengurus bank sampah telah menyetujui transaksi setelah memastikan ketersediaan barang fisik di loket penyerahan.
+      <div class="bottom-banner dark" style="padding: 10px 16px;">
+        <div class="banner-title">Kenapa Poin Belum Berkurang Saat Warga Klik Tukar?</div>
+        <div class="banner-text">
+          Ini adalah fitur keamanan terbaik di aplikasi kami. Kalau stok beras di balai RT tiba-tiba habis, poin warga tetap utuh dan tidak hilang. Poin baru berkurang kalau barangnya sudah ada di tangan warga!
         </div>
       </div>
     </div>
     ${pageFooter(6)}
   </div>
 
-  <!-- ==================== HALAMAN 7: BAB IV AUTENTIKASI ==================== -->
+  <!-- ==================== HALAMAN 7: BAB IV DAFTAR & LOGIN ==================== -->
   <div class="page">
-    ${pageHeader("BAB IV", "Akses Masuk & Manajemen Akun Pengguna", "MANAJEMEN AKUN")}
+    ${pageHeader("BAB IV", "Cara Mendaftar Akun Warga Baru & Masuk (Login)", "PANDUAN AKUN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">4.1 Prosedur Pendaftaran Akun Warga Baru</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Akses Halaman Registrasi</div>
-            <div class="step-desc">Klik tautan "Daftar" pada halaman masuk untuk membuka formulir registrasi warga.</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">4.1 Cara Membuat Akun Baru</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Bagi warga yang baru pertama kali ingin menyetor sampah, buat akun dengan mengisi formulir sederhana:
+          </p>
         </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Pengisian Identitas Lengkap</div>
-            <div class="step-desc">Masukkan Nama Lengkap, Alamat Surel (Email) aktif, dan Kata Sandi minimal 6 karakter.</div>
+
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Isi Nama Lengkap & Email</div>
+              <div class="step-desc">Tulis nama asli sesuai KTP agar petugas bank sampah mengenali Anda saat penimbangan.</div>
+            </div>
           </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Validasi Nomor Telepon / HP</div>
-            <div class="step-desc">Wajib memasukkan Nomor HP aktif dengan panjang minimal 10 digit guna keperluan notifikasi penjemputan sampah.</div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Masukkan Nomor HP (Minimal 10 Digit)</div>
+              <div class="step-desc">Nomor HP wajib aktif agar petugas bisa mengirim pesan jadwal penjemputan sampah ke rumah Anda.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Buat Password Aman (Minimal 6 Huruf/Angka)</div>
+              <div class="step-desc">Gunakan kata sandi yang mudah Anda ingat tapi sulit ditebak orang lain.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">4</div>
+            <div class="step-text">
+              <div class="step-title">Klik Tombol Hijau 'Daftar'</div>
+              <div class="step-desc">Akun langsung aktif seketika tanpa perlu menunggu verifikasi email yang berbelit-belit.</div>
+            </div>
           </div>
         </div>
 
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B; margin-top: 6px;">4.2 Prosedur Masuk ke Akun (Login)</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Masukkan email dan password terdaftar, kemudian tekan tombol "Masuk". Pada versi demonstrasi GitHub Pages, pengguna dapat menggunakan tombol pemilih peran cepat (Warga atau Admin) untuk memudahkan simulasi sistem.
-        </p>
-
-        <div class="callout">
-          <div class="callout-title">Keamanan Sesi</div>
-          <div class="callout-desc">Setiap sesi login dilindungi token terenkripsi. Hindari membagikan kata sandi Anda kepada orang lain untuk menjaga keamanan saldo poin yang telah dikumpulkan.</div>
+        <div class="bottom-banner green">
+          <div class="banner-title">Uji Coba Cepat (Versi Web Demo):</div>
+          <div class="banner-text">Pada versi GitHub Pages, Anda bisa langsung memilih tombol 'Warga' atau 'Admin TPU' untuk mencoba seluruh fitur tanpa perlu ketik password.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssRegisterFull, "https://setorsampah.id/register", "Gambar 4.1: Antarmuka Registrasi Akun Warga dengan Validasi Nomor HP")}
+        ${browserMockup(ssRegisterFull, "https://setorsampah.id/register", "Gambar 4.1: Layar Pendaftaran Akun Warga dengan Input Nomor Telepon", ["Nomor HP Wajib", "Validasi Otomatis", "Langsung Aktif"])}
       </div>
     </div>
     ${pageFooter(7)}
@@ -1042,45 +1226,60 @@ const html = `
 
   <!-- ==================== HALAMAN 8: BAB V ROLE WARGA - DASHBOARD ==================== -->
   <div class="page">
-    ${pageHeader("BAB V", "Role Warga: Dashboard Utama & Saldo Poin", "PANDUAN WARGA")}
+    ${pageHeader("BAB V", "Tampilan Utama Warga: Pantau Saldo Poin & Edukasi", "PANDUAN WARGA")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">5.1 Antarmuka Beranda Nasabah Warga</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Setelah berhasil masuk, warga disambut oleh halaman dashboard yang menampilkan ringkasan performa pemilahan sampah, saldo tabungan poin aktif, dan panduan edukasi.
-        </p>
-
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Elemen Utama Dashboard:</h3>
-        <div class="step-item">
-          <div class="step-num">A</div>
-          <div class="step-text">
-            <div class="step-title">Kartu Saldo Poin Aktif</div>
-            <div class="step-desc">Menampilkan akumulasi poin sah yang siap ditukarkan dengan sembako atau barang kebutuhan rumah tangga.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">B</div>
-          <div class="step-text">
-            <div class="step-title">Kartu Status Setoran</div>
-            <div class="step-desc">Menampilkan jumlah setoran yang telah disetujui (Approved) dan setoran yang masih dalam antrean pemeriksaan (Pending).</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">C</div>
-          <div class="step-text">
-            <div class="step-title">Modul Edukasi Pemilahan Sampah</div>
-            <div class="step-desc">Panduan singkat tata cara memilah sampah Organik, Anorganik, B3, dan Residu sebelum diserahkan ke bank sampah.</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">5.1 Apa Saja yang Ada di Layar Beranda Warga?</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Setiap kali login, warga langsung disajikan informasi ringkas mengenai pencapaian pilah sampahnya:
+          </p>
         </div>
 
-        <div class="callout">
-          <div class="callout-title">Tip Warga</div>
-          <div class="callout-desc">Pastikan sampah anorganik (kardus, botol plastik, kaleng) dalam kondisi kering dan bersih untuk mempercepat proses penimbangan di lokasi.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num gold">A</div>
+            <div class="step-text">
+              <div class="step-title">Kotak Saldo Poin Aktif</div>
+              <div class="step-desc">Menampilkan jumlah poin yang Anda miliki sekarang. Poin ini langsung siap ditukar dengan barang sembako.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">B</div>
+            <div class="step-text">
+              <div class="step-title">Kotak Status Setoran Terakhir</div>
+              <div class="step-desc">Memperlihatkan berapa kali setoran Anda yang sudah disetujui (Approved) dan berapa yang masih diperiksa petugas (Pending).</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">C</div>
+            <div class="step-text">
+              <div class="step-title">Panduan Singkat Memilah Sampah</div>
+              <div class="step-desc">Pengingat praktis jenis sampah apa saja yang laku dan diterima di bank sampah RT/RW.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">D</div>
+            <div class="step-text">
+              <div class="step-title">Tombol Cepat '+ Setor Sampah Sekarang'</div>
+              <div class="step-desc">Tombol hijau di pojok kanan atas untuk langsung membuka formulir pengajuan setoran baru.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-box">
+          <span><strong>Tarif Resmi Poin:</strong> Organik: 10/kg | Anorganik: 15/kg | B3: 20/kg</span>
+          <span class="badge badge-green">Poin Tetap</span>
+        </div>
+
+        <div class="bottom-banner gold">
+          <div class="banner-title">Tips Agar Cepat Dapat Poin Banyak:</div>
+          <div class="banner-text">Kumpulkan sampah kardus dan botol plastik air mineral dalam keadaan bersih dan kering. Sampah kering bernilai poin lebih tinggi!</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssDashWarga, "https://setorsampah.id/dashboard", "Gambar 5.1: Dashboard Nasabah Warga dengan Indikator Saldo Poin")}
+        ${browserMockup(ssDashWarga, "https://setorsampah.id/dashboard", "Gambar 5.1: Layar Beranda Warga dengan Angka Saldo Poin yang Jelas", ["Saldo Poin Besar", "Status Setoran", "Edukasi Pemilahan"])}
       </div>
     </div>
     ${pageFooter(8)}
@@ -1088,49 +1287,60 @@ const html = `
 
   <!-- ==================== HALAMAN 9: BAB V ROLE WARGA - SETOR SAMPAH ==================== -->
   <div class="page">
-    ${pageHeader("BAB V", "Role Warga: Formulir Setor Sampah Mandiri", "PANDUAN WARGA")}
+    ${pageHeader("BAB V", "Cara Mengisi Formulir Setor Sampah dari Rumah", "PANDUAN WARGA")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">5.2 Langkah Pengisian Setoran Sampah</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Pilih Kategori Sampah</div>
-            <div class="step-desc">Pilih salah satu jenis: Organik (10 poin/kg), Anorganik (15 poin/kg), B3 (20 poin/kg), atau Residu (5 poin/kg).</div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">5.2 Langkah Demi Langkah Mengisi Setoran</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Tidak perlu bingung menghitung tarif, sistem kami sudah menyediakan kalkulator poin otomatis:
+          </p>
+        </div>
+
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Pilih Jenis Sampah Anda</div>
+              <div class="step-desc">Pilih kategori: Organik (10 poin/kg), Anorganik (15 poin/kg), B3 (20 poin/kg), atau Residu (5 poin/kg).</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Ketik Perkiraan Berat (KG)</div>
+              <div class="step-desc">Masukkan berat sampah, misalnya 2.5 KG. Boleh pakai koma atau angka desimal.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Lihat Hasil Estimasi Poin</div>
+              <div class="step-desc">Layar langsung menampilkan berapa poin yang akan Anda terima begitu petugas menimbang fisik.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-text">
+              <div class="step-title">Pilih Wilayah RT Anda & Kirim</div>
+              <div class="step-desc">Pilih lokasi RT/RW tempat Anda tinggal, lalu tekan tombol hijau 'Kirim Setoran'.</div>
+            </div>
           </div>
         </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Input Estimasi Bobot</div>
-            <div class="step-desc">Ketik perkiraan berat sampah dalam satuan Kilogram (KG) dengan presisi desimal (contoh: 2.5 KG).</div>
-          </div>
+
+        <div class="detail-box">
+          <span>Contoh: 2.5 KG Anorganik x 15 Poin = <strong>37 Poin Hadiah</strong></span>
+          <span class="badge badge-yellow">Hitung Otomatis</span>
         </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Pantau Kalkulator Estimasi Poin</div>
-            <div class="step-desc">Sistem menghitung proyeksi poin secara otomatis (contoh: 2.5 kg Anorganik x 15 = 37 Poin).</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-text">
-            <div class="step-title">Pilih Wilayah Penjemputan / Setor</div>
-            <div class="step-desc">Tentukan lokasi domisili RT/RW tempat sampah diserahkan.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">5</div>
-          <div class="step-text">
-            <div class="step-title">Kirim Pengajuan Setoran</div>
-            <div class="step-desc">Tekan tombol "Kirim Setoran" untuk meneruskan data ke antrean verifikasi Admin TPU.</div>
-          </div>
+
+        <div class="bottom-banner green">
+          <div class="banner-title">Perlu Dicatat:</div>
+          <div class="banner-text">Angka berat ini adalah estimasi awal. Berat resmi yang dipakai adalah hasil timbangan digital milik petugas di lokasi penyerahan balai RT.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssSetor, "https://setorsampah.id/setor", "Gambar 5.2: Formulir Pengajuan Setor Sampah Mandiri")}
+        ${browserMockup(ssSetor, "https://setorsampah.id/setor", "Gambar 5.2: Formulir Pengisian Setoran Sampah Mandiri", ["Pilihan Kategori", "Kalkulator Poin", "Pilih RT/RW"])}
       </div>
     </div>
     ${pageFooter(9)}
@@ -1138,40 +1348,60 @@ const html = `
 
   <!-- ==================== HALAMAN 10: BAB V ROLE WARGA - KATALOG TUKAR POIN ==================== -->
   <div class="page">
-    ${pageHeader("BAB V", "Role Warga: Katalog Sembako & Penukaran Poin", "PANDUAN WARGA")}
+    ${pageHeader("BAB V", "Belanja Sembako dengan Poin (Katalog Barang)", "PANDUAN WARGA")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">5.3 Menjelajahi Katalog & Menukar Poin</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Warga dapat menukarkan saldo poin yang telah terverifikasi dengan aneka barang kebutuhan pokok yang tersedia di etalase bank sampah.
-        </p>
-
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Mekanisme Penukaran:</h3>
-        <div class="step-item">
-          <div class="step-num gold">1</div>
-          <div class="step-text">
-            <div class="step-title">Periksa Saldo & Stok Barang</div>
-            <div class="step-desc">Pastikan saldo poin mencukupi harga barang dan indikator stok gudang masih tersedia.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num gold">2</div>
-          <div class="step-text">
-            <div class="step-title">Klik Tombol "Tukar Sekarang"</div>
-            <div class="step-desc">Sistem memproses permohonan penukaran barang yang dipilih.</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">5.3 Cara Menukar Poin Menjadi Sembako</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Kalau saldo poin Anda sudah cukup, Anda bisa langsung memilih barang kebutuhan pokok di katalog:
+          </p>
         </div>
 
-        <div class="callout warning" style="margin-top: 6px;">
-          <div class="callout-title">PENTING: Status Poin Pengajuan</div>
-          <div class="callout-desc">
-            Saat Anda menekan tombol "Tukar Sekarang", status transaksi adalah <strong>MENUNGGU PERSETUJUAN (PENDING)</strong>. Poin Anda <strong>BELUM BERKURANG</strong> pada tahap ini. Saldo poin baru akan terpotong secara sah saat petugas bank sampah menyetujui transaksi dan menyerahkan barang fisik kepada Anda.
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num gold">1</div>
+            <div class="step-text">
+              <div class="step-title">Buka Menu 'Tukar Poin'</div>
+              <div class="step-desc">Anda akan melihat deretan barang sembako lengkap dengan foto asli, jumlah poin yang dibutuhkan, dan sisa stok.</div>
+            </div>
           </div>
+          <div class="step-card">
+            <div class="step-num gold">2</div>
+            <div class="step-text">
+              <div class="step-title">Pilih Barang yang Anda Butuhkan</div>
+              <div class="step-desc">Contoh: Beras 5 KG (100 Poin), Minyak Goreng 2L (60 Poin), Gula Pasir 1 KG (30 Poin).</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num gold">3</div>
+            <div class="step-text">
+              <div class="step-title">Klik Tombol 'Tukar Sekarang'</div>
+              <div class="step-desc">Sistem mencatat pesanan Anda. Statusnya adalah Menunggu Persetujuan Admin.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">4</div>
+            <div class="step-text">
+              <div class="step-title">Pantau Status di Menu Riwayat</div>
+              <div class="step-desc">Buka riwayat penukaran poin untuk memastikan pengajuan Anda sudah masuk antrean serah terima.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-box">
+          <span>Daftar Sembako: Beras 5KG (100 Poin) | Sabun Cuci (50 Poin) | Voucher Tunai (500 Poin)</span>
+          <span class="badge badge-green">Tersedia</span>
+        </div>
+
+        <div class="bottom-banner gold">
+          <div class="banner-title">JAMINAN SALDO AMAN:</div>
+          <div class="banner-text">Poin Anda <strong>BELUM BERKURANG</strong> pada langkah ini! Saldo baru dipotong kalau barang sembakonya sudah siap diambil dan disetujui petugas bank sampah.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssTukar, "https://setorsampah.id/tukar-poin", "Gambar 5.3: Katalog Barang & Penukaran Sembako")}
+        ${browserMockup(ssTukar, "https://setorsampah.id/tukar-poin", "Gambar 5.3: Etalase Katalog Sembako Penukaran Poin", ["Foto Barang Jelas", "Stok Terlihat", "Poin Dibutuhkan"])}
       </div>
     </div>
     ${pageFooter(10)}
@@ -1179,52 +1409,59 @@ const html = `
 
   <!-- ==================== HALAMAN 11: BAB V ROLE WARGA - RIWAYAT PENUKARAN ==================== -->
   <div class="page">
-    ${pageHeader("BAB V", "Role Warga: Pemantauan Riwayat Penukaran", "PANDUAN WARGA")}
+    ${pageHeader("BAB V", "Cek Status Pengajuan Sembako & Cara Pengambilan", "PANDUAN WARGA")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">5.4 Memantau Status Permintaan Barang</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Warga dapat mengecek progres pengajuan barang sembako melalui panel "Riwayat Penukaran Poin".
-        </p>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">5.4 Memantau Status Pesanan Barang Anda</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Warga bisa memantau apakah barang sembakonya sudah disetujui atau belum lewat tabel Riwayat Penukaran:
+          </p>
+        </div>
 
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Tiga Status Transaksi Penukaran:</h3>
         <table class="data-table">
           <thead>
             <tr>
-              <th>Status</th>
-              <th>Arti Transaksi</th>
-              <th>Kondisi Poin</th>
+              <th>Status di Layar</th>
+              <th>Artinya</th>
+              <th>Status Saldo Poin</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="badge badge-yellow">PENDING</span></td>
-              <td>Menunggu validasi stok fisik oleh admin di loket.</td>
-              <td><strong>Belum terpotong</strong></td>
+              <td><span class="badge badge-yellow">MENUNGGU</span></td>
+              <td>Pengajuan sudah masuk, petugas sedang mengecek ketersediaan beras/minyak di gudang.</td>
+              <td><strong>Poin masih utuh</strong> (belum dipotong).</td>
             </tr>
             <tr>
-              <td><span class="badge badge-green">APPROVED</span></td>
-              <td>Disetujui. Barang telah diserahkan ke warga.</td>
-              <td><strong>Terpotong otomatis</strong></td>
+              <td><span class="badge badge-green">DISETUJUI</span></td>
+              <td>Barang sudah siap dan diserahkan ke tangan warga di balai RT.</td>
+              <td><strong>Poin dipotong resmi</strong> secara otomatis.</td>
             </tr>
             <tr>
-              <td><span class="badge badge-red">REJECTED</span></td>
-              <td>Ditolak karena stok fisik habis/alasan lain.</td>
-              <td><strong>Utuh (tidak berubah)</strong></td>
+              <td><span class="badge badge-red">DITOLAK</span></td>
+              <td>Stok barang fisik di gudang habis atau pemesanan dibatalkan.</td>
+              <td><strong>Poin tetap aman</strong> tanpa potongan apapun.</td>
             </tr>
           </tbody>
         </table>
 
-        <div class="callout" style="margin-top: 8px;">
-          <div class="callout-title">Tata Cara Pengambilan Barang Fisik</div>
-          <div class="callout-desc">
-            Bawalah identitas atau tunjukkan layar riwayat transaksi ini ke loket bank sampah. Petugas akan memverifikasi data dan menyerahkan barang pesanan Anda.
+        <div class="step-card" style="padding: 7px 10px;">
+          <div class="step-num">!</div>
+          <div class="step-text">
+            <div class="step-title">Cara Ambil Barang Fisik di Balai RT</div>
+            <div class="step-desc">Datang ke lokasi bank sampah, sebutkan nama akun Anda, dan petugas akan menyerahkan barang sembakonya kepada Anda setelah status disetujui.</div>
           </div>
+        </div>
+
+        <div class="bottom-banner green">
+          <div class="banner-title">Kepastian Transaksi:</div>
+          <div class="banner-text">Tidak ada risiko poin hilang tanpa barang. Sistem pencatatan ini melindungi hak setiap warga yang sudah rajin memilah sampah.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssRiwayatTukar, "https://setorsampah.id/tukar-poin/riwayat", "Gambar 5.4: Tabel Riwayat Penukaran Poin dengan Status Menunggu")}
+        ${browserMockup(ssRiwayatTukar, "https://setorsampah.id/tukar-poin/riwayat", "Gambar 5.4: Tabel Riwayat Penukaran Barang dan Status Persetujuan", ["Status Jelas", "Tanggal Pesan", "Jumlah Poin"])}
       </div>
     </div>
     ${pageFooter(11)}
@@ -1232,47 +1469,55 @@ const html = `
 
   <!-- ==================== HALAMAN 12: BAB VI ROLE ADMIN - DASHBOARD ==================== -->
   <div class="page">
-    ${pageHeader("BAB VI", "Role Administrator: Dashboard Eksekutif TPU", "PANDUAN ADMINISTRATOR")}
+    ${pageHeader("BAB VI", "Tampilan Petugas: Dashboard Statistik Bank Sampah", "PANDUAN ADMIN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">6.1 Pusat Kendali & Statistik Operasional</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Dashboard administrator dirancang khusus bagi pengurus dan operator Tempat Pengolahan Sampah (TPU) untuk memantau neraca timbulan sampah dan sirkulasi poin warga secara menyeluruh.
-        </p>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">6.1 Pusat Kendali & Pembukuan Petugas</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Petugas bank sampah memiliki layar khusus untuk memantau neraca sampah dan peredaran poin warga secara real-time:
+          </p>
+        </div>
 
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Indikator Utama Metrik Bank Sampah:</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Total Sampah Terkumpul (KG)</div>
-            <div class="step-desc">Akumulasi bobot fisik sampah yang telah berhasil dikumpulkan dari seluruh warga terdaftar.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Total Timbulan Sampah (KG)</div>
+              <div class="step-desc">Jumlah total berat sampah yang sudah berhasil dikumpulkan dari warga di seluruh RT.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Total Poin Beredar di Warga</div>
+              <div class="step-desc">Jumlah tabungan poin yang dipegang warga dan sewaktu-waktu bisa ditukar beras/sembako.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Jumlah Warga Aktif Menyetor</div>
+              <div class="step-desc">Total kepala keluarga atau warga yang terdaftar dan rutin menyetorkan sampah.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-text">
+              <div class="step-title">Stok Sampah di Gudang Penyimpanan</div>
+              <div class="step-desc">Rincian berapa kilogram kardus/plastik (Anorganik) dan pupuk (Organik) yang siap dijual ke pengepul.</div>
+            </div>
           </div>
         </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Total Poin Beredar</div>
-            <div class="step-desc">Nilai total kewajiban poin bank sampah yang dimiliki warga dan siap ditukarkan dengan logistik sembako.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Jumlah Warga Aktif</div>
-            <div class="step-desc">Total kepala keluarga atau nasabah yang aktif menyetorkan sampah dalam siklus periode berjalan.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-text">
-            <div class="step-title">Monitoring Stok Gudang Sampah</div>
-            <div class="step-desc">Rincian inventaris sampah yang tersimpan berdasarkan kategori Organik, Anorganik, B3, dan Residu.</div>
-          </div>
+
+        <div class="bottom-banner dark">
+          <div class="banner-title">Transparansi Laporan RT/RW:</div>
+          <div class="banner-text">Data ini bisa langsung dicatat atau dipresentasikan saat rapat pengurus RT/RW sebagai bukti keberhasilan program kebersihan.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssDashAdmin, "https://setorsampah.id/admin/dashboard", "Gambar 6.1: Dashboard Eksekutif Administrator Bank Sampah")}
+        ${browserMockup(ssDashAdmin, "https://setorsampah.id/admin/dashboard", "Gambar 6.1: Layar Dashboard Petugas Pengelola Bank Sampah", ["Ringkasan Metrik", "Grafik Setoran", "Stok Gudang"])}
       </div>
     </div>
     ${pageFooter(12)}
@@ -1280,45 +1525,60 @@ const html = `
 
   <!-- ==================== HALAMAN 13: BAB VI ROLE ADMIN - APPROVAL SETORAN ==================== -->
   <div class="page">
-    ${pageHeader("BAB VI", "Role Administrator: Validasi & Approval Setoran", "PANDUAN ADMINISTRATOR")}
+    ${pageHeader("BAB VI", "Cara Petugas Menimbang & Menyetujui Setoran Sampah", "PANDUAN ADMIN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">6.2 Alur Persetujuan Setoran Sampah Warga</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Seluruh setoran yang diajukan warga berstatus PENDING hingga diverifikasi secara langsung oleh petugas di loket penimbangan.
-        </p>
-
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Instruksi Kerja Petugas:</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Cocokkan Sampah Fisik</div>
-            <div class="step-desc">Periksa apakah jenis sampah (misal: Anorganik) dan berat riil pada timbangan sesuai dengan data pengajuan.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Klik Tombol "Setujui"</div>
-            <div class="step-desc">Sistem otomatis mengubah status menjadi APPROVED, menambahkan poin ke akun warga, dan memperbarui stok gudang sampah.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Opsi Tombol "Tolak"</div>
-            <div class="step-desc">Jika sampah tercampur, kotor, atau basah berlebihan, klik Tolak dan masukkan alasan penolakan resmi untuk warga.</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">6.2 Langkah Verifikasi Setoran di Balai RT</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Semua sampah yang dibawa warga harus ditimbang dan diverifikasi oleh petugas sebelum poin diberikan:
+          </p>
         </div>
 
-        <div class="callout">
-          <div class="callout-title">Otomasi Perhitungan Poin</div>
-          <div class="callout-desc">Perhitungan poin dilakukan otomatis oleh mesin sistem sesuai tarif per kilogram yang terdaftar di Master Data.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Timbang Fisik Sampah di Timbangan Digital</div>
+              <div class="step-desc">Periksa apakah jenis sampah sesuai (misal: botol plastik bersih) dan timbang berat aslinya.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Cek Data Pengajuan di Tabel Layar</div>
+              <div class="step-desc">Cari nama warga yang bersangkutan pada tabel 'Verifikasi Setoran Masuk'.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Klik Tombol 'Setujui'</div>
+              <div class="step-desc">Begitu diklik, sistem langsung menambahkan poin ke HP warga detik itu juga dan mencatatnya ke buku kas digital.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">4</div>
+            <div class="step-text">
+              <div class="step-title">Jika Sampah Basah/Kotor: Klik 'Tolak'</div>
+              <div class="step-desc">Masukkan alasan penolakan (misal: 'Kardus basah terkena minyak') agar warga tahu dan bisa memilah lebih baik lagi.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-box">
+          <span>Otomasi: 5 KG Anorganik x 15 Tarif = <strong>+75 Poin Otomatis</strong></span>
+          <span class="badge badge-green">Poin Masuk</span>
+        </div>
+
+        <div class="bottom-banner green">
+          <div class="banner-title">Otomatisasi Hitungan:</div>
+          <div class="banner-text">Petugas tidak perlu menghitung manual pakai kalkulator. Sistem otomatis mengalikan berat dengan tarif poin resmi.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssAdminSetoran, "https://setorsampah.id/admin/kelola-sampah", "Gambar 6.2: Antarmuka Verifikasi & Persetujuan Setoran Sampah Masuk")}
+        ${browserMockup(ssAdminSetoran, "https://setorsampah.id/admin/kelola-sampah", "Gambar 6.2: Layar Persetujuan Setoran Sampah yang Masuk dari Warga", ["Tabel Antrean", "Tombol Setujui", "Tombol Tolak"])}
       </div>
     </div>
     ${pageFooter(13)}
@@ -1326,45 +1586,60 @@ const html = `
 
   <!-- ==================== HALAMAN 14: BAB VI ROLE ADMIN - KELOLA BARANG ==================== -->
   <div class="page">
-    ${pageHeader("BAB VI", "Role Administrator: Manajemen Katalog & Foto Barang", "PANDUAN ADMINISTRATOR")}
+    ${pageHeader("BAB VI", "Tambah, Edit Barang & Upload Foto Produk Tanpa Link", "PANDUAN ADMIN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">6.3 Menambah, Mengunggah Foto & Mengedit Barang</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Administrator memiliki kendali penuh dalam mengelola barang sembako penukaran poin, termasuk fitur unggah gambar dari file lokal.
-        </p>
-
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Prosedur Pengelolaan Barang:</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Isi Data Barang Baru / Edit</div>
-            <div class="step-desc">Ketik Nama Barang (cth: Minyak Goreng 2L), Nilai Poin (cth: 50 Poin), dan Jumlah Stok Fisik.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Upload Foto Langsung dari File Gambar</div>
-            <div class="step-desc">Pilih file gambar (JPG/PNG) dari komputer tanpa memerlukan input tautan URL eksternal. Sistem langsung memunculkan pratinjau thumbnail foto.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Fitur Edit Barang Eksisting</div>
-            <div class="step-desc">Klik tombol "Edit" pada tabel untuk memuat data ke formulir, ubah parameter yang diperlukan, lalu klik "Simpan Perubahan".</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">6.3 Mengatur Barang Sembako & Foto Produk</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Petugas admin bisa menambah barang sembako baru, mengubah harga poin, dan mengganti foto langsung dari komputer:
+          </p>
         </div>
 
-        <div class="callout">
-          <div class="callout-title">Sinkronisasi Katalog</div>
-          <div class="callout-desc">Perubahan data barang, foto, atau stok yang disimpan oleh admin akan seketika tampil di katalog belanja warga.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Ketik Nama, Poin & Jumlah Stok</div>
+              <div class="step-desc">Contoh: Nama 'Beras Ramos 5 KG', Harga '100 Poin', Stok Tersedia '15 Karung'.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Upload Foto Langsung dari File Gambar</div>
+              <div class="step-desc"><strong>Tidak perlu link URL!</strong> Cukup klik 'Pilih File Gambar' lalu pilih foto beras/minyak dari laptop. Foto langsung muncul di pratinjau.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <div class="step-title">Fitur Edit Barang Eksisting</div>
+              <div class="step-desc">Jika stok beras bertambah atau harga poin berubah, cukup klik tombol 'Edit' di baris barang tersebut, perbarui datanya, lalu klik 'Simpan Perubahan'.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">4</div>
+            <div class="step-text">
+              <div class="step-title">Ganti atau Hapus Foto Produk</div>
+              <div class="step-desc">Klik tombol merah 'Hapus Foto' jika ingin mengganti foto dengan gambar sembako yang lebih jernih.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-box">
+          <span>Format Didukung: JPG, PNG, WEBP | Maksimal 2 Megabyte</span>
+          <span class="badge badge-yellow">Bebas Link URL</span>
+        </div>
+
+        <div class="bottom-banner gold">
+          <div class="banner-title">Langsung Tampil di HP Warga:</div>
+          <div class="banner-text">Begitu admin menekan tombol simpan, foto barang dan jumlah stok yang diperbarui akan langsung muncul di katalog belanja warga.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssAdminEditBarang, "https://setorsampah.id/admin/barang", "Gambar 6.3: Formulir Edit & Upload Foto Barang Sembako")}
+        ${browserMockup(ssAdminEditBarang, "https://setorsampah.id/admin/barang", "Gambar 6.3: Formulir Pengaturan Barang Sembako & Upload File Gambar", ["Upload dari File", "Pratinjau Foto", "Edit Stok & Poin"])}
       </div>
     </div>
     ${pageFooter(14)}
@@ -1372,45 +1647,60 @@ const html = `
 
   <!-- ==================== HALAMAN 15: BAB VI ROLE ADMIN - APPROVAL PENUKARAN ==================== -->
   <div class="page">
-    ${pageHeader("BAB VI", "Role Administrator: Approval Penukaran Barang", "PANDUAN ADMINISTRATOR")}
+    ${pageHeader("BAB VI", "Cara Petugas Menyetujui Penukaran Sembako Warga", "PANDUAN ADMIN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">6.4 Verifikasi & Serah Terima Sembako</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Menu ini memuat seluruh daftar pengajuan penukaran poin yang diajukan warga. Petugas memastikan barang fisik tersedia sebelum menyetujui.
-        </p>
-
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Langkah Verifikasi Penukaran:</h3>
-        <div class="step-item">
-          <div class="step-num gold">1</div>
-          <div class="step-text">
-            <div class="step-title">Periksa Permintaan Warga</div>
-            <div class="step-desc">Lihat nama pemohon, barang yang diminta, jumlah poin yang dibutuhkan, dan tanggal pengajuan.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num gold">2</div>
-          <div class="step-text">
-            <div class="step-title">Pastikan Kesiapan Fisik Barang</div>
-            <div class="step-desc">Ambil paket sembako dari gudang untuk diserahkan ke tangan warga di loket pelayanan.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num gold">3</div>
-          <div class="step-text">
-            <div class="step-title">Klik "Setujui" untuk Eksekusi Pemotongan</div>
-            <div class="step-desc">Setelah tombol Setujui ditekan, poin warga dan stok barang di sistem akan terpotong secara bersamaan (atomic transaction).</div>
-          </div>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">6.4 Proses Serah Terima Barang & Potong Poin</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Layar ini berisi daftar warga yang ingin menukarkan poinnya dengan sembako. Pastikan barang fisiknya sudah ada sebelum menyetujui:
+          </p>
         </div>
 
-        <div class="callout warning">
-          <div class="callout-title">Perlindungan Saldo Warga</div>
-          <div class="callout-desc">Jika barang kosong atau warga membatalkan, klik Tolak. Saldo poin warga dijamin tidak terpotong sama sekali.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num gold">1</div>
+            <div class="step-text">
+              <div class="step-title">Cek Permintaan Warga</div>
+              <div class="step-desc">Lihat nama pemohon, barang yang diminta (misal: Minyak Goreng 2L), dan jumlah poin yang akan dipotong.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num gold">2</div>
+            <div class="step-text">
+              <div class="step-title">Ambilkan Barang dari Gudang Balai RT</div>
+              <div class="step-desc">Ambilkan paket sembako pesanan warga dan serahkan ke tangan warga di loket balai RT.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num gold">3</div>
+            <div class="step-text">
+              <div class="step-title">Klik Tombol 'Setujui'</div>
+              <div class="step-desc">Begitu tombol diklik, sistem akan memotong poin di HP warga dan mengurangi stok barang di gudang secara bersamaan.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">4</div>
+            <div class="step-text">
+              <div class="step-title">Opsi Tolak Jika Stok Kosong</div>
+              <div class="step-desc">Jika barang sedang habis di gudang, klik Tolak. Saldo poin warga dijamin tetap utuh tanpa berkurang sedikitpun.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-box">
+          <span>Keamanan: Poin dan Stok Terpotong Bersamaan (Atomic Transaction)</span>
+          <span class="badge badge-green">Poin Aman</span>
+        </div>
+
+        <div class="bottom-banner dark">
+          <div class="banner-title">Perlindungan Saldo Warga:</div>
+          <div class="banner-text">Sistem ini menjamin saldo poin warga tidak pernah hangus sia-sia jika barang sembako belum diserahkan ke tangan mereka.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssAdminPenukaran, "https://setorsampah.id/admin/penukaran", "Gambar 6.4: Antarmuka Verifikasi & Persetujuan Penukaran Poin Warga")}
+        ${browserMockup(ssAdminPenukaran, "https://setorsampah.id/admin/penukaran", "Gambar 6.4: Layar Persetujuan Penukaran Poin & Serah Terima Sembako", ["Daftar Pemohon", "Verifikasi Fisik", "Potong Bersamaan"])}
       </div>
     </div>
     ${pageFooter(15)}
@@ -1418,46 +1708,60 @@ const html = `
 
   <!-- ==================== HALAMAN 16: BAB VI ROLE ADMIN - MASTER DATA ==================== -->
   <div class="page">
-    ${pageHeader("BAB VI", "Role Administrator: Pengelolaan Master Data", "PANDUAN ADMINISTRATOR")}
+    ${pageHeader("BAB VI", "Pengaturan Master Data: Tarif Poin, Wilayah RT/RW & Warga", "PANDUAN ADMIN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">6.5 Konfigurasi Master Data Bank Sampah</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Administrator memiliki wewenang untuk mengatur parameter dasar operasional sistem melalui menu Master Data:
-        </p>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">6.5 Mengatur Data Dasar Operasional RT/RW</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Aplikasi ini fleksibel dan bisa disesuaikan dengan aturan di lingkungan RT/RW masing-masing:
+          </p>
+        </div>
 
-        <div class="step-item">
-          <div class="step-num">A</div>
-          <div class="step-text">
-            <div class="step-title">Master Jenis Sampah & Tarif Poin</div>
-            <div class="step-desc">Menentukan tarif konversi poin per kilogram untuk setiap kategori sampah (Organik, Anorganik, B3, Residu).</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">A</div>
+            <div class="step-text">
+              <div class="step-title">Master Tarif Poin Sampah</div>
+              <div class="step-desc">Tentukan berapa poin per kilogram untuk Organik, Anorganik, B3, atau Residu sesuai harga jual ke pengepul.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">B</div>
+            <div class="step-text">
+              <div class="step-title">Master Wilayah Cakupan (RT/RW)</div>
+              <div class="step-desc">Tambah daftar RT binaan atau titik jemput sampah (misal: RT 012/RW 005, Balai RW, Pos Ronda).</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">C</div>
+            <div class="step-text">
+              <div class="step-title">Master Label / Tag Sampah</div>
+              <div class="step-desc">Beri tanda khusus untuk sampah prioritas, misalnya 'Volume Besar' atau 'Kerjasama Kerja Bakti'.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">D</div>
+            <div class="step-text">
+              <div class="step-title">Data Seluruh Warga Terdaftar</div>
+              <div class="step-desc">Daftar buku induk seluruh warga yang ikut program, nomor kontak telepon, dan total poin tabungan mereka.</div>
+            </div>
           </div>
         </div>
-        <div class="step-item">
-          <div class="step-num">B</div>
-          <div class="step-text">
-            <div class="step-title">Master Wilayah Cakupan & Titik Jemput</div>
-            <div class="step-desc">Menambah dan mengelola daftar RT/RW yang masuk dalam jangkauan operasional penjemputan sampah.</div>
-          </div>
+
+        <div class="detail-box">
+          <span>Fleksibel: Tambah Kategori Baru | Tambah Titik Jemput RT/RW</span>
+          <span class="badge badge-green">Master Data</span>
         </div>
-        <div class="step-item">
-          <div class="step-num">C</div>
-          <div class="step-text">
-            <div class="step-title">Master Tagging Sampah</div>
-            <div class="step-desc">Label prioritas untuk menandai setoran khusus (misal: "Prioritas", "Volume Besar", "Kerjasama Event").</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">D</div>
-          <div class="step-text">
-            <div class="step-title">Direktori Warga Terdaftar</div>
-            <div class="step-desc">Memantau seluruh akun warga terdaftar beserta nomor kontak telepon dan alamat domisili.</div>
-          </div>
+
+        <div class="bottom-banner green">
+          <div class="banner-title">Kemudahan Tambah Data:</div>
+          <div class="banner-text">Admin bisa menambah jenis sampah baru atau wilayah baru kapan saja tanpa perlu merombak program aplikasi.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssAdminJenis, "https://setorsampah.id/admin/master-data", "Gambar 6.5: Pengelolaan Master Jenis Sampah & Tarif Poin")}
+        ${browserMockup(ssAdminJenis, "https://setorsampah.id/admin/master-data", "Gambar 6.5: Pengaturan Tarif Nilai Poin Sampah per Kilogram", ["Atur Tarif Poin", "Tambah Kategori", "Hapus Kategori"])}
       </div>
     </div>
     ${pageFooter(16)}
@@ -1465,170 +1769,203 @@ const html = `
 
   <!-- ==================== HALAMAN 17: BAB VII PROFIL & KEAMANAN ==================== -->
   <div class="page">
-    ${pageHeader("BAB VII", "Profil Pengguna & Keamanan Akun", "PENGATURAN AKUN")}
+    ${pageHeader("BAB VII", "Pengaturan Akun Pengguna, Ganti Password & Logout", "PENGATURAN AKUN")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">7.1 Manajemen Data Pengguna</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Setiap pengguna dapat melihat informasi akun pribadinya melalui menu Profil Pengguna di pojok kanan navigasi.
-        </p>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">7.1 Mengatur Data Akun Pribadi Anda</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Setiap warga maupun admin bisa melihat rincian akun dan menjaga keamanannya lewat menu Profil Pengguna:
+          </p>
+        </div>
 
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 4px;">Informasi yang Ditampilkan:</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <div class="step-title">Identitas & Wilayah Domisili</div>
-            <div class="step-desc">Menampilkan Nama Lengkap, Alamat Email terdaftar, Nomor Telepon, dan RT/RW domisili tempat tinggal.</div>
+        <div class="step-list">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <div class="step-title">Cek Data Diri & Wilayah RT</div>
+              <div class="step-desc">Lihat nama terdaftar, nomor telepon, alamat surel, dan posisi saldo poin yang siap dibelanjakan sembako.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <div class="step-title">Cara Ganti Password Baru</div>
+              <div class="step-desc">Jika Anda merasa password lama diketahui orang lain, ketik password baru di formulir ganti kata sandi lalu klik simpan.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num dark">3</div>
+            <div class="step-text">
+              <div class="step-title">Selalu Keluar (Logout) Setelah Pakai</div>
+              <div class="step-desc">Jika Anda memakai HP pinjaman atau laptop balai RT bersama, selalu klik tombol merah 'Keluar' agar saldo poin Anda aman.</div>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num gold">4</div>
+            <div class="step-text">
+              <div class="step-title">ID Warga Khusus Bank Sampah</div>
+              <div class="step-desc">Setiap akun memiliki nomor ID warga unik yang membedakan identitas Anda dari warga lain di lingkungan RT/RW.</div>
+            </div>
           </div>
         </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <div class="step-title">Ringkasan Saldo Poin Akun</div>
-            <div class="step-desc">Memperlihatkan jumlah saldo poin terkini yang tersimpan di sistem.</div>
-          </div>
+
+        <div class="detail-box">
+          <span>Keamanan: Enkripsi Kata Sandi Bcrypt | Sesi Login Terproteksi</span>
+          <span class="badge badge-green">Tersandi</span>
         </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <div class="step-title">Fitur Pembaruan Kata Sandi (Password)</div>
-            <div class="step-desc">Formulir ganti password untuk memperbarui kata sandi secara berkala demi menjaga keamanan akun.</div>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-text">
-            <div class="step-title">Prosedur Keluar Sesi (Logout)</div>
-            <div class="step-desc">Selalu klik tombol "Keluar" setelah selesai bertransaksi pada perangkat yang digunakan bersama.</div>
-          </div>
+
+        <div class="bottom-banner gold">
+          <div class="banner-title">Jaga Kerahasiaan Akun:</div>
+          <div class="banner-text">Poin Anda bernilai sembako nyata. Jangan pernah memberitahukan password akun kepada orang lain di luar anggota keluarga Anda.</div>
         </div>
       </div>
 
       <div class="col-right">
-        ${browserMockup(ssProfil, "https://setorsampah.id/profil", "Gambar 7.1: Antarmuka Profil Akun Pengguna & Pengaturan Keamanan")}
+        ${browserMockup(ssProfil, "https://setorsampah.id/profil", "Gambar 7.1: Layar Informasi Profil Akun & Formulir Ganti Kata Sandi", ["Informasi Lengkap", "Form Ganti Password", "Tombol Keluar Aman"])}
       </div>
     </div>
     ${pageFooter(17)}
   </div>
 
-  <!-- ==================== HALAMAN 18: BAB VIII FAQ & TROUBLESHOOTING ==================== -->
+  <!-- ==================== HALAMAN 18: BAB VIII FAQ & SOLUSI ERROR ==================== -->
   <div class="page">
-    ${pageHeader("BAB VIII", "Tanya Jawab (FAQ) & Pemecahan Masalah", "BANTUAN & DUKUNGAN")}
+    ${pageHeader("BAB VIII", "Pertanyaan yang Sering Diajukan & Solusi Masalah", "BANTUAN TEKNIS")}
     <div class="page-body full-width">
-      <div style="margin-bottom: 10px;">
-        <h3 style="font-size: 14px; font-weight: 700; color: #16211B;">Panduan Solusi Masalah Teknis Operasional</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Berikut adalah solusi langkah demi langkah terhadap kendala yang kerap dihadapi oleh pengguna warga maupun administrator.
-        </p>
+      <div style="margin-bottom: 6px;">
+        <h3 style="font-size: 18px; font-weight: 800; color: #111827;">Pertanyaan yang Kerap Muncul & Solusinya</h3>
+        <p style="font-size: 12px; color: #4B5563;">Berikut jawaban jelas dan solusi cepat jika Anda mengalami kendala saat memakai aplikasi:</p>
       </div>
 
-      <div class="grid-2" style="gap: 12px; margin-bottom: 10px;">
-        <div class="card-box" style="background: #FFFFFF;">
-          <div style="font-size: 10.5px; font-weight: 700; color: #2E6B4E; margin-bottom: 4px;">Pertanyaan Sering Diajukan (FAQ)</div>
-          <div style="font-size: 9px; line-height: 1.4; color: #374151;">
-            <p><strong>T: Mengapa poin saya tidak langsung bertambah saat setor sampah?</strong><br>
-            J: Setoran berstatus PENDING hingga petugas menimbang fisik sampah di lokasi. Poin bertambah otomatis setelah disetujui.</p>
-
-            <p style="margin-top: 6px;"><strong>T: Mengapa saldo poin belum berkurang saat menukar barang?</strong><br>
-            J: Ini adalah fitur keamanan sistem. Poin baru dipotong saat admin menyetujui transaksi dan menyerahkan barang secara langsung.</p>
-
-            <p style="margin-top: 6px;"><strong>T: Apakah warga bisa membatalkan penukaran poin?</strong><br>
-            J: Warga dapat menghubungi admin TPU untuk menolak permohonan penukaran sebelum statusnya diubah menjadi Approved.</p>
+      <div class="grid-2" style="gap: 14px; flex: 1; margin-bottom: 10px;">
+        <!-- KOLOM FAQ -->
+        <div class="card-box" style="border-top: 5px solid #2D6A4F; background: #FAFCFA;">
+          <div style="font-size: 14px; font-weight: 800; color: #1B4332; margin-bottom: 10px;">
+            Pertanyaan Umum (FAQ)
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 11.5px; line-height: 1.45;">
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB;">
+              <strong style="color: #111827;">T: Saya sudah kirim formulir setor sampah di HP, tapi kok poinnya belum nambah?</strong><br>
+              <span style="color: #4B5563;">J: Karena sampah Anda belum ditimbang secara fisik oleh petugas di balai RT. Begitu petugas menimbang dan klik 'Setujui', poin Anda otomatis bertambah detik itu juga.</span>
+            </div>
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB;">
+              <strong style="color: #111827;">T: Saya sudah klik tukar beras, kenapa saldo poin saya belum berkurang?</strong><br>
+              <span style="color: #4B5563;">J: Ini memang sistem pengaman kami. Poin baru berkurang kalau berasnya sudah diambil dan disetujui petugas. Jadi kalau stok beras di balai kosong, poin Anda tidak akan hilang.</span>
+            </div>
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB;">
+              <strong style="color: #111827;">T: Apakah sampah basah seperti sisa sayuran boleh disetor?</strong><br>
+              <span style="color: #4B5563;">J: Boleh, pilih kategori Organik. Namun pastikan airnya sudah ditiriskan agar wadahnya tidak bocor saat dibawa ke balai RT.</span>
+            </div>
           </div>
         </div>
 
-        <div class="card-box" style="background: #FFFFFF;">
-          <div style="font-size: 10.5px; font-weight: 700; color: #B8433A; margin-bottom: 4px;">Panduan Penanganan Kendala (Troubleshooting)</div>
-          <div style="font-size: 9px; line-height: 1.4; color: #374151;">
-            <p><strong>1. Gagal Unggah Gambar Foto Barang</strong><br>
-            Pastikan ukuran file foto tidak melebihi 2MB dan berformat JPG/PNG. Jika gagal, gunakan foto dengan resolusi standar.</p>
-
-            <p style="margin-top: 6px;"><strong>2. Formulir Registrasi Menolak Nomor HP</strong><br>
-            Periksa panjang nomor telepon. Sistem mewajibkan nomor HP minimal 10 digit angka tanpa karakter khusus (hanya angka).</p>
-
-            <p style="margin-top: 6px;"><strong>3. Halaman Menampilkan Data Lama (Cache)</strong><br>
-            Lakukan hard-refresh pada peramban web dengan menekan kombinasi tombol Ctrl + F5 (Windows) atau Cmd + Shift + R (Mac).</p>
+        <!-- KOLOM TROUBLESHOOTING -->
+        <div class="card-box" style="border-top: 5px solid #E5A93C; background: #FAFCFA;">
+          <div style="font-size: 14px; font-weight: 800; color: #92400E; margin-bottom: 10px;">
+            Solusi Masalah Teknis (Troubleshooting)
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 11.5px; line-height: 1.45;">
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB;">
+              <strong style="color: #111827;">1. Tombol 'Daftar' Menolak Nomor HP</strong><br>
+              <span style="color: #4B5563;">Pastikan nomor HP yang Anda ketik minimal 10 angka dan hanya berisi angka saja (jangan pakai spasi atau tanda setrip). Contoh: 081234567890.</span>
+            </div>
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB;">
+              <strong style="color: #111827;">2. Gagal Upload Foto Barang Sembako</strong><br>
+              <span style="color: #4B5563;">Pastikan foto berformat gambar biasa (JPG atau PNG) dan ukurannya tidak terlalu besar (maksimal 2 MB). Jangan gunakan file dokumen PDF.</span>
+            </div>
+            <div style="background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #E5E7EB;">
+              <strong style="color: #111827;">3. Layar Menampilkan Data Lama (Macet)</strong><br>
+              <span style="color: #4B5563;">Tarik layar HP dari atas ke bawah untuk refresh, atau tekan tombol F5 pada keyboard komputer agar peramban memuat data terbaru.</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="callout">
-        <div class="callout-title">Layanan Bantuan & Dukungan Teknis</div>
-        <div class="callout-desc">
-          Apabila Anda mengalami kendala data yang tidak tercantum di atas, silakan hubungi pengelola bank sampah setempat atau kirimkan laporan teknis melalui portal repositori resmi aplikasi.
-        </div>
+      <div class="bottom-banner dark" style="padding: 10px 16px;">
+        <div class="banner-title">Butuh Bantuan Lebih Lanjut?</div>
+        <div class="banner-text">Silakan hubungi pengurus bank sampah RT/RW setempat pada jam kerja, atau kirimkan pesan ke kontak pengembang yang tertera di halaman belakang.</div>
       </div>
     </div>
     ${pageFooter(18)}
   </div>
 
-  <!-- ==================== HALAMAN 19: PENUTUP & LEMBAR PENGEMBANG ==================== -->
+  <!-- ==================== HALAMAN 19: PENUTUP & PROFIL PENGEMBANG ==================== -->
   <div class="page">
-    ${pageHeader("PENUTUP", "Lembar Pengesahan & Informasi Pengembang", "LEGALITAS & PENUTUP")}
+    ${pageHeader("PENUTUP", "Kata Penutup & Lembar Identitas Pembuat Aplikasi", "LEGALITAS & PENUTUP")}
     <div class="page-body">
       <div class="col-left">
-        <h3 style="font-size: 13px; font-weight: 700; color: #16211B;">9.1 Kesimpulan & Komitmen Berkelanjutan</h3>
-        <p style="font-size: 9.5px; color: #4B5563;">
-          Aplikasi Sistem Informasi Setor Sampah Mandiri dikembangkan dengan visi mewujudkan tata kelola lingkungan yang bersih, sehat, dan berdaya guna secara ekonomi.
-          Melalui sistem insentif poin yang transparan dan alur validasi bertingkat, masyarakat terdorong untuk memilah sampah secara sukarela dan konsisten.
-        </p>
+        <div>
+          <h3 style="font-size: 17px; font-weight: 800; color: #111827;">9.1 Kata Penutup Pembuat</h3>
+          <p style="font-size: 11.5px; color: #374151; margin-top: 3px;">
+            Aplikasi <strong>Setor Sampah Mandiri</strong> ini saya rancang dan bangun sendiri sebagai proyek tugas kejuruan mandiri.
+            Tujuannya sederhana: membuktikan bahwa teknologi web bisa diterapkan secara nyata untuk membantu warga RT/RW peduli lingkungan sekaligus mendapatkan manfaat sembako.
+          </p>
+        </div>
 
-        <h3 style="font-size: 12px; font-weight: 700; color: #16211B; margin-top: 6px;">9.2 Lembar Identitas Pengembang</h3>
         <table class="data-table">
           <tbody>
             <tr>
-              <td style="width: 38%; font-weight: 700;">Nama Pengembang</td>
-              <td><strong>Anjas Ardiansah</strong></td>
+              <td style="width: 36%; font-weight: 800;">Nama Pembuat</td>
+              <td><strong style="color: #1B4332; font-size: 13px;">Anjas Ardiansah</strong></td>
             </tr>
             <tr>
-              <td style="font-weight: 700;">Status Proyek</td>
-              <td>Tugas Portofolio Mandiri (Individual Project)</td>
+              <td style="font-weight: 800;">Status Proyek</td>
+              <td>Tugas Portofolio Mandiri (Individu)</td>
             </tr>
             <tr>
-              <td style="font-weight: 700;">Program Keahlian</td>
+              <td style="font-weight: 800;">Program Keahlian</td>
               <td>Pengembangan Perangkat Lunak dan Gim (PPLG)</td>
             </tr>
             <tr>
-              <td style="font-weight: 700;">Tingkat Pendidikan</td>
+              <td style="font-weight: 800;">Tingkat Sekolah</td>
               <td>Kelas XII SMK</td>
             </tr>
             <tr>
-              <td style="font-weight: 700;">Tahun Rilis</td>
-              <td>Edisi Resmi 2026 // Versi 1.0</td>
+              <td style="font-weight: 800;">Teknologi Dibangun</td>
+              <td>Next.js 14, React, Tailwind CSS, TypeScript, SQLite Prisma</td>
             </tr>
             <tr>
-              <td style="font-weight: 700;">Repositori Kode Sumber</td>
-              <td style="word-break: break-all; font-family: monospace; font-size: 8px;">https://github.com/MaL1kq/Anjas-Ardiansah_XII-PPLG_Laravel_Setor-Sampah</td>
+              <td style="font-weight: 800;">Repositori GitHub</td>
+              <td style="word-break: break-all; font-family: monospace; font-size: 9.5px;">github.com/MaL1kq/Anjas-Ardiansah_XII-PPLG_Laravel_Setor-Sampah</td>
             </tr>
             <tr>
-              <td style="font-weight: 700;">Alamat Publikasi Live</td>
-              <td style="word-break: break-all; font-family: monospace; font-size: 8px;">https://mal1kq.github.io/Anjas-Ardiansah_XII-PPLG_Laravel_Setor-Sampah/</td>
+              <td style="font-weight: 800;">Akses Online (Live)</td>
+              <td style="word-break: break-all; font-family: monospace; font-size: 9.5px;">mal1kq.github.io/Anjas-Ardiansah_XII-PPLG_Laravel_Setor-Sampah/</td>
             </tr>
           </tbody>
         </table>
 
-        <div class="callout" style="margin-top: 6px;">
-          <div class="callout-title">Hak Cipta & Integritas Dokumen</div>
-          <div class="callout-desc">
-            Seluruh kode program, desain antarmuka, dan materi panduan ini adalah karya orisinal Anjas Ardiansah. Dilarang mengubah atribusi atau menyalahgunakan hak cipta tanpa izin tertulis.
-          </div>
+        <div class="bottom-banner green" style="margin-top: 6px;">
+          <div class="banner-title">Pernyataan Orisinalitas:</div>
+          <div class="banner-text">Seluruh kode program, desain antarmuka, dan penyusunan buku panduan ini dikerjakan secara orisinal oleh Anjas Ardiansah tanpa melibatkan pihak luar.</div>
         </div>
       </div>
 
       <div class="col-right">
-        <div class="card-box" style="width: 100%; text-align: center; padding: 24px 16px; background: #FAFCFA; border: 2px dashed #CFE6D5;">
-          <img src="${logoBase64}" style="width: 54px; height: 54px; object-fit: contain; margin-bottom: 12px;" alt="Logo" />
-          <h4 style="font-size: 14px; font-weight: 700; color: #2E6B4E; margin-bottom: 4px;">SISTEM SETOR SAMPAH MANDIRI</h4>
-          <div style="font-size: 9.5px; color: #6B7280; margin-bottom: 14px;">Platform Digital Bank Sampah Berbasis Insentif Poin</div>
-
-          <div style="display: inline-block; padding: 4px 12px; background: #EAF3EC; border: 1px solid #CFE6D5; border-radius: 6px; font-size: 9px; font-weight: 700; color: #245439;">
-            DOKUMEN PANDUAN PENGGUNA RESMI TERVERIFIKASI
+        <div class="card-box" style="width: 100%; height: 100%; text-align: center; padding: 24px 20px; background: #FAFCFA; border: 2.5px solid #2D6A4F; justify-content: space-between;">
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 70px; height: 70px; background: #FFFFFF; border-radius: 16px; border: 2px solid #CFE6D5; padding: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+              <img src="${logoBase64}" style="width: 100%; height: 100%; object-fit: contain;" alt="Logo Setor Sampah" />
+            </div>
+            <h4 style="font-size: 18px; font-weight: 800; color: #1B4332; margin-bottom: 4px;">SISTEM SETOR SAMPAH MANDIRI</h4>
+            <div style="font-size: 12px; color: #4B5563; font-weight: 600;">Platform Digital Bank Sampah Berbasis Insentif Poin Sembako</div>
           </div>
 
-          <p style="font-size: 8.5px; color: #9CA3AF; margin-top: 14px; line-height: 1.4;">
-            Hak Cipta 2026 Anjas Ardiansah. Seluruh hak cipta dilindungi undang-undang.<br>
-            Diterbitkan untuk mendukung program digitalisasi kebersihan dan ekonomi sirkular lingkungan.
-          </p>
+          <div style="background: #EAF3EC; border: 1.5px solid #CFE6D5; border-radius: 10px; padding: 14px; margin: 16px 0;">
+            <div style="font-size: 13px; font-weight: 800; color: #1B4332; text-transform: uppercase; letter-spacing: 0.5px;">
+              DOKUMEN PANDUAN PENGGUNA RESMI TERVERIFIKASI
+            </div>
+            <div style="font-size: 11px; color: #2D6A4F; margin-top: 4px; font-weight: 600;">
+              Edisi Rilis Resmi Tahun 2026 // Versi 1.0 (Produksi)
+            </div>
+          </div>
+
+          <div>
+            <p style="font-size: 10.5px; color: #6B7280; line-height: 1.5; margin: 0;">
+              Hak Cipta 2026 Anjas Ardiansah. Seluruh hak cipta dilindungi undang-undang.<br>
+              Diterbitkan untuk memajukan sistem pengelolaan sampah mandiri dan ekonomi sirkular lingkungan.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1646,16 +1983,17 @@ async function buildPdf() {
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
-  const page = await browser.newPage();
-  console.log('Loading HTML content into Puppeteer...');
-  await page.setContent(html, { waitUntil: 'networkidle0' });
-
   const outputHtmlPath = path.resolve(__dirname, '..', 'User_Manual_Sistem_Setor_Sampah_Anjas_Ardiansah.html');
   fs.writeFileSync(outputHtmlPath, html, 'utf8');
-  console.log('HTML User Manual saved to:', outputHtmlPath);
+  console.log('HTML User Manual V3 saved to:', outputHtmlPath);
+
+  const page = await browser.newPage();
+  console.log('Loading HTML V3 content into Puppeteer...');
+  await page.goto('file:///' + outputHtmlPath.replace(/\\/g, '/'), { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await new Promise(r => setTimeout(r, 1500));
 
   const outputPdfPath = path.resolve(__dirname, '..', 'User_Manual_Sistem_Setor_Sampah_Anjas_Ardiansah.pdf');
-  console.log('Rendering PDF to:', outputPdfPath);
+  console.log('Rendering PDF V3 to:', outputPdfPath);
 
   await page.pdf({
     path: outputPdfPath,
@@ -1665,11 +2003,11 @@ async function buildPdf() {
     margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' }
   });
 
-  console.log('PDF User Manual successfully generated!');
+  console.log('PDF User Manual V3 successfully generated!');
   await browser.close();
 }
 
 buildPdf().catch(err => {
-  console.error('Error generating PDF:', err);
+  console.error('Error generating PDF V3:', err);
   process.exit(1);
 });
