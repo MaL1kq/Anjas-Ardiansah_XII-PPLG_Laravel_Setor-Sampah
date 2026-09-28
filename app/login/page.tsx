@@ -38,7 +38,8 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-col justify-between bg-brand-500 text-white p-12 relative overflow-hidden">
         <div className="absolute -right-24 -bottom-24 w-96 h-96 rounded-full bg-brand-400/30" />
         <div className="absolute -left-16 top-1/3 w-64 h-64 rounded-full bg-brand-600/40" />
-        <div className="relative z-10">
+        <div className="relative z-10 flex items-center gap-2.5">
+          <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain bg-white/20 p-1 rounded-lg" />
           <span className="font-display font-semibold text-lg tracking-tight">Setor Sampah</span>
         </div>
         <div className="relative z-10 space-y-6">
@@ -67,7 +68,8 @@ export default function LoginPage() {
 
       <div className="flex items-center justify-center p-8">
         <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-5">
-          <div className="lg:hidden mb-6">
+          <div className="lg:hidden mb-6 flex items-center gap-2">
+            <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
             <span className="font-display font-semibold text-lg tracking-tight text-brand-600">Setor Sampah</span>
           </div>
           <div>

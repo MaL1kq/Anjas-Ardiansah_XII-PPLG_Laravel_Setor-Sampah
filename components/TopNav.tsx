@@ -32,9 +32,7 @@ export default function TopNav({
     <nav className="bg-white border-b border-line sticky top-0 z-40 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
         <Link href={role === "ADMIN" ? "/admin/dashboard" : "/dashboard"} className="flex items-center gap-2.5 shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-brand-500 text-white flex items-center justify-center font-display font-bold text-lg shadow-sm">
-            S
-          </div>
+          <img src="/logo.png" alt="Logo Setor Sampah" className="w-9 h-9 object-contain shrink-0" />
           <div>
             <span className="font-display font-bold text-lg text-ink tracking-tight whitespace-nowrap">Setor Sampah</span>
             <span className="hidden sm:inline-block ml-2 text-[11px] font-semibold bg-brand-50 text-brand-600 border border-brand-100 px-2 py-0.5 rounded-full whitespace-nowrap">
