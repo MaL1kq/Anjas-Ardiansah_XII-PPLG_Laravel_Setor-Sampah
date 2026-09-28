@@ -53,17 +53,23 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-2xl font-semibold text-ink">Ringkasan</h1>
-        <p className="text-sm text-ink/60 mt-1">Gambaran umum laporan dan stok sampah.</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-ink">Dashboard Admin TPU</h1>
+          <p className="text-sm text-ink/60">Ringkasan operasional penerimaan sampah dan ketersediaan stok daur ulang.</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link href="/admin/setoran" className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition shadow-sm">
+            Verifikasi Setoran Masuk →
+          </Link>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-        <StatCard label="Total Laporan" value={String(totalLaporan)} accent="brand" />
-        <StatCard label="Menunggu" value={String(totalPending)} sub="perlu ditinjau" accent="anorganik" />
-        <StatCard label="Disetujui" value={String(totalApproved)} accent="organik" />
-        <StatCard label="Ditolak" value={String(totalRejected)} accent="b3" />
-        <StatCard label="Warga Terdaftar" value={String(totalWarga)} accent="gray" />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <StatCard label="Total Setoran" value={`${totalLaporan} Setoran`} sub="Semua kategori" accent="brand" />
+        <StatCard label="Perlu Verifikasi" value={`${totalPending} Menunggu`} sub="Klik untuk review" accent="anorganik" />
+        <StatCard label="Total Warga Terdaftar" value={`${totalWarga} Warga`} sub="Tugas Individu" accent="gray" />
+        <StatCard label="Total Stok Material" value={`${totalStok.toFixed(1)} KG`} sub="Terkumpul di gudang" accent="organik" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">

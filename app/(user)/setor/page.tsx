@@ -12,10 +12,10 @@ export default async function SetorPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl font-semibold text-ink">Setor Sampah</h1>
+      <div className="mb-6">
+        <h1 className="font-display text-2xl font-bold text-ink">Form Setoran Sampah Mandiri</h1>
         <p className="text-sm text-ink/60 mt-1">
-          Kamu setor untuk wilayah apa? Pilih dulu, lalu isi jenis dan jumlah sampahnya.
+          Lengkapi data setoran dengan benar agar cepat diverifikasi oleh admin TPU.
         </p>
       </div>
       <SetoranForm jenisSampahList={jenisSampahList} wilayahList={wilayahList} tags={tags} />

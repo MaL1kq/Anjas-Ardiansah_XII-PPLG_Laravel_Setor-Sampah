@@ -26,19 +26,23 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="font-display text-2xl font-semibold text-ink">Riwayat Laporan</h1>
-          <p className="text-sm text-ink/60 mt-1">Pantau status laporan setoran sampah kamu di sini.</p>
+          <h1 className="font-display text-2xl font-bold text-ink">Dashboard Warga</h1>
+          <p className="text-sm text-ink/60">Pantau seluruh riwayat setoran dan akumulasi poin reward Anda.</p>
         </div>
-        <Link href="/setor" className="btn-primary">+ Setor Sampah</Link>
+        <Link
+          href="/setor"
+          className="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition shadow-sm"
+        >
+          + Setor Sampah Sekarang
+        </Link>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatCard label="Total Laporan" value={String(laporan.length)} accent="brand" />
-        <StatCard label="Disetujui" value={String(totalApproved)} sub={`${totalKg.toFixed(1)} kg terkumpul`} accent="organik" />
-        <StatCard label="Menunggu" value={String(totalPending)} accent="anorganik" />
-        <StatCard label="Ditolak" value={String(totalRejected)} accent="b3" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <StatCard label="Total Setoran" value={`${laporan.length} Setoran`} sub="Semua kategori" accent="brand" />
+        <StatCard label="Menunggu Verifikasi" value={`${totalPending} Setoran`} sub="Sedang ditinjau petugas" accent="anorganik" />
+        <StatCard label="Disetujui" value={`${totalApproved} Setoran`} sub="Masuk stok daur ulang" accent="organik" />
       </div>
 
       <RiwayatTable laporan={JSON.parse(JSON.stringify(laporan))} />
