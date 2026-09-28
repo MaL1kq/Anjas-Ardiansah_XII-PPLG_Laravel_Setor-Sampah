@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
         satuan: data.satuan,
         status: data.status,
         alasanPenolakan: isRejected ? data.alasanPenolakan : null,
-        approvedBy: isApproved || isRejected ? { connect: { id: adminId } } : undefined,
+        approvedById: isApproved || isRejected ? adminId : null,
         approvedAt: isApproved || isRejected ? new Date() : null,
         tags: data.tagIds.length ? { connect: data.tagIds.map((id) => ({ id })) } : undefined,
         foto: body.fotoUrl ? { create: { url: body.fotoUrl } } : undefined,

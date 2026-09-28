@@ -17,8 +17,11 @@ export default function KelolaBarangPage() {
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [form, setForm] = useState({
     namaBarang: "",
@@ -65,33 +68,69 @@ export default function KelolaBarangPage() {
     }
   }
 
-  async function handleAdd(e: React.FormEvent) {
+  function handleStartEdit(b: Barang) {
+    setEditingId(b.id);
+    setError("");
+    setSuccess("");
+    setForm({
+      namaBarang: b.namaBarang,
+      hargaPoin: b.hargaPoin,
+      stok: b.stok,
+      deskripsi: b.deskripsi || "",
+      gambarUrl: b.gambarUrl || "",
+    });
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function handleCancelEdit() {
+    setEditingId(null);
+    setForm({ namaBarang: "", hargaPoin: 100, stok: 10, deskripsi: "", gambarUrl: "" });
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setError("");
+    setSuccess("");
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.namaBarang.trim()) return;
     setSubmitting(true);
     setError("");
-    const res = await fetch("/api/admin/barang", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form,
-        hargaPoin: Number(form.hargaPoin),
-        stok: Number(form.stok),
-        gambarUrl: form.gambarUrl.trim() || null,
-      }),
-    });
-    const data = await res.json();
-    setSubmitting(false);
-    if (!res.ok) return setError(data.error || "Gagal menambah barang");
-    setForm({ namaBarang: "", hargaPoin: 100, stok: 10, deskripsi: "", gambarUrl: "" });
-    if (fileInputRef.current) fileInputRef.current.value = "";
-    load();
+    setSuccess("");
+
+    try {
+      const url = editingId ? `/api/admin/barang/${editingId}` : "/api/admin/barang";
+      const method = editingId ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          hargaPoin: Number(form.hargaPoin),
+          stok: Number(form.stok),
+          gambarUrl: form.gambarUrl.trim() || null,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Gagal menyimpan barang");
+
+      setSuccess(editingId ? "Data barang berhasil diperbarui." : "Barang baru berhasil ditambahkan.");
+      handleCancelEdit();
+      load();
+    } catch (err: any) {
+      setError(err.message || "Terjadi kesalahan");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Yakin ingin menghapus barang ini?")) return;
     setDeletingId(id);
     setError("");
+    setSuccess("");
     const res = await fetch(`/api/admin/barang/${id}`, { method: "DELETE" });
     setDeletingId(null);
     if (!res.ok) {
@@ -99,6 +138,8 @@ export default function KelolaBarangPage() {
       setError(data.error || "Gagal menghapus");
       return;
     }
+    setSuccess("Barang berhasil dihapus.");
+    if (editingId === id) handleCancelEdit();
     load();
   }
 
@@ -111,8 +152,22 @@ export default function KelolaBarangPage() {
         </p>
       </div>
 
-      <form onSubmit={handleAdd} className="card p-5 flex flex-col gap-4 max-w-2xl">
-        <h2 className="text-sm font-semibold text-ink uppercase tracking-wide">Tambah Barang Baru</h2>
+      <form ref={formRef} onSubmit={handleSubmit} className="card p-5 flex flex-col gap-4 max-w-2xl border-line">
+        <div className="flex items-center justify-between border-b border-line pb-2.5">
+          <h2 className="text-sm font-semibold text-ink uppercase tracking-wide">
+            {editingId ? "Edit Data Barang" : "Tambah Barang Baru"}
+          </h2>
+          {editingId && (
+            <button
+              type="button"
+              onClick={handleCancelEdit}
+              className="text-xs text-b3 font-medium hover:underline"
+            >
+              Batal Edit
+            </button>
+          )}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-medium text-ink mb-1">Nama Barang / Reward</label>
@@ -137,7 +192,7 @@ export default function KelolaBarangPage() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-ink mb-1">Stok Awal</label>
+            <label className="block text-xs font-medium text-ink mb-1">Stok Tersedia</label>
             <input
               type="number"
               className="input-field"
@@ -203,15 +258,28 @@ export default function KelolaBarangPage() {
                 }}
                 className="text-xs text-b3 hover:underline font-medium"
               >
-                Hapus
+                Hapus Foto
               </button>
             </div>
           )}
         </div>
 
-        <div className="flex justify-end pt-2">
-          <button type="submit" disabled={submitting || uploading || !form.namaBarang.trim()} className="btn-primary">
-            {submitting ? "Menyimpan..." : "Tambah Barang"}
+        <div className="flex items-center justify-end gap-3 pt-2">
+          {editingId && (
+            <button
+              type="button"
+              onClick={handleCancelEdit}
+              className="px-4 py-2 rounded-lg text-sm font-medium text-ink/70 hover:bg-gray-100 transition"
+            >
+              Batal
+            </button>
+          )}
+          <button
+            type="submit"
+            disabled={submitting || uploading || !form.namaBarang.trim()}
+            className="btn-primary"
+          >
+            {submitting ? "Menyimpan..." : editingId ? "Simpan Perubahan" : "Tambah Barang"}
           </button>
         </div>
       </form>
@@ -219,9 +287,12 @@ export default function KelolaBarangPage() {
       {error && (
         <div className="text-sm text-b3 bg-b3/10 border border-b3/20 rounded-card px-3.5 py-2.5 max-w-2xl">{error}</div>
       )}
+      {success && (
+        <div className="text-sm text-organik bg-organik/10 border border-organik/20 rounded-card px-3.5 py-2.5 max-w-2xl">{success}</div>
+      )}
 
       {loading ? (
-        <p className="text-sm text-ink/50">Memuat...</p>
+        <p className="text-sm text-ink/50">Memuat data...</p>
       ) : list.length === 0 ? (
         <div className="card p-10 text-center text-sm text-ink/60">Belum ada barang di katalog. Tambah di atas.</div>
       ) : (
@@ -234,12 +305,12 @@ export default function KelolaBarangPage() {
                 <th className="px-5 py-3 font-medium">Deskripsi</th>
                 <th className="px-5 py-3 font-medium">Harga Poin</th>
                 <th className="px-5 py-3 font-medium">Stok</th>
-                <th className="px-5 py-3 font-medium"></th>
+                <th className="px-5 py-3 font-medium text-right">Aksi</th>
               </tr>
             </thead>
             <tbody>
               {list.map((b) => (
-                <tr key={b.id} className="border-b border-line last:border-0">
+                <tr key={b.id} className="border-b border-line last:border-0 hover:bg-gray-50/50 transition">
                   <td className="px-5 py-3">
                     {b.gambarUrl ? (
                       <img
@@ -255,16 +326,24 @@ export default function KelolaBarangPage() {
                   </td>
                   <td className="px-5 py-3.5 font-medium text-ink">{b.namaBarang}</td>
                   <td className="px-5 py-3.5 text-ink/60">{b.deskripsi || "-"}</td>
-                  <td className="px-5 py-3.5 font-mono font-semibold text-brand-600">{b.hargaPoin} Pts</td>
+                  <td className="px-5 py-3.5 font-mono font-semibold text-brand-600 whitespace-nowrap">{b.hargaPoin} Pts</td>
                   <td className="px-5 py-3.5 font-mono text-ink/70">{b.stok}</td>
-                  <td className="px-5 py-3.5 text-right">
-                    <button
-                      onClick={() => handleDelete(b.id)}
-                      disabled={deletingId === b.id}
-                      className="text-sm text-b3 font-medium hover:underline disabled:opacity-50"
-                    >
-                      {deletingId === b.id ? "Menghapus..." : "Hapus"}
-                    </button>
+                  <td className="px-5 py-3.5 text-right whitespace-nowrap">
+                    <div className="flex items-center justify-end gap-3">
+                      <button
+                        onClick={() => handleStartEdit(b)}
+                        className="text-sm text-brand-600 font-medium hover:underline"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(b.id)}
+                        disabled={deletingId === b.id}
+                        className="text-sm text-b3 font-medium hover:underline disabled:opacity-50"
+                      >
+                        {deletingId === b.id ? "Menghapus..." : "Hapus"}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
