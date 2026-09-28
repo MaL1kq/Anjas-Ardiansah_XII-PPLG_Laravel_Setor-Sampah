@@ -214,41 +214,31 @@ export default function KelolaBarangPage() {
           </div>
         </div>
 
-        {/* Gambar Upload / URL */}
+        {/* Gambar Upload (File Only) */}
         <div className="border-t border-line pt-4 space-y-3">
-          <label className="block text-xs font-medium text-ink">Foto atau Gambar Barang</label>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <label className="block text-xs font-medium text-ink">Foto Barang</label>
+          <div className="flex items-center gap-3">
             <input
               type="file"
               ref={fileInputRef}
               accept="image/png, image/jpeg, image/webp"
               onChange={handleFileUpload}
-              className="text-xs text-ink/70 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer"
-            />
-            <span className="text-xs text-ink/40">atau ketik URL:</span>
-            <input
-              type="url"
-              className="input-field text-xs flex-1"
-              value={form.gambarUrl}
-              onChange={(e) => setForm({ ...form, gambarUrl: e.target.value })}
-              placeholder="https://contoh.com/gambar.jpg"
+              className="text-xs text-ink/70 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-600 hover:file:bg-brand-100 cursor-pointer"
             />
           </div>
 
-          {uploading && <p className="text-xs text-brand-600">Mengunggah gambar...</p>}
+          {uploading && <p className="text-xs text-brand-600 font-medium">Mengunggah gambar...</p>}
 
           {form.gambarUrl && (
-            <div className="flex items-center gap-3 bg-gray-50 p-2.5 rounded-lg border border-line">
+            <div className="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-line">
               <img
                 src={form.gambarUrl}
-                alt="Preview"
-                className="w-16 h-16 object-cover rounded-md border border-line bg-white"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = "none";
-                }}
+                alt="Foto Barang"
+                className="w-20 h-20 object-cover rounded-lg border border-line bg-white"
               />
-              <div className="text-xs text-ink/60 truncate flex-1">
-                Preview Gambar: <span className="font-mono text-ink/80">{form.gambarUrl}</span>
+              <div className="flex-1">
+                <p className="text-xs font-semibold text-ink">Foto barang terpilih</p>
+                <p className="text-[11px] text-ink/50 mt-0.5">Foto ini akan ditampilkan pada kartu barang di toko warga.</p>
               </div>
               <button
                 type="button"
@@ -256,7 +246,7 @@ export default function KelolaBarangPage() {
                   setForm({ ...form, gambarUrl: "" });
                   if (fileInputRef.current) fileInputRef.current.value = "";
                 }}
-                className="text-xs text-b3 hover:underline font-medium"
+                className="text-xs text-b3 hover:underline font-semibold px-2 py-1"
               >
                 Hapus Foto
               </button>
