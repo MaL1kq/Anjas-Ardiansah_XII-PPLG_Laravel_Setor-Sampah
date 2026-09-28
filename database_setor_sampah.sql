@@ -199,3 +199,39 @@ ALTER TABLE "_LaporanTags" ADD CONSTRAINT "_LaporanTags_A_fkey" FOREIGN KEY ("A"
 -- AddForeignKey
 ALTER TABLE "_LaporanTags" ADD CONSTRAINT "_LaporanTags_B_fkey" FOREIGN KEY ("B") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
+-- ==================== Seed Data Awal ====================
+-- Ekstensi pgcrypto untuk gen_random_uuid jika diperlukan
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+-- 1. Akun Admin Default (Email: admin@tpu.com, Password: admin12345)
+INSERT INTO "users" ("id", "nama", "email", "noHp", "password", "role")
+VALUES (gen_random_uuid(), 'Admin TPU', 'admin@tpu.com', '081200000000', '$2a$10$fBufYsvX5T8NXiARIToCt.HMguVyM7ZzVntZuD8KZvw2fIBs4/lkS', 'ADMIN')
+ON CONFLICT ("email") DO NOTHING;
+
+-- 2. Master Data Jenis Sampah
+INSERT INTO "jenis_sampah" ("id", "namaJenis")
+VALUES 
+    (gen_random_uuid(), 'Organik'),
+    (gen_random_uuid(), 'Anorganik'),
+    (gen_random_uuid(), 'B3'),
+    (gen_random_uuid(), 'Residu')
+ON CONFLICT ("namaJenis") DO NOTHING;
+
+-- 3. Master Data Wilayah
+INSERT INTO "wilayah" ("id", "namaWilayah")
+VALUES 
+    (gen_random_uuid(), 'Rumah'),
+    (gen_random_uuid(), 'Sekolah'),
+    (gen_random_uuid(), 'RT/RW'),
+    (gen_random_uuid(), 'Lainnya')
+ON CONFLICT ("namaWilayah") DO NOTHING;
+
+-- 4. Master Data Tag Default
+INSERT INTO "tags" ("id", "nama", "warna")
+VALUES 
+    (gen_random_uuid(), 'Prioritas', 'brand'),
+    (gen_random_uuid(), 'Volume Besar', 'brand'),
+    (gen_random_uuid(), 'Perlu Verifikasi Ulang', 'brand'),
+    (gen_random_uuid(), 'Kerjasama Event', 'brand')
+ON CONFLICT ("nama") DO NOTHING;
+
