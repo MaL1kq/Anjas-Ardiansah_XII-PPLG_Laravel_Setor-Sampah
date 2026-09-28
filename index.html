@@ -56,10 +56,10 @@
     <div class="flex items-center gap-2">
       <span class="text-white/80">Lihat Tampilan Sebagai:</span>
       <button onclick="switchRole('USER')" id="btnRoleUser" class="bg-white text-brand-600 font-semibold px-2.5 py-1 rounded shadow-sm hover:bg-brand-50 transition">
-        👤 Warga (User)
+         Warga (User)
       </button>
       <button onclick="switchRole('ADMIN')" id="btnRoleAdmin" class="bg-brand-500 text-white/90 font-semibold px-2.5 py-1 rounded hover:bg-brand-400 transition">
-        🛡️ Admin TPU
+        ️ Admin TPU
       </button>
     </div>
   </header>
@@ -70,7 +70,7 @@
       <!-- LOGO -->
       <div class="flex items-center gap-3 cursor-pointer" onclick="showView('login')">
         <div class="w-9 h-9 rounded-lg bg-brand-500 text-white flex items-center justify-center font-display font-bold text-lg shadow-sm">
-          ♻️
+          ️
         </div>
         <div>
           <span class="font-display font-bold text-lg text-ink tracking-tight">Setor Sampah</span>
@@ -91,7 +91,7 @@
             + Setor Sampah
           </button>
           <button onclick="showView('user-tukar-poin')" id="tabUserTukarPoin" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
-            🎁 Tukar Poin
+             Tukar Poin
           </button>
         </div>
 
@@ -173,11 +173,11 @@
                 <label class="block text-xs font-semibold text-ink mb-1">Pilih Akun Demo Cepat:</label>
                 <div class="grid grid-cols-2 gap-2">
                   <button onclick="loginAs('USER')" class="p-3 border border-brand-200 bg-brand-50/60 rounded-lg text-left hover:bg-brand-50 transition">
-                    <div class="font-semibold text-sm text-brand-600">👤 Warga RT/RW</div>
+                    <div class="font-semibold text-sm text-brand-600"> Warga RT/RW</div>
                     <div class="text-xs text-ink/50">rt012@gmail.com</div>
                   </button>
                   <button onclick="loginAs('ADMIN')" class="p-3 border border-gray-200 hover:border-brand-500 rounded-lg text-left transition">
-                    <div class="font-semibold text-sm text-ink">🛡️ Admin TPU</div>
+                    <div class="font-semibold text-sm text-ink">️ Admin TPU</div>
                     <div class="text-xs text-ink/50">admin@tpu.com</div>
                   </button>
                 </div>
@@ -330,7 +330,7 @@
               <label class="cursor-pointer">
                 <input type="radio" name="jenisSampah" value="Organik" checked class="peer sr-only">
                 <div class="p-3 rounded-lg border border-line peer-checked:border-organik peer-checked:bg-organik/10 transition text-center">
-                  <span class="block text-xl mb-1">🍃</span>
+                  <span class="block text-xl mb-1"></span>
                   <span class="font-semibold text-sm text-ink block">Organik</span>
                   <span class="text-[10px] text-organik font-medium">10 Poin/kg</span>
                 </div>
@@ -338,7 +338,7 @@
               <label class="cursor-pointer">
                 <input type="radio" name="jenisSampah" value="Anorganik" class="peer sr-only">
                 <div class="p-3 rounded-lg border border-line peer-checked:border-anorganik peer-checked:bg-anorganik/10 transition text-center">
-                  <span class="block text-xl mb-1">📦</span>
+                  <span class="block text-xl mb-1"></span>
                   <span class="font-semibold text-sm text-ink block">Anorganik</span>
                   <span class="text-[10px] text-anorganik font-medium">15 Poin/kg</span>
                 </div>
@@ -346,7 +346,7 @@
               <label class="cursor-pointer">
                 <input type="radio" name="jenisSampah" value="B3" class="peer sr-only">
                 <div class="p-3 rounded-lg border border-line peer-checked:border-b3 peer-checked:bg-b3/10 transition text-center">
-                  <span class="block text-xl mb-1">☣️</span>
+                  <span class="block text-xl mb-1">️</span>
                   <span class="font-semibold text-sm text-ink block">B3</span>
                   <span class="text-[10px] text-b3 font-medium">20 Poin/kg</span>
                 </div>
@@ -354,7 +354,7 @@
               <label class="cursor-pointer">
                 <input type="radio" name="jenisSampah" value="Residu" class="peer sr-only">
                 <div class="p-3 rounded-lg border border-line peer-checked:border-residu peer-checked:bg-residu/10 transition text-center">
-                  <span class="block text-xl mb-1">🗑️</span>
+                  <span class="block text-xl mb-1">️</span>
                   <span class="font-semibold text-sm text-ink block">Residu</span>
                   <span class="text-[10px] text-residu font-medium">5 Poin/kg</span>
                 </div>
@@ -392,7 +392,7 @@
           <div>
             <label class="block text-xs font-semibold text-ink mb-1.5">4. Foto Bukti Sampah / Timbangan (Opsional)</label>
             <div class="border-2 border-dashed border-line rounded-lg p-4 text-center hover:border-brand-400 transition bg-gray-50/50">
-              <span class="text-2xl block mb-1">📸</span>
+              <span class="text-2xl block mb-1"></span>
               <span class="text-xs text-ink/70">Klik untuk melampirkan foto dokumentasi</span>
               <input type="file" class="hidden" id="dummyFile">
             </div>
@@ -401,7 +401,7 @@
           <!-- SUBMIT BUTTON -->
           <div class="pt-2">
             <button onclick="submitSetoranUser()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm flex items-center justify-center gap-2">
-              <span>🚀</span> Kirim Setoran untuk Diverifikasi
+              <span></span> Kirim Setoran untuk Diverifikasi
             </button>
           </div>
         </div>
@@ -411,7 +411,7 @@
     <!-- ==================== VIEW 4: USER TUKAR POIN ==================== -->
     <section id="view-user-tukar-poin" class="hidden">
       <div class="mb-6">
-        <h1 class="font-display text-2xl font-bold text-ink">Toko Penukaran Poin 🎁</h1>
+        <h1 class="font-display text-2xl font-bold text-ink">Toko Penukaran Poin </h1>
         <p class="text-sm text-ink/60">Tukarkan poin yang kamu kumpulkan dengan sembako atau uang tunai.</p>
       </div>
 
@@ -428,7 +428,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <!-- Item 1 -->
         <div class="card p-4 flex flex-col">
-          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl">💰</div>
+          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl"></div>
           <h3 class="font-bold text-ink mb-1">Uang Tunai Rp 50.000</h3>
           <p class="text-xs text-ink/60 mb-3 flex-1">Penarikan saldo tunai langsung ke rekening atau e-wallet (GoPay/OVO/Dana).</p>
           <div class="flex items-center justify-between mt-auto">
@@ -438,7 +438,7 @@
         </div>
         <!-- Item 2 -->
         <div class="card p-4 flex flex-col">
-          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl">🍚</div>
+          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl"></div>
           <h3 class="font-bold text-ink mb-1">Beras 5 KG</h3>
           <p class="text-xs text-ink/60 mb-3 flex-1">Beras premium ukuran 5 KG. Bisa diambil langsung di bank sampah.</p>
           <div class="flex items-center justify-between mt-auto">
@@ -448,7 +448,7 @@
         </div>
         <!-- Item 3 -->
         <div class="card p-4 flex flex-col">
-          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl">🧴</div>
+          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl"></div>
           <h3 class="font-bold text-ink mb-1">Sabun & Sunlight</h3>
           <p class="text-xs text-ink/60 mb-3 flex-1">Paket kebersihan rumah tangga tangga berisi sabun cuci piring dan sabun mandi.</p>
           <div class="flex items-center justify-between mt-auto">
@@ -577,7 +577,7 @@
         </div>
         <div class="flex items-center gap-2">
           <button onclick="exportCSV()" class="px-3.5 py-2 border border-line rounded-lg text-sm font-semibold bg-white hover:bg-gray-50 transition shadow-sm flex items-center gap-1.5">
-            📥 Ekspor CSV
+             Ekspor CSV
           </button>
         </div>
       </div>
@@ -919,10 +919,10 @@
     }
 
     function getBadgeJenis(jenis) {
-      if (jenis === 'Organik') return `<span class="text-organik font-bold">🍃 Organik</span>`;
-      if (jenis === 'Anorganik') return `<span class="text-anorganik font-bold">📦 Anorganik</span>`;
-      if (jenis === 'B3') return `<span class="text-b3 font-bold">☣️ B3</span>`;
-      return `<span class="text-residu font-bold">🗑️ Residu</span>`;
+      if (jenis === 'Organik') return `<span class="text-organik font-bold"> Organik</span>`;
+      if (jenis === 'Anorganik') return `<span class="text-anorganik font-bold"> Anorganik</span>`;
+      if (jenis === 'B3') return `<span class="text-b3 font-bold">️ B3</span>`;
+      return `<span class="text-residu font-bold">️ Residu</span>`;
     }
 
     // SUBMIT SETORAN
@@ -1011,7 +1011,7 @@
           <td class="py-3 px-4 text-xs text-ink/70">${item.wilayah}</td>
           <td class="py-3 px-4">
             <span class="inline-block text-[11px] font-semibold bg-gray-100 text-ink/70 px-2 py-0.5 rounded border border-gray-200">
-              🏷️ ${item.tag}
+              ️ ${item.tag}
             </span>
           </td>
           <td class="py-3 px-4">
@@ -1024,10 +1024,10 @@
             ${item.status === 'PENDING' ? `
               <div class="flex items-center justify-center gap-1.5">
                 <button onclick="approveSetoran(${item.id})" class="px-2.5 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-xs font-semibold shadow-sm transition">
-                  ✓ Setujui
+                   Setujui
                 </button>
                 <button onclick="rejectSetoran(${item.id})" class="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-semibold shadow-sm transition">
-                  ✕ Tolak
+                   Tolak
                 </button>
               </div>
             ` : `<span class="text-xs text-ink/40 italic">Telah Diproses</span>`}
@@ -1082,7 +1082,7 @@
       state.tags.forEach(t => {
         const span = document.createElement('span');
         span.className = 'inline-flex items-center gap-1.5 bg-brand-50 text-brand-600 border border-brand-200 px-3 py-1 rounded-full text-xs font-semibold';
-        span.innerHTML = `🏷️ ${t} <button onclick="deleteTag('${t}')" class="text-ink/40 hover:text-red-600 font-bold ml-1">×</button>`;
+        span.innerHTML = `️ ${t} <button onclick="deleteTag('${t}')" class="text-ink/40 hover:text-red-600 font-bold ml-1">×</button>`;
         container.appendChild(span);
       });
     }
