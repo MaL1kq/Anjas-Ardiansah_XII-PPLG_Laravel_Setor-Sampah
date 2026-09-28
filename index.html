@@ -90,6 +90,9 @@
           <button onclick="showView('user-setor')" id="tabUserSetor" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
             + Setor Sampah
           </button>
+          <button onclick="showView('user-tukar-poin')" id="tabUserTukarPoin" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-ink/70 hover:text-ink hover:bg-gray-100 transition">
+            🎁 Tukar Poin
+          </button>
         </div>
 
         <!-- ADMIN TABS -->
@@ -400,6 +403,57 @@
             <button onclick="submitSetoranUser()" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-lg text-sm transition shadow-sm flex items-center justify-center gap-2">
               <span>🚀</span> Kirim Setoran untuk Diverifikasi
             </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: USER TUKAR POIN ==================== -->
+    <section id="view-user-tukar-poin" class="hidden">
+      <div class="mb-6">
+        <h1 class="font-display text-2xl font-bold text-ink">Toko Penukaran Poin 🎁</h1>
+        <p class="text-sm text-ink/60">Tukarkan poin yang kamu kumpulkan dengan sembako atau uang tunai.</p>
+      </div>
+
+      <div class="card p-5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-brand-50 border-brand-200">
+        <div>
+          <span class="text-xs text-brand-600 font-semibold block mb-1">Total Poin Kamu Saat Ini:</span>
+          <span class="font-display text-3xl font-bold text-brand-600">325 Poin</span>
+        </div>
+        <button class="bg-white text-brand-600 border border-brand-200 font-semibold px-4 py-2 rounded-lg text-sm transition hover:bg-brand-100">
+          Riwayat Penukaran
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Item 1 -->
+        <div class="card p-4 flex flex-col">
+          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl">💰</div>
+          <h3 class="font-bold text-ink mb-1">Uang Tunai Rp 50.000</h3>
+          <p class="text-xs text-ink/60 mb-3 flex-1">Penarikan saldo tunai langsung ke rekening atau e-wallet (GoPay/OVO/Dana).</p>
+          <div class="flex items-center justify-between mt-auto">
+            <span class="font-semibold text-brand-600">500 Poin</span>
+            <button class="text-xs bg-gray-200 text-gray-500 font-semibold px-3 py-1.5 rounded cursor-not-allowed">Poin Kurang</button>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="card p-4 flex flex-col">
+          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl">🍚</div>
+          <h3 class="font-bold text-ink mb-1">Beras 5 KG</h3>
+          <p class="text-xs text-ink/60 mb-3 flex-1">Beras premium ukuran 5 KG. Bisa diambil langsung di bank sampah.</p>
+          <div class="flex items-center justify-between mt-auto">
+            <span class="font-semibold text-brand-600">300 Poin</span>
+            <button class="text-xs bg-brand-500 text-white hover:bg-brand-600 font-semibold px-3 py-1.5 rounded transition">Tukar Poin</button>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="card p-4 flex flex-col">
+          <div class="w-full h-32 bg-gray-100 rounded-lg mb-3 flex items-center justify-center text-4xl">🧴</div>
+          <h3 class="font-bold text-ink mb-1">Sabun & Sunlight</h3>
+          <p class="text-xs text-ink/60 mb-3 flex-1">Paket kebersihan rumah tangga tangga berisi sabun cuci piring dan sabun mandi.</p>
+          <div class="flex items-center justify-between mt-auto">
+            <span class="font-semibold text-brand-600">150 Poin</span>
+            <button class="text-xs bg-brand-500 text-white hover:bg-brand-600 font-semibold px-3 py-1.5 rounded transition">Tukar Poin</button>
           </div>
         </div>
       </div>
