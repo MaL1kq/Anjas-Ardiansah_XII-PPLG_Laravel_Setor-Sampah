@@ -9,6 +9,8 @@ const items = [
   { href: "/admin/jenis-sampah", label: "Jenis Sampah" },
   { href: "/admin/wilayah", label: "Wilayah" },
   { href: "/admin/tags", label: "Kelola Tag" },
+  { href: "/admin/barang", label: "Katalog Barang" },
+  { href: "/admin/penukaran", label: "Riwayat Tukar" },
   { href: "/admin/warga", label: "Warga" },
 ];
 
